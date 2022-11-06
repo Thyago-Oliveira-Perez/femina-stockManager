@@ -1,8 +1,12 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 function App() {
   return (
-    <div>
-      <h1>Stock Manager</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element="" />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
