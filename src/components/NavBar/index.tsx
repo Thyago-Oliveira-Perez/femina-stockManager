@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import iconNavBar from "../assets/navBarItem.svg";
-import * as styles from "./navBar.styles";
+import { Link } from 'react-router-dom';
+import iconNavBar from '../assets/navBarItem.svg';
+import * as styles from './navBar.styles';
 
 export default function NavBar() {
   return (
@@ -10,46 +10,46 @@ export default function NavBar() {
           <h3>Produtos</h3>
         </styles.Title>
         <styles.Item>
-          <img src={iconNavBar} alt="icon" />
+          <img src={iconNavBar} alt='icon' />
           <Link
-            to={"/produtos"}
-            style={{ color: "#7A0000", textDecoration: "none" }}
+            to={'/produtos'}
+            style={{ color: '#7A0000', textDecoration: 'none' }}
           >
             Listagem de produtos
           </Link>
         </styles.Item>
         <styles.Item>
-          <img src={iconNavBar} alt="icon" />
+          <img src={iconNavBar} alt='icon' />
           <Link
-            to={"/categorias"}
-            style={{ color: "#7A0000", textDecoration: "none" }}
+            to={'/categorias'}
+            style={{ color: '#7A0000', textDecoration: 'none' }}
           >
             Categorias
           </Link>
         </styles.Item>
         <styles.Item>
-          <img src={iconNavBar} alt="icon" />
+          <img src={iconNavBar} alt='icon' />
           <Link
-            to={"/modelos"}
-            style={{ color: "#7A0000", textDecoration: "none" }}
+            to={'/modelos'}
+            style={{ color: '#7A0000', textDecoration: 'none' }}
           >
             Modelos
           </Link>
         </styles.Item>
         <styles.Item>
-          <img src={iconNavBar} alt="icon" />
+          <img src={iconNavBar} alt='icon' />
           <Link
-            to={"/fornecedores"}
-            style={{ color: "#7A0000", textDecoration: "none" }}
+            to={'/fornecedores'}
+            style={{ color: '#7A0000', textDecoration: 'none' }}
           >
             Fornecedor
           </Link>
         </styles.Item>
         <styles.Item>
-          <img src={iconNavBar} alt="icon" />
+          <img src={iconNavBar} alt='icon' />
           <Link
-            to={"/marcas"}
-            style={{ color: "#7A0000", textDecoration: "none" }}
+            to={'/marcas'}
+            style={{ color: '#7A0000', textDecoration: 'none' }}
           >
             Marcas
           </Link>
@@ -60,19 +60,19 @@ export default function NavBar() {
           <h3>Usuários</h3>
         </styles.Title>
         <styles.Item>
-          <img src={iconNavBar} alt="icon" />
+          <img src={iconNavBar} alt='icon' />
           <Link
-            to={"/funcionarios"}
-            style={{ color: "#7A0000", textDecoration: "none" }}
+            to={'/funcionarios'}
+            style={{ color: '#7A0000', textDecoration: 'none' }}
           >
             Funcionários
           </Link>
         </styles.Item>
         <styles.Item>
-          <img src={iconNavBar} alt="icon" />
+          <img src={iconNavBar} alt='icon' />
           <Link
-            to={"/clientes"}
-            style={{ color: "#7A0000", textDecoration: "none" }}
+            to={'/clientes'}
+            style={{ color: '#7A0000', textDecoration: 'none' }}
           >
             Clientes
           </Link>
@@ -80,4 +80,4 @@ export default function NavBar() {
       </styles.List>
     </styles.NavBar>
   );
-}
+};

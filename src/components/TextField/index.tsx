@@ -1,5 +1,5 @@
-import * as S from './styles';
-import { TextFieldProps } from './type';
+import * as S from './textField.styles';
+import { TextFieldProps } from './textField.types';
 
 export const TextField = (props: TextFieldProps) => {
   return (

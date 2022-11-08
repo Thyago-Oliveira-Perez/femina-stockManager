@@ -1,11 +1,19 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import { getToken } from '../services/auth.service';
 
-export class Api {
-  url = 'http://localhost:8080/api/estoque/';
+const api = axios.create({
+  baseURL: 'http://localhost:8080/',
+  headers: {
+    'Content-type': 'application/json',
+  },
+});
 
-  axiosClient: AxiosInstance = axios.create({
-    baseURL: this.url,
-    headers: { 'Content-type': 'application/json' },
-  })
+api.interceptors.request.use(async (config: AxiosRequestConfig) => {
+  const token = getToken();
+  if (token) {
+    config.headers!.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
-}
+export default api;
