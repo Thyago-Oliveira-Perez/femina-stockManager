@@ -1,6 +1,6 @@
+import * as styles from './navBar.styles';
 import { Link } from 'react-router-dom';
 import iconNavBar from '../../assets/navBarItem.svg';
-import * as styles from './navBar.styles';
 
 export default function NavBar() {
   return (
