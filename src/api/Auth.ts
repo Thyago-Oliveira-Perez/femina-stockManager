@@ -1,22 +1,23 @@
 import { ILoginRequest, ILoginResult } from '../types/login.types';
 import Api from './Api';
 
-export class AuthApi {
+const AuthApi = () => {
     
-    private url = '/auth';
+    const url = '/auth';
 
-    private handleError(error: any) {
+    const handleError = (error: any) => {
         return Promise.reject(error.response);
     };
 
-    public login = async (credentials: ILoginRequest): Promise<ILoginResult> => {
+     const login = async (credentials: ILoginRequest): Promise<ILoginResult> => {
         try {
-            return await (await Api.post(`${this.url}/login`, credentials)).data;
+            return await (await Api.post(`${url}/login`, credentials)).data;
         } catch (error: any) {
-            return this.handleError(error);
+            return handleError(error);
         }
     };
 
+    return { login };
 };
 
 export default AuthApi;
