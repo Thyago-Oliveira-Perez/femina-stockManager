@@ -18,4 +18,3 @@ export type Action =
   | { type: 'request' }
   | { type: 'success', results: ILoginResult }
   | { type: 'error', error: string };
-  

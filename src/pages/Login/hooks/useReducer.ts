@@ -1,4 +1,5 @@
-import { Action, State } from '../../../types/login.types';
+import { Action, State } from "../types";
+
 
 export const initialState = {
   loading: false,

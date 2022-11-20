@@ -1,4 +1,4 @@
-import { ILoginRequest, ILoginResult } from '../types/login.types';
+import { ILoginRequest, ILoginResult } from '../pages/Login/types';
 import Api from './Api';
 
 const AuthApi = () => {

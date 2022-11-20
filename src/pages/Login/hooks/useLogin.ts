@@ -1,9 +1,9 @@
 import { useReducer, useState } from 'react';
 import AuthApi from '../../../api/Auth';
-import { ILoginRequest } from '../../../types/login.types';
 import { initialState, reducerLogin } from './useReducer';
 import { saveToken } from '../../../services/auth.service';
 import { useNavigate } from 'react-router-dom';
+import { ILoginRequest } from '../types';
 
 const useLogin = () => {
 
