@@ -142,7 +142,7 @@ const Menu = () => {
 
   return (
     <>
-      <List columns={columns2} items={items2} mode={'list'} />
+      <List columns={columns} items={items} mode={'list'} />
     </>
   );
 };

@@ -2,8 +2,8 @@ import { Typography } from '@mui/material';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    width: 280px;
-    height: 390px;
+    width: 17rem;
+    height: 24rem;
     border: 1px solid #C2C2C2;
     border-radius: 2px;
     display: flex;
@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const ContentArea = styled.div`
-    width: 80%;
+    width: 85%;
     display: flex;
     flex-direction: column;
     justify-content: center;

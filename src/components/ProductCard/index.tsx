@@ -13,7 +13,6 @@ const ProductCard = (props: IProductCard) => {
                     <S.AreaInfo>
                         <S.Row>
                             <S.Title>Nome</S.Title>
-                            <S.Text>Conjunto Olinda</S.Text>
                             <S.Text>{props.item.nome}</S.Text>
                         </S.Row>
                         {/* <S.Row>
@@ -22,12 +21,10 @@ const ProductCard = (props: IProductCard) => {
                         </S.Row> */}
                         <S.Row>
                             <S.Title>Preço</S.Title>
-                            <S.Text>R$ 99,99</S.Text>
                             <S.Text>{props.item.valor}</S.Text>
                         </S.Row>
                         <S.Row>
                             <S.Title>Marca</S.Title>
-                            <S.Text>Hope</S.Text>
                             <S.Text>{props.item.marca.nome}</S.Text>
                         </S.Row>
                     </S.AreaInfo>
