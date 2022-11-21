@@ -3,20 +3,20 @@ import { useState } from "react";
 import { INumberFieldModal } from "./types";
 
 const NumberFieldModal = (props: INumberFieldModal) => {
-  
-  function numberFormat(value: number){
+  function numberFormat(value: number) {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "BRL",
       currencyDisplay: "narrowSymbol",
-    }).format(value)
+    }).format(value);
   }
-  
-  console.log(props.value)
+
   return (
-    <>
+    <div>
       {props.label == "PRECO" ? (
         <TextField
+          variant="filled"
+          fullWidth
           type={"text"}
           label={props.label}
           value={props.value}
@@ -26,6 +26,8 @@ const NumberFieldModal = (props: INumberFieldModal) => {
         />
       ) : (
         <TextField
+          fullWidth
+          variant="filled"
           type={"number"}
           label={props.label}
           value={props.value < 1 ? 1 : props.value}
@@ -34,7 +36,7 @@ const NumberFieldModal = (props: INumberFieldModal) => {
           }}
         />
       )}
-    </>
+    </div>
   );
 };
 

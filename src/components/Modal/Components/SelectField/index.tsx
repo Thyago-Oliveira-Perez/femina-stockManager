@@ -3,23 +3,39 @@ import { ISelectFieldProps, SelectFieldLabels } from "./selectfield.types";
 
 const SelectField = (props: ISelectFieldProps) => {
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth style={{ width: "100%", margin: "20px 0px" }}>
       <InputLabel>{props.label}</InputLabel>
-      <Select label={props.label} onChange={(e) => console.log(e.target.value)}>
-        {props.label == SelectFieldLabels.TAMANHO ? (
-          <div>
-            {props.values.map((e) => {
-              return <MenuItem key={e.id} value={e}>{e}</MenuItem>;
-            })}
-          </div>
-        ) : (
-          <div>
-            {props.values.map((e) => {
-              return <MenuItem key={e.id} value={e.id}>{e.nome}</MenuItem>;
-            })}
-          </div>
-        )}
-      </Select>
+      {props.label == SelectFieldLabels.TAMANHO ? (
+        <Select
+          value={props.value}
+          variant="filled"
+          label={props.label}
+          onChange={(e) => props.setValue(e.target.value)}
+        >
+          {props.options.map((e, index) => {
+            return (
+              <MenuItem key={index} value={e}>
+                {e}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      ) : (
+        <Select
+          value={props.value}
+          variant="filled"
+          label={props.label}
+          onChange={(e) => props.setValue(e.target.value)}
+        >
+          {props.options.map((e) => {
+            return (
+              <MenuItem key={e.id + e.nome} value={e.id}>
+                {e.nome}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      )}
     </FormControl>
   );
 };

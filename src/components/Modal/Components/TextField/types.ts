@@ -1,5 +1,6 @@
 export interface ITextFieldModal{
  label: string 
- value: string | number
- setValue: React.Dispatch<React.SetStateAction<string>>
+ value: string
+ setValue: any 
+ //React.Dispatch<React.SetStateAction<string>>
 }

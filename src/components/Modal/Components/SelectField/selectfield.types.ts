@@ -1,12 +1,13 @@
-import { Categorias, Tamanhos } from "../../../../types/common.types"
+import { Categorias, Tamanhos } from "../../../../types/common.types";
 
-export interface ISelectFieldProps{
-  label: SelectFieldLabels
-  values: any[]
+export interface ISelectFieldProps {
+  label: SelectFieldLabels;
+  options: any[];
+  value: string;
+  setValue: any;
 }
 
-
-export enum SelectFieldLabels{
+export enum SelectFieldLabels {
   MARCA = "MARCA",
   MODELO = "MODELO",
   TAMANHO = "TAMANHO",
@@ -15,10 +16,10 @@ export enum SelectFieldLabels{
   COR = "COR",
 }
 
-export enum TextFieldLables{
+export enum TextFieldLables {
   NOME = "NOME",
   QUANTIDADE = "QUANTIDADE",
   CODIGO = "CODIGO",
   PRECO = "PRECO",
-  COR = "COR"
+  COR = "COR",
 }
