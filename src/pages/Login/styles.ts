@@ -20,6 +20,7 @@ export const Box = styled.div`
   align-items: center;
   background: #FFFFFF;
   border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
 export const Title = styled.h1`
@@ -55,5 +56,9 @@ export const ButtonForm = styled(Button)<ButtonProps>`
     font-size: 18px;
     font-weight: bold;
     text-transform: none;
+    transition: all 0.3s ease-out;
+    &&:hover {
+      opacity: .7;
+    }
   }
 `;

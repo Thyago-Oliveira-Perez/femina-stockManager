@@ -7,4 +7,9 @@ export const Input = styled.input`
   padding: 5px 0;
   border-bottom: 2px solid #7A0000;
   font-size: 18px;
+  transition: all 0.3s ease-out;
+  &&:focus {
+      padding: 5px 10px;
+    }
+  }
 `;
