@@ -12,20 +12,20 @@ import * as S from "./styles";
 
 const FormProduto = () => {
   /**
-   * TextFieldModal
+   * Component -> TextFieldModal
    */
   const [cor, setColor] = useState<string>("");
   const [nome, setNome] = useState("");
   const [quantidade, setQuantidade] = useState<string | number>(0);
 
   /**
-   * NumberFieldModal
+   * Component -> NumberFieldModal
    */
   const [codigo, setCodigo] = useState("");
   const [preco, setPreco] = useState<string | number>("");
 
   /**
-   * SelectField
+   * Component -> SelectField
    */
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
@@ -191,8 +191,8 @@ const FormProduto = () => {
         </S.SideSection>
       </S.FormSection>
       <S.ButtonsSection>
-        <Button variant="contained" style={{"backgroundColor" : "#F05555"}}>Cancelar</Button>
-        <Button variant="contained" style={{"backgroundColor" : "#6BB3F5"}}>Cadastrar</Button>
+        <Button variant="contained" style={{"backgroundColor" : "#BB2929"}}>Cancelar</Button>
+        <Button variant="contained" style={{"backgroundColor" : "#118DE8"}}>Cadastrar</Button>
       </S.ButtonsSection>
     </S.Modal>
   );

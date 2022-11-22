@@ -1,4 +1,6 @@
 import List from '../../components/List';
+import Modal from '../../components/Modal';
+import { ModalUsage } from '../../components/Modal/modal.types';
 import { IColumns, IProdutoResponse, Tamanhos } from '../../types/common.types';
 import * as S from './styles';
 
@@ -142,7 +144,8 @@ const Menu = () => {
 
   return (
     <>
-      <List columns={columns} items={items} mode={'list'} />
+      {/* <List columns={columns} items={items} mode={'list'} /> */}
+      <Modal modalUsage={ModalUsage.PRODUTOS}/>
     </>
   );
 };
