@@ -6,7 +6,6 @@ export const Modal = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  height: auto;
 `;
 
 export const Tittle = styled.div`
@@ -25,13 +24,22 @@ export const Tittle = styled.div`
 `;
 
 export const FormSection = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0px 0px 100px 0px;
+`;
+
+
+export const Sections = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   width: 100%;
   height: auto;
-  margin: 0px 0px 100px 0px;
 `;
 
 export const SideSection = styled.div`

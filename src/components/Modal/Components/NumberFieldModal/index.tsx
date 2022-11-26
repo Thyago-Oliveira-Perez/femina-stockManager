@@ -23,6 +23,7 @@ const NumberFieldModal = (props: INumberFieldModal) => {
           onChange={(e) => {
             props.setValue(numberFormat(parseInt(e.target.value)));
           }}
+          style={{borderBottom: "solid 1px #7A0000"}}
         />
       ) : (
         <TextField
@@ -34,6 +35,7 @@ const NumberFieldModal = (props: INumberFieldModal) => {
           onChange={(e) => {
             props.setValue(parseInt(e.target.value));
           }}
+          style={{borderBottom: "solid 1px #7A0000"}}
         />
       )}
     </div>

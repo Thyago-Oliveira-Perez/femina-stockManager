@@ -12,7 +12,7 @@ const TextFieldModal = (props: ITextFieldModal) => {
         name={props.label}
         placeholder={props.label}
         onChange={(e) => props.setValue(e.target.value)}
-        style={{ margin: "20px 0px" }}
+        style={{ margin: "20px 0px", borderBottom: "solid 1px #7A0000"  }}
       />
     </div>
   );

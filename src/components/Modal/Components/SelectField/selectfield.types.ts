@@ -22,4 +22,5 @@ export enum TextFieldLables {
   CODIGO = "CODIGO",
   PRECO = "PRECO",
   COR = "COR",
+  DESCRICAO = "DESCRICAO"
 }
