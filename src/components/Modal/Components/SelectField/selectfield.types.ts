@@ -3,7 +3,7 @@ import { Categorias, Tamanhos } from "../../../../types/common.types";
 export interface ISelectFieldProps {
   label: SelectFieldLabels;
   options: any[];
-  value: string;
+  value: any;
   setValue: any;
 }
 

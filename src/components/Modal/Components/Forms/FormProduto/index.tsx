@@ -1,14 +1,25 @@
-import { Button, Checkbox, FormControl, TextField } from "@mui/material";
+import { Button, Checkbox, FormControl } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { Tamanhos } from "../../../../../types/common.types";
 import NumberFieldModal from "../../NumberFieldModal";
 import SelectField from "../../SelectField";
-import { SelectFieldLabels, TextFieldLables } from "../../SelectField/selectfield.types";
+import {
+  SelectFieldLabels,
+  TextFieldLables,
+} from "../../SelectField/selectfield.types";
 import TextFieldModal from "../../TextField";
-import * as S from "./styles";
+import { Categoria } from "../FormCategoria/types";
+import { Fornecedor } from "../FormFornecedor/types";
+import { Marca } from "../FormMarca/types";
+import { Modelo } from "../FormModelo/types";
 import { IFromProdutoProps } from "./types";
+import ProdutoApi from "../../../../../api/Produtos";
+import * as S from "./styles";
+import axios from "axios";
 
 const FormProduto = (props: IFromProdutoProps) => {
+  const { cadastro } = ProdutoApi();
+
   /**
    * input style
    */
@@ -19,24 +30,25 @@ const FormProduto = (props: IFromProdutoProps) => {
    */
   const [cor, setColor] = useState<string>("");
   const [nome, setNome] = useState("");
-  const [quantidade, setQuantidade] = useState<string | number>(0);
+  const [quantidade, setQuantidade] = useState<number>(0);
 
   /**
    * Component -> NumberFieldModal
    */
   const [codigo, setCodigo] = useState("");
-  const [preco, setPreco] = useState<string | number>("");
+  const [preco, setPreco] = useState<number>(0);
 
   /**
    * Component -> SelectField
    */
-  const [marca, setMarca] = useState("");
-  const [modelo, setModelo] = useState("");
-  const [tamanho, setTamanho] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [fornecedor, setFornecedor] = useState("");
+  const [marca, setMarca] = useState<Marca>();
+  const [modelo, setModelo] = useState<Modelo[]>();
+  const [tamanho, setTamanho] = useState<string>("");
+  const [categoria, setCategoria] = useState<Categoria>();
+  const [fornecedor, setFornecedor] = useState<Fornecedor>();
   const [descricao, setDescricao] = useState("");
   const [isDestaque, setIsDestaque] = useState(false);
+  const [images, setImagens] = useState<any[]>([]);
 
   const tamanhos = [
     Tamanhos.PP,
@@ -148,6 +160,8 @@ const FormProduto = (props: IFromProdutoProps) => {
     // 👇️ can still access file object here
     console.log(fileObj);
     console.log(fileObj.name);
+
+    setImagens([...images, fileObj]);
   };
 
   const handleCancel = () => {
@@ -155,21 +169,72 @@ const FormProduto = (props: IFromProdutoProps) => {
   };
 
   const handleRegister = () => {
-    const newProduto = {
-      cor: cor,
-      nome: nome,
-      quantidade: quantidade,
-      codigo: codigo,
-      preco: preco,
-      marca: marca,
-      modelo: modelo,
-      tamanho: tamanho,
-      categoria: categoria,
-      fornecedor: fornecedor,
-      descricao: descricao,
-    };
+    const condition0 = cor != null || cor != undefined;
+    const condition1 = nome != null || nome != undefined;
+    const condition2 = quantidade != null || quantidade != undefined;
+    const condition3 = codigo != null || codigo != undefined;
+    const condition4 = preco != null || preco != undefined;
+    const condition5 = marca != null || marca != undefined;
+    const condition6 = modelo != null || modelo != undefined;
+    const condition7 = tamanho != null || tamanho != undefined;
+    const condition8 = categoria != null || categoria != undefined;
+    const condition9 = fornecedor != null || fornecedor != undefined;
+    const condition10 = descricao != null || descricao != undefined;
 
-    props.isToCloseModal(!props.isModalOpen);
+    if (
+      (condition0 &&
+        condition1 &&
+        condition2 &&
+        condition3 &&
+        condition4 &&
+        condition5 &&
+        condition6 &&
+        condition7 &&
+        condition8 &&
+        condition9 &&
+        condition10) ||
+      true
+    ) {
+      const newProduto: string = JSON.stringify({
+        cor: cor,
+        nome: nome,
+        quantidade: quantidade,
+        codigo: codigo,
+        valor: preco,
+        marca: marca,
+        modelo: modelo,
+        tamanho: tamanho,
+        categoria: categoria,
+        fornecedor: fornecedor,
+        descricao: descricao,
+        destaque: isDestaque,
+        isActive: true,
+        imagem: images,
+      });
+
+      const formData = new FormData();
+
+      /**
+       * monta o objeto para enviar via form-data
+       * para o backend
+       */
+      formData.append("produto", newProduto);
+      images.forEach((image) => {
+        formData.append("image", image);
+      });
+
+      axios({
+        url: "http://localhost:8080/api/produtos/estoque/insert",
+        method: "POST",
+        data: formData,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((response) => {
+        console.log("response :", response);
+      });
+    }
   };
 
   return (
@@ -313,7 +378,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             <label
               style={{
                 color: "#9B4A46",
-                fontSize: "20px"
+                fontSize: "20px",
               }}
             >
               <strong>O produto é um destaque?</strong>
