@@ -1,6 +1,6 @@
 
-import { IModalProps } from "./modal.types";
 import * as S from "./styles";
+import { IModalProps } from "./modal.types";
 import { Box, Modal as MaterialUiModal } from "@mui/material";
 import { useState } from "react";
 import FormProduto from "./Components/Forms/FormProduto";

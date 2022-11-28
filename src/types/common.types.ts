@@ -50,3 +50,19 @@ export interface IColumns {
   name: string;
   maxSize?: number;
 }
+
+export interface IPageRequest {
+  filter: string;
+  currentPage: number;
+  pageSize: number;
+  sortField?: string;
+}
+
+export interface IPageResponse<T> {
+  content: any[];
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+}

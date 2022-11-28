@@ -5,7 +5,7 @@ import { Menu } from '@mui/material';
 
 const Header = () => {
 
-  const { handleOpen, handleClose , open } = useHeaderActions();
+  const { handleOpen, handleClose, handleLogout, open } = useHeaderActions();
 
   return (
     <S.Header>
@@ -21,7 +21,7 @@ const Header = () => {
           open={Boolean(open)}
           onClose={handleClose}
         >
-          <S.Action onClick={handleClose}><S.Text>Sair</S.Text><S.IconLogout /></S.Action>
+          <S.Action onClick={handleLogout}><S.Text>Sair</S.Text><S.IconLogout /></S.Action>
         </Menu>
       </S.ContainerItens>
     </S.Header>

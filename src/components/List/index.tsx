@@ -8,6 +8,16 @@ import { IListProps } from './list.types';
 
 const List = (props: IListProps) => {
 
+    const renderColumn = (columnName: string, item: any) => {
+        if(columnName === 'marca') {
+            return item.nome;
+        }
+        if(columnName === 'valor') {
+            return item.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})
+        }
+        return item;
+    }
+
     return (
         <>
             { 
@@ -28,11 +38,11 @@ const List = (props: IListProps) => {
                                     { props.columns.map((column: IColumns, index: number) => (
                                         <S.TableCell key={index} width={150}>
                                             {
-                                                column.name === 'image' ? <S.Image src={item.imageNames[0]} />
-                                                : item[column.name]
+                                                column.name === 'image' ? <S.Image src={item.imageNames ? item.imageNames[0] : ''} />
+                                                : renderColumn(column.name, item[column.name])
                                             }
                                         </S.TableCell>
-                            )) }
+                                    )) }
                                     <S.TableCell width={150}>
                                         <S.ButtonActions color={'#46C963'}><VisibilityIcon /></S.ButtonActions>
                                         <S.ButtonActions color={'#F6C23C'}><FaEdit size={17} /></S.ButtonActions>

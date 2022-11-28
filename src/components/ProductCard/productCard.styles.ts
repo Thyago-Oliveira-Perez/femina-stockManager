@@ -51,10 +51,14 @@ export const Title = styled(Typography)`
     color: #000000;
 `;
 
-export const Text = styled(Typography)`
+export const Text = styled(Typography)` 
+    max-width: 60%;
     font-size: 16px;
     font-weight: 600;
     color: #454545;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 
 export const ButtonActions = styled.button`

@@ -1,5 +1,6 @@
 export interface IModalProps {
-  modalUsage: ModalUsage
+  modalUsage: ModalUsage,
+  open: boolean,
 }
 
 export enum ModalUsage{

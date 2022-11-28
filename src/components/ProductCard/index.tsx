@@ -9,7 +9,7 @@ const ProductCard = (props: IProductCard) => {
         <>
             <S.Container>
                 <S.ContentArea>
-                    <S.Image src={props.item.imageNames[0]} />
+                    <S.Image src={props.item.imageNames ? props.item.imageNames[0] : ''} />
                     <S.AreaInfo>
                         <S.Row>
                             <S.Title>Nome</S.Title>

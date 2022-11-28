@@ -12,12 +12,15 @@ const useHeaderActions = () => {
   };
 
   const handleClose = () => {
-    logout();
-    navigate('/');
     setOpen(null);
   };
 
-  return { handleOpen, handleClose, open };
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  }
+
+  return { handleOpen, handleClose, handleLogout, open };
 };
 
 export default useHeaderActions;

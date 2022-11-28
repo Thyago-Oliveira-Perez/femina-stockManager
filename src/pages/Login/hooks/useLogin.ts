@@ -25,7 +25,7 @@ const useLogin = () => {
       .then((response) => {
         dispatch({ type: 'success', results: response })
         saveToken(response.token);
-        navigate('menu');
+        navigate('menu/produtos');
       }).catch((error) => {
         dispatch({ type: 'error', error: error })
       });

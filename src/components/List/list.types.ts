@@ -1,4 +1,4 @@
-import { IColumns } from "../../types/common.types";
+import { IColumns } from '../../types/common.types';
 
 export interface IListProps {
     columns: IColumns[];

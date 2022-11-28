@@ -4,6 +4,7 @@ export const Container = styled.div`
     width: 100%;
     border: 1.5px solid #777777;
     padding: 20px;
+    margin-top: 20px;
 `;
 
 export const Grid = styled.div`
@@ -42,10 +43,10 @@ export const TableTitle = styled.td`
 `;
 
 export const TableBody = styled.tbody`
-    tr:nth-child(odd) {
+    tr:nth-of-type(odd) {
         background-color: #f0e1e0;
     }
-    tr:nth-child(even) {
+    tr:nth-of-type(even) {
         background-color: #ffffff;
     } 
 `;
