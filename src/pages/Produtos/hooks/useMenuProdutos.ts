@@ -16,7 +16,7 @@ const useMenuProdutos = () => {
         }
     );
     const [openModal, setOpenModal] = useState<boolean>(false);
-    const [productsList, setProductsList] = useState<IProdutoResponse[]>([]);
+    const [list, setList] = useState<IProdutoResponse[]>([]);
     const [viewList, setViewList] = useState<'list' | 'grid'>('list');
     const columns:IColumns[] = [
         {
@@ -47,11 +47,11 @@ const useMenuProdutos = () => {
     useEffect(() => {
         listProdutos(pageable)
             .then((response) => {
-                setProductsList(response.content);
+                setList(response.content);
             });
     }, [pageable]);
 
-    return { columns, viewList, openModal, setOpenModal, productsList, handleChangeViewList };
+    return { columns, viewList, openModal, setOpenModal, list, handleChangeViewList };
 };
 
 export default useMenuProdutos;

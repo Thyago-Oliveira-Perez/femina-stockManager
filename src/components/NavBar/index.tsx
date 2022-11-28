@@ -8,19 +8,19 @@ export default function NavBar() {
         <styles.Title>
           <h3>Produtos</h3>
         </styles.Title>
-        <Item path={'/produtos'} >
+        <Item path={'/menu/produtos'} >
           Listagem de produtos
         </Item>
-        <Item path={'/categorias'} >
+        <Item path={'/menu/categorias'} >
           Categorias
         </Item>
-        <Item path={'/modelos'} >
+        <Item path={'/menu/modelos'} >
           Modelos
         </Item>
-        <Item path={'/fornecedores'} >
+        <Item path={'/menu/fornecedores'} >
           Fornecedor
         </Item>
-        <Item path={'/marcas'} >
+        <Item path={'/menu/marcas'} >
           Marcas
         </Item>
       </styles.List>
@@ -28,11 +28,11 @@ export default function NavBar() {
         <styles.Title>
           <h3>Usuários</h3>
         </styles.Title>
-        <Item path={'/funcionarios'} >
+        <Item path={'/menu/funcionarios'} >
           Funcionários
         </Item>
-        <Item path={'/clientes'} >
-          Clientes
+        <Item path={'/menu/banners'} >
+          Banners
         </Item>
       </styles.List>
     </styles.NavBar>

@@ -8,7 +8,7 @@ import useMenuProdutos from './hooks/useMenuProdutos';
 
 const Produtos = () => {
 
-  const { columns, viewList, openModal, productsList, setOpenModal, handleChangeViewList } = useMenuProdutos();
+  const { columns, viewList, openModal, list, setOpenModal, handleChangeViewList } = useMenuProdutos();
   
   return (
     <>
@@ -26,7 +26,7 @@ const Produtos = () => {
           </S.StackHeader>
         <S.ListArea>
           {
-            productsList !== null ? <List columns={columns} items={productsList} mode={viewList} /> : null
+            list !== null ? <List columns={columns} items={list} mode={viewList} /> : null
           }
         </S.ListArea>
       </S.Container>
