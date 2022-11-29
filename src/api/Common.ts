@@ -26,8 +26,12 @@ const CommonApi = () => {
 
     }
 
-    const get = async () => {
-
+    const get = async <T>(id: number, path: string): Promise<T>=> {
+        try {
+            return (await api.get(`${path}/${id}`)).data;
+        } catch (error: any) {
+            return Promise.reject(error.message);
+        }
     }
 
     const update = async () => {
@@ -38,7 +42,7 @@ const CommonApi = () => {
 
     }
 
-    return { listPageable }; 
+    return { listPageable, get }; 
 };
 
 export default CommonApi;

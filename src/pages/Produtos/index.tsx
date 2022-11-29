@@ -30,7 +30,7 @@ const Produtos = () => {
           }
         </S.ListArea>
       </S.Container>
-      {/* <Modal modalUsage={ModalUsage.PRODUTOS} open={openModal} /> */}
+      <Modal modalUsage={ModalUsage.PRODUTOS} open={openModal} />
     </>
   );
 };

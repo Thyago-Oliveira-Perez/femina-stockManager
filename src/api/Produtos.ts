@@ -13,14 +13,14 @@ const token = getToken();
 const api = axios.create({
   baseURL: 'http://localhost:8080/',
   headers: {
-    'Content-Type': 'application/json;charset=utf-8;;ultipart/form-data',
+    'Content-Type': 'application/json;charset=utf-8;',
     'Authorization': token ? `Bearer ${token}` : null
   },
 });
 
 const ProdutoApi = () => {
   const url = "api/produtos";
-  const { listPageable } = CommonApi();
+  const { listPageable, get } = CommonApi();
 
   const handleError = (error: any) => {
     return Promise.reject(error.response);
@@ -46,7 +46,15 @@ const ProdutoApi = () => {
     }
   }
 
-  return { cadastro, listProdutos };
+  const getProductInfos = async (id: number): Promise<any> => {
+    try{
+      return (await get(id, `${url}`));
+    }catch(error: any){
+      return handleError(error);
+    }
+  }
+
+  return { cadastro, listProdutos, getProductInfos };
 };
 
 export default ProdutoApi;

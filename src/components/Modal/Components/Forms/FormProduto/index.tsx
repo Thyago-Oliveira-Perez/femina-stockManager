@@ -18,7 +18,7 @@ import * as S from "./styles";
 import axios from "axios";
 
 const FormProduto = (props: IFromProdutoProps) => {
-  const { cadastro } = ProdutoApi();
+  const { cadastro, getProductInfos } = ProdutoApi();
 
   /**
    * input style
@@ -57,6 +57,14 @@ const FormProduto = (props: IFromProdutoProps) => {
     Tamanhos.G,
     Tamanhos.GG,
   ];
+
+  useEffect(() => {
+    if(props.productId){
+      getProductInfos(props.productId).then((response) => {
+        console.log(response)
+      })
+    }
+  }, [])
 
   useEffect(() => {
     let corPattern = cor.trim().replace(" ", "_");

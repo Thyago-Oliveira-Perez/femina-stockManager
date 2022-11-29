@@ -6,7 +6,7 @@ import { Modelo } from "../FormModelo/types";
 export interface IFromProdutoProps {
   isModalOpen: boolean;
   isToCloseModal: React.Dispatch<React.SetStateAction<boolean>>;
-  productId?: string;
+  productId?: number;
   function?: FormFunction;
 }
 
@@ -33,4 +33,6 @@ export enum FormFunction {
   edit,
 }
 
-export interface INewProdutoResponse {}
+export interface INewProdutoResponse {
+  
+}

@@ -3,7 +3,7 @@ import { FormFunction } from "./Components/Forms/FormProduto/types";
 export interface IModalProps {
   modalUsage: ModalUsage,
   open: boolean,
-  productId?: string;
+  productId?: number;
   function?: FormFunction;
 }
 
