@@ -24,7 +24,7 @@ const Modal = (props: IModalProps) => {
 
   const modalUsage: any = {
     PRODUTOS: () => {
-      return <FormProduto isModalOpen={isOpen} isToCloseModal={setIsOpen}/>;
+      return <FormProduto productId={props.productId} function={props.function} isModalOpen={isOpen} isToCloseModal={setIsOpen}/>;
     },
     CATEGORIAS: () => {},
   };

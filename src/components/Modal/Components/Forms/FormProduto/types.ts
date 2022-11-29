@@ -6,6 +6,8 @@ import { Modelo } from "../FormModelo/types";
 export interface IFromProdutoProps {
   isModalOpen: boolean;
   isToCloseModal: React.Dispatch<React.SetStateAction<boolean>>;
+  productId?: string;
+  function?: FormFunction;
 }
 
 export interface INewProduto {
@@ -24,6 +26,11 @@ export interface INewProduto {
   descricao: string;
   destaque: boolean;
   imagem: any;
+}
+
+export enum FormFunction {
+  view,
+  edit,
 }
 
 export interface INewProdutoResponse {}
