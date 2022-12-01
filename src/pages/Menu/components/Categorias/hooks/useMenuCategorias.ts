@@ -1,10 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import CategoriasApi from "../../../api/Categorias";
-import { Categorias, IColumns, IPageRequest } from "../../../types/common.types";
+import CategoriasApi from "../../../../../api/Categorias";
+import { Categorias, IColumns, IPageRequest } from "../../../../../types/common.types";
 
 const useMenuCategorias = () => {
     const { listCategorias } = CategoriasApi();
-
+    const navigate = useNavigate();
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
@@ -12,7 +13,6 @@ const useMenuCategorias = () => {
             currentPage: 0,
         }
     );
-    const [openModal, setOpenModal] = useState<boolean>(false);
     const [list, setList] = useState<Categorias[]>([]);
     const columns:IColumns[] = [
         {
@@ -28,7 +28,7 @@ const useMenuCategorias = () => {
             });
     }, [pageable]);
 
-    return { columns, openModal, setOpenModal, list };
+    return { columns, list, navigate };
 };
 
 export default useMenuCategorias;

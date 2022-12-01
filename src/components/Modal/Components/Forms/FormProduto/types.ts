@@ -29,6 +29,7 @@ export interface INewProduto {
 }
 
 export enum FormFunction {
+  new,
   view,
   edit,
 }

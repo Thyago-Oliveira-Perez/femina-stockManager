@@ -1,15 +1,15 @@
-import { Categorias, IPageRequest, IPageResponse } from "../types/common.types";
+import { IFornecedorResponse, IPageRequest, IPageResponse } from "../types/common.types";
 import CommonApi from "./Common";
 
-const CategoriasApi = () => {
-    const url = "api/categorias";
+const FornecedoresApi = () => {
+    const url = "api/fornecedores";
     const { listPageable } = CommonApi();
 
     const handleError = (error: any) => {
         return Promise.reject(error.response);
     };
 
-    const listCategorias = async (pageable: IPageRequest): Promise<IPageResponse<Categorias>> => {
+    const listFornecedores = async (pageable: IPageRequest): Promise<IPageResponse<IFornecedorResponse>> => {
         try {
             return (await listPageable(pageable, `${url}`));
         } catch (error: any) {
@@ -17,7 +17,7 @@ const CategoriasApi = () => {
         };
     };
 
-    return { listCategorias };
+    return { listFornecedores };
 };
 
-export default CategoriasApi;
+export default FornecedoresApi;

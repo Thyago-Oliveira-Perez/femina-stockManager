@@ -1,10 +1,10 @@
 export interface Marcas {
-  id: number,
-  nome: string
+  id: number;
+  nome: string;
 }
 export interface Modelos {
-  id: number,
-  nome: string
+  id: number;
+  nome: string;
 }
 export enum Tamanhos {
   PP = "PP",
@@ -13,23 +13,39 @@ export enum Tamanhos {
   G = "G",
   GG = "GG",
 }
+
+export enum TipoDeBanner {
+  DESTAQUE = "DESTAQUE",
+  COLECAO = "COLECAO"
+}
 export interface Categorias {
-  id: number,
-  nome: string
+  id: number;
+  nome: string;
 }
 export interface Fornecedores {
-  id: number,
-  nome: string,
-  cnpj: string,
-  telefone: string,
-  email: string
+  id: number;
+  nome: string;
+  cnpj: string;
+  telefone: string;
+  email: string;
 }
 export interface Cores {
-  id: number,
-  nome: string
+  id: number;
+  nome: string;
+}
+
+export interface Banners {
+  id?: number;
+  nome: string;
+  imagens: string;
+  tipoDeBanner: TipoDeBanner;
+  nomeUsuario: string;
+  idUsuario: number;
+  imageNames: string[];
 }
 
 export interface IProdutoResponse {
+  id: number;
   nome: string;
   codigo: string;
   valor: string;
@@ -43,6 +59,14 @@ export interface IProdutoResponse {
   imagemUrl: string;
   destaque: boolean;
   imageNames: string[];
+}
+
+export interface IFornecedorResponse {
+  id?: number;
+  name: string;
+  cnpj: string;
+  telefone: string;
+  email: string;
 }
 
 export interface IColumns {
@@ -65,4 +89,9 @@ export interface IPageResponse<T> {
   last: boolean;
   size: number;
   number: number;
+}
+
+export interface IActionControl {
+  id: number | null;
+  mode: string;
 }

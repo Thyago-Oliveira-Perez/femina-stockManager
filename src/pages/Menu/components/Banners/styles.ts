@@ -18,6 +18,7 @@ export const ListArea = styled.div`
 export const StackHeader = styled.div`
     width: 90%;
     height: 45px;
+    min-height: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -3,6 +3,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { IProductCard } from './productCard.types';
+import { Item } from '../NavBar/navBar.styles';
 
 const ProductCard = (props: IProductCard) => {
     return (
@@ -29,9 +30,24 @@ const ProductCard = (props: IProductCard) => {
                         </S.Row>
                     </S.AreaInfo>
                     <S.ButtonArea>
-                        <S.ButtonActions color={'#46C963'}><VisibilityIcon /></S.ButtonActions>
-                        <S.ButtonActions color={'#F6C23C'}><FaEdit size={18} /></S.ButtonActions>
-                        <S.ButtonActions color={'#F05555'}><RiDeleteBin5Fill size={18} /></S.ButtonActions>    
+                        <S.ButtonActions 
+                            color={'#46C963'} 
+                            onClick={() => props.actions(`view/${props.item.id}`)}
+                        >
+                            <VisibilityIcon />
+                        </S.ButtonActions>
+                        <S.ButtonActions 
+                            color={'#F6C23C'} 
+                            onClick={() => props.actions(`edit/${props.item.id}`)}
+                        >
+                            <FaEdit size={18} />
+                        </S.ButtonActions>
+                        <S.ButtonActions 
+                            color={'#F05555'} 
+                            onClick={() => props.actions(`disable/${props.item.id}`)}
+                        >
+                            <RiDeleteBin5Fill size={18} />
+                        </S.ButtonActions>    
                     </S.ButtonArea>
                 </S.ContentArea>
             </S.Container>

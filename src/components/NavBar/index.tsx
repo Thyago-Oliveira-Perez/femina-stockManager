@@ -28,9 +28,9 @@ export default function NavBar() {
         <styles.Title>
           <h3>Usuários</h3>
         </styles.Title>
-        <Item path={'/menu/funcionarios'} >
+        {/* <Item path={'/menu/funcionarios'} >
           Funcionários
-        </Item>
+        </Item> */}
         <Item path={'/menu/banners'} >
           Banners
         </Item>

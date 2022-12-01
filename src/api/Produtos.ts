@@ -35,7 +35,7 @@ const ProdutoApi = () => {
       ).data;
     } catch (error: any) {
       return handleError(error);
-    }
+    };
   };
 
   const listProdutos = async (pageable: IPageRequest): Promise<IPageResponse<INewProdutoResponse>> => {
@@ -43,8 +43,8 @@ const ProdutoApi = () => {
       return (await listPageable(pageable,`${url}/estoque/list`));
     } catch (error: any) {
       return handleError(error);
-    }
-  }
+    };
+  };
 
   const getProductInfos = async (id: number): Promise<any> => {
     try{

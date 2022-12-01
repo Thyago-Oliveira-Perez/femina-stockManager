@@ -19,8 +19,8 @@ const CommonApi = () => {
             )).data;
         } catch (error: any) {
             return Promise.reject(error.message);
-        }
-    }
+        };
+    };
 
     const list = async () => {
 

@@ -1,13 +1,14 @@
-import { IProdutoResponse } from './../../../types/common.types';
+import { IProdutoResponse } from './../../../../../types/common.types';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import ProdutoApi from '../../../api/Produtos';
-import { IColumns, IPageRequest } from '../../../types/common.types';
+import ProdutoApi from '../../../../../api/Produtos';
+import { IColumns, IPageRequest } from '../../../../../types/common.types';
+import { useNavigate } from 'react-router-dom';
 
 const useMenuProdutos = () => {
 
     const { listProdutos } = ProdutoApi();
-
+    const navigate = useNavigate();
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
@@ -15,7 +16,6 @@ const useMenuProdutos = () => {
             currentPage: 0,
         }
     );
-    const [openModal, setOpenModal] = useState<boolean>(false);
     const [list, setList] = useState<IProdutoResponse[]>([]);
     const [viewList, setViewList] = useState<'list' | 'grid'>('list');
     const columns:IColumns[] = [
@@ -51,7 +51,7 @@ const useMenuProdutos = () => {
             });
     }, [pageable]);
 
-    return { columns, viewList, openModal, setOpenModal, list, handleChangeViewList };
+    return { columns, viewList, list, navigate, handleChangeViewList };
 };
 
 export default useMenuProdutos;

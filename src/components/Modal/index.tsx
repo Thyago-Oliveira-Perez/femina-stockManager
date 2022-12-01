@@ -2,11 +2,13 @@
 import * as S from "./styles";
 import { IModalProps } from "./modal.types";
 import { Box, Modal as MaterialUiModal } from "@mui/material";
-import { useState } from "react";
 import FormProduto from "./Components/Forms/FormProduto";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Modal = (props: IModalProps) => {
-  const [isOpen, setIsOpen] = useState(true);
+  
+  const navigate = useNavigate();
+  const { module, id } = useParams();
 
   const modalStyle = {
     position: 'absolute' as 'absolute',
@@ -24,20 +26,24 @@ const Modal = (props: IModalProps) => {
 
   const modalUsage: any = {
     PRODUTOS: () => {
-      return <FormProduto productId={props.productId} function={props.function} isModalOpen={isOpen} isToCloseModal={setIsOpen}/>;
+      return <FormProduto productId={Number(id)} function={props.function} isModalOpen={true} isToCloseModal={() => navigate(`/menu/${module}`)}/>;
     },
     CATEGORIAS: () => {},
+    MARCAS: () => {},
+    MODELOS: () => {},
+    FORNECEDORES: () => {},
+    BANNERS: () => {},
   };
 
   return (
     <S.Modal>
       <MaterialUiModal
-        open={isOpen}
-        onClose={() => setIsOpen(!isOpen)}
+        open={true}
+        onClose={() => navigate(`/menu/${module}`) }
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={modalStyle}>{modalUsage[props.modalUsage]()}</Box>
+        <Box sx={modalStyle}>{modalUsage[module !== undefined ? module.toLocaleUpperCase() : '']()}</Box>
       </MaterialUiModal>
     </S.Modal>
   );

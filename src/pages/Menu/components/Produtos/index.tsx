@@ -1,14 +1,12 @@
 import * as S from './styles';
-import List from '../../components/List';
-import Modal from '../../components/Modal';
-import { ModalUsage } from '../../components/Modal/modal.types';
-import ButtonInsert from '../../components/ButtonInsert';
-import ListViewAction from '../../components/ListViewAction';
+import List from '../../../../components/List';
+import ButtonInsert from '../../../../components/ButtonInsert';
+import ListViewAction from '../../../../components/ListViewAction';
 import useMenuProdutos from './hooks/useMenuProdutos';
 
 const Produtos = () => {
 
-  const { columns, viewList, openModal, list, setOpenModal, handleChangeViewList } = useMenuProdutos();
+  const { columns, viewList, list, navigate, handleChangeViewList } = useMenuProdutos();
   
   return (
     <>
@@ -17,7 +15,7 @@ const Produtos = () => {
             <S.Title>Produtos</S.Title>
             <S.Actions>
               <ButtonInsert 
-                onClick={() => setOpenModal(true)}
+                onClick={() => navigate('new')}
               >
                 Cadastrar Produto
               </ButtonInsert>
@@ -30,7 +28,6 @@ const Produtos = () => {
           }
         </S.ListArea>
       </S.Container>
-      <Modal modalUsage={ModalUsage.PRODUTOS} open={openModal} />
     </>
   );
 };

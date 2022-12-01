@@ -6,7 +6,7 @@ export const NavBar = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 250px;
+  width: 280px;
   height: 100%;
   background-color: #FFFFFF;
   border-top: 1px solid #a9a9a9;

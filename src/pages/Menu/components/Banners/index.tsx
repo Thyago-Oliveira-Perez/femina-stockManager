@@ -1,22 +1,22 @@
 import * as S from './styles';
-import List from '../../components/List';
-import ButtonInsert from '../../components/ButtonInsert';
-import useMenuCategorias from './hooks/useMenuCategorias';
+import List from '../../../../components/List';
+import ButtonInsert from '../../../../components/ButtonInsert';
+import useMenuBanners from './hooks/useMenuBanners';
 
-const Categorias = () => {
+const Banners = () => {
 
-    const { columns, openModal, list, setOpenModal } = useMenuCategorias();
+    const { columns, list, navigate } = useMenuBanners();
 
     return (
         <>
           <S.Container>
               <S.StackHeader>
-                <S.Title>Categorias</S.Title>
+                <S.Title>Banners</S.Title>
                 <S.Actions>
                   <ButtonInsert 
-                    onClick={() => setOpenModal(true)}
+                    onClick={() => navigate('new')}
                   >
-                    Cadastrar Categoria
+                    Cadastrar Banner
                   </ButtonInsert>
                 </S.Actions>
               </S.StackHeader>
@@ -26,9 +26,8 @@ const Categorias = () => {
               }
             </S.ListArea>
           </S.Container>
-          {/* <Modal modalUsage={ModalUsage.CATEGORIAS} open={openModal} /> */}
         </>
       );
 }
 
-export default Categorias;
+export default Banners;
