@@ -5,7 +5,14 @@ import useMenuMarcas from './hooks/useMenuMarcas';
 
 const Marcas = () => {
 
-  const { columns, list, navigate } = useMenuMarcas();
+  const { 
+    columns, 
+    list, 
+    loading,
+    hasMore, 
+    setPageable, 
+    navigate 
+  } = useMenuMarcas();
 
   return (
     <>
@@ -22,7 +29,15 @@ const Marcas = () => {
         </S.StackHeader>
         <S.ListArea>
           {
-            list !== null ? <List columns={columns} items={list} mode={'list'} /> : null
+            list !== null ? 
+              <List 
+                loading={loading}
+                hasMore={hasMore} 
+                setNewPage={setPageable} 
+                columns={columns} 
+                items={list} 
+                mode={'list'} 
+              /> : null
           }
         </S.ListArea>
       </S.Container>

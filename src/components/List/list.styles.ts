@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const Container = styled.div`
     width: 100%;
+    height: 100%;
     border: 1.5px solid #777777;
     padding: 20px;
     margin-top: 20px;
@@ -12,12 +13,27 @@ export const Grid = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;
-    grid-gap: 30px;
-    padding: 50px;
+    grid-gap: 20px;
+    padding: 30px;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    };
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    };
+    ::-webkit-scrollbar-thumb {
+        background: #888888;
+    };
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555555;
+    };
 `;
 
 export const Table = styled.table`
     width: 100%;
+    height: 100%;
     border: 1px solid #C2C2C2;
 `;
 
@@ -49,6 +65,23 @@ export const TableBody = styled.tbody`
     tr:nth-of-type(even) {
         background-color: #ffffff;
     } 
+    display: block;
+    width: 100%;
+    max-height: 55vh;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    };
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    };
+    ::-webkit-scrollbar-thumb {
+        background: #888888;
+    };
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555555;
+    };
 `;
 
 export const TableRow = styled.tr`

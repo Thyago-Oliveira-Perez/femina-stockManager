@@ -5,7 +5,14 @@ import useMenuFornecedores from './hooks/useMenuFornecedores';
 
 const Fornecedores = () => {
 
-  const { columns, list, navigate } = useMenuFornecedores();
+  const { 
+    columns, 
+    list,
+    loading,
+    hasMore, 
+    setPageable, 
+    navigate 
+  } = useMenuFornecedores();
 
   return (
     <>
@@ -22,7 +29,15 @@ const Fornecedores = () => {
         </S.StackHeader>
         <S.ListArea>
           {
-            list !== null ? <List columns={columns} items={list} mode={'list'} /> : null
+            list !== null ? 
+              <List 
+                loading={loading}
+                hasMore={hasMore} 
+                setNewPage={setPageable} 
+                columns={columns} 
+                items={list} 
+                mode={'list'} 
+              /> : null
           }
         </S.ListArea>
       </S.Container>

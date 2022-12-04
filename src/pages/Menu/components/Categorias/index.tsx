@@ -5,7 +5,14 @@ import useMenuCategorias from './hooks/useMenuCategorias';
 
 const Categorias = () => {
 
-  const { columns, list, navigate } = useMenuCategorias();
+  const { 
+    columns, 
+    list, 
+    loading,
+    hasMore, 
+    setPageable, 
+    navigate 
+  } = useMenuCategorias();
 
   return (
     <>
@@ -22,7 +29,15 @@ const Categorias = () => {
         </S.StackHeader>
         <S.ListArea>
           {
-            list !== null ? <List columns={columns} items={list} mode={'list'} /> : null
+            list !== null ? 
+              <List 
+                loading={loading}
+                hasMore={hasMore} 
+                setNewPage={setPageable} 
+                columns={columns} 
+                items={list} 
+                mode={'list'} 
+              /> : null
           }
         </S.ListArea>
       </S.Container>

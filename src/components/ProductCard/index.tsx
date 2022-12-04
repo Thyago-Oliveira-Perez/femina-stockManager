@@ -3,12 +3,12 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { IProductCard } from './productCard.types';
-import { Item } from '../NavBar/navBar.styles';
+import { FC } from 'react';
 
-const ProductCard = (props: IProductCard) => {
+const ProductCard: FC<IProductCard> = (props: IProductCard) => {
     return (
         <>
-            <S.Container>
+            <S.Container ref={props.useRef}>
                 <S.ContentArea>
                     <S.Image src={props.item.imageNames ? props.item.imageNames[0] : ''} />
                     <S.AreaInfo>

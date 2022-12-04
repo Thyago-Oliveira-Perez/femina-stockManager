@@ -83,7 +83,7 @@ export interface IPageRequest {
 }
 
 export interface IPageResponse<T> {
-  content: any[];
+  content: T[];
   totalPages: number;
   totalElements: number;
   last: boolean;

@@ -1,4 +1,4 @@
-import { IPageResponse } from './../types/common.types';
+import { IPageResponse, IProdutoResponse } from './../types/common.types';
 import axios from "axios";
 import {
   INewProduto,
@@ -38,7 +38,7 @@ const ProdutoApi = () => {
     };
   };
 
-  const listProdutos = async (pageable: IPageRequest): Promise<IPageResponse<INewProdutoResponse>> => {
+  const listProdutos = async (pageable: IPageRequest): Promise<IPageResponse<IProdutoResponse>> => {
     try {
       return (await listPageable(pageable,`${url}/estoque/list`));
     } catch (error: any) {

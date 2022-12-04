@@ -6,7 +6,16 @@ import useMenuProdutos from './hooks/useMenuProdutos';
 
 const Produtos = () => {
 
-  const { columns, viewList, list, navigate, handleChangeViewList } = useMenuProdutos();
+  const { 
+    columns, 
+    viewList, 
+    list, 
+    loading,
+    hasMore, 
+    setPageable, 
+    navigate, 
+    handleChangeViewList 
+  } = useMenuProdutos();
   
   return (
     <>
@@ -24,7 +33,15 @@ const Produtos = () => {
           </S.StackHeader>
         <S.ListArea>
           {
-            list !== null ? <List columns={columns} items={list} mode={viewList} /> : null
+            list !== null ? 
+              <List 
+                loading={loading}
+                hasMore={hasMore} 
+                setNewPage={setPageable} 
+                columns={columns} 
+                items={list} 
+                mode={viewList} 
+              /> : null
           }
         </S.ListArea>
       </S.Container>

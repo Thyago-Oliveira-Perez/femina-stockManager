@@ -5,7 +5,14 @@ import useMenuBanners from './hooks/useMenuBanners';
 
 const Banners = () => {
 
-    const { columns, list, navigate } = useMenuBanners();
+    const { 
+      columns, 
+      list,
+      loading,
+      hasMore, 
+      setPageable,  
+      navigate 
+    } = useMenuBanners();
 
     return (
         <>
@@ -22,7 +29,15 @@ const Banners = () => {
               </S.StackHeader>
             <S.ListArea>
               {
-                list !== null ? <List columns={columns} items={list} mode={'list'} /> : null
+                list !== null ? 
+                  <List 
+                    loading={loading}
+                    hasMore={hasMore} 
+                    setNewPage={setPageable} 
+                    columns={columns} 
+                    items={list} 
+                    mode={'list'} 
+                  /> : null
               }
             </S.ListArea>
           </S.Container>

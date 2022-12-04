@@ -6,10 +6,12 @@ import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { IColumns, IProdutoResponse } from '../../types/common.types';
 import { IListProps } from './list.types';
 import { useNavigate } from 'react-router-dom';
+import { useCallback, useRef } from 'react';
 
 const List = (props: IListProps) => {
 
     const navigate = useNavigate();
+    
     const renderColumn = (columnName: string, item: any) => {
         if(columnName === 'marca') {
             return item.nome;
@@ -19,6 +21,17 @@ const List = (props: IListProps) => {
         }
         return item;
     }
+    const observer = useRef<IntersectionObserver>() ;
+    const lasElementListRef = useCallback((node: any) => {
+        if (props.loading) return
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver(entries => {
+            if(entries[0].isIntersecting  && props.hasMore) {
+                props.setNewPage(previousValue => { return {...previousValue, currentPage: previousValue.currentPage + 1}})
+            }
+        });
+        if(node) observer.current.observe(node);
+    }, [props.loading, props.hasMore]);
 
     return (
         <>
@@ -31,12 +44,12 @@ const List = (props: IListProps) => {
                                 { props.columns.map((column: IColumns, index: number) => (
                                     <S.TableTitle key={index} width={150}>{column.title}</S.TableTitle>
                                 )) }
-                                <S.TableTitle width={150}>Ações</S.TableTitle>
+                                <S.TableTitle width={120}>Ações</S.TableTitle>
                             </S.TableRowHead>
                         </S.TableHead>
                         <S.TableBody>
                             { props.items.map((item: any, index: number) => (
-                                <S.TableRow key={index}>
+                                <S.TableRow key={index} ref={lasElementListRef}>
                                     { props.columns.map((column: IColumns, index: number) => (
                                         <S.TableCell key={index} width={150}>
                                             {
@@ -45,7 +58,7 @@ const List = (props: IListProps) => {
                                             }
                                         </S.TableCell>
                                     )) }
-                                    <S.TableCell width={150}>
+                                    <S.TableCell width={120}>
                                         <S.ButtonActions color={'#46C963'} onClick={() => navigate(`view/${item.id}`)}><VisibilityIcon /></S.ButtonActions>
                                         <S.ButtonActions color={'#F6C23C'} onClick={() => navigate(`edit/${item.id}`)}><FaEdit size={17} /></S.ButtonActions>
                                         <S.ButtonActions color={'#F05555'} onClick={() => navigate(`disable/${item.id}`)}><RiDeleteBin5Fill size={17} /></S.ButtonActions>    
@@ -55,8 +68,8 @@ const List = (props: IListProps) => {
                         </S.TableBody>
                     </S.Table>
                 </S.Container>
-                : <S.Grid>{ props.items.map((item: IProdutoResponse, index: number) => (
-                    <ProductCard key={index} actions={navigate} item={item} />
+                : <S.Grid>{props.items.map((item: IProdutoResponse, index: number) => (
+                    <ProductCard useRef={lasElementListRef} key={index} actions={navigate} item={item} />
                 )) }</S.Grid>
             }
         </>

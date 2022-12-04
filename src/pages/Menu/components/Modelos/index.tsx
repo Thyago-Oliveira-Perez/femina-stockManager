@@ -5,7 +5,14 @@ import useMenuModelos from './hooks/useMenuModelos';
 
 const Modelos = () => {
 
-  const { columns, list, navigate } = useMenuModelos();
+  const { 
+    columns, 
+    list, 
+    loading,
+    hasMore, 
+    setPageable, 
+    navigate 
+  } = useMenuModelos();
 
   return (
     <>
@@ -22,7 +29,15 @@ const Modelos = () => {
         </S.StackHeader>
         <S.ListArea>
           {
-            list !== null ? <List columns={columns} items={list} mode={'list'} /> : null
+            list !== null ? 
+              <List 
+                loading={loading}
+                hasMore={hasMore} 
+                setNewPage={setPageable} 
+                columns={columns} 
+                items={list} 
+                mode={'list'} 
+              /> : null
           }
         </S.ListArea>
       </S.Container>

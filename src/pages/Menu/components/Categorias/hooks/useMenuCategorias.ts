@@ -9,10 +9,12 @@ const useMenuCategorias = () => {
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
-            pageSize: 5,
+            pageSize: 3,
             currentPage: 0,
         }
     );
+    const [loading, setLoading] = useState<boolean>(false);
+    const [hasMore, setHasMore] = useState<boolean>(false);
     const [list, setList] = useState<Categorias[]>([]);
     const columns:IColumns[] = [
         {
@@ -24,11 +26,15 @@ const useMenuCategorias = () => {
     useEffect(() => {
         listCategorias(pageable)
             .then((response) => {
-                setList(response.content);
+                setHasMore(response.content.length > 0)
+                return setList([...list, ...response.content]);   
+            })
+            .finally (() => {
+                return setLoading(false);
             });
     }, [pageable]);
 
-    return { columns, list, navigate };
+    return { columns, list, loading, hasMore, setPageable, navigate };
 };
 
 export default useMenuCategorias;

@@ -11,6 +11,7 @@ export const Container = styled.div`
 
 export const ListArea = styled.div`
     width: 90%;
+    height: 65vh;
     display: flex;
     justify-content: center;    
 `;
