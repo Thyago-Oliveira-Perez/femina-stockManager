@@ -16,6 +16,8 @@ import { IFromProdutoProps } from "./types";
 import ProdutoApi from "../../../../../api/Produtos";
 import * as S from "./styles";
 import axios from "axios";
+import upload_image from "../../../../../assets/upload_imagem.svg";
+import arrastar_imagem from "../../../../../assets/arrastar_imagem.svg";
 
 const FormProduto = (props: IFromProdutoProps) => {
   const { cadastro, getProductInfos } = ProdutoApi();
@@ -206,7 +208,6 @@ const FormProduto = (props: IFromProdutoProps) => {
       const newProduto: string = JSON.stringify({
         cor: cor,
         nome: nome,
-        quantidade: quantidade,
         codigo: codigo,
         valor: preco,
         marca: marca,
@@ -217,7 +218,6 @@ const FormProduto = (props: IFromProdutoProps) => {
         descricao: descricao,
         destaque: isDestaque,
         isActive: true,
-        imagem: images,
       });
 
       const formData = new FormData();
@@ -359,10 +359,10 @@ const FormProduto = (props: IFromProdutoProps) => {
             >
               <img
                 style={{ margin: "10px 0px" }}
-                src="./upload_imagem.svg"
+                src={upload_image}
                 alt=""
               />
-              <img src="./arrastar_imagem.svg" alt="" />
+              <img src={arrastar_imagem} alt="" />
               <input
                 style={{ display: "none" }}
                 ref={inputRef}
