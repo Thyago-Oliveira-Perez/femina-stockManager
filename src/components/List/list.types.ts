@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
-import { IColumns, IPageRequest } from '../../types/common.types';
+import { IActionButtons, IColumns, IPageRequest } from '../../types/common.types';
 
 export interface IListProps {
+    actions: IActionButtons;
     columns: IColumns[];
     items: any;
     mode: 'grid' | 'list';

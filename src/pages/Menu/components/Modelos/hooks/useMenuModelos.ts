@@ -1,11 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import ModelosApi from "../../../../../api/Modelos";
-import { Modelos, IColumns, IPageRequest } from "../../../../../types/common.types";
+import { Modelos, IColumns, IPageRequest, IActionButtons } from "../../../../../types/common.types";
 
 const useMenuModelos = () => {
+
     const { listModelos } = ModelosApi();
     const navigate = useNavigate();
+    const actions: IActionButtons = {
+        view: false,
+        edit: false,
+        disable: true,
+    };
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
@@ -34,7 +40,7 @@ const useMenuModelos = () => {
             });
     }, [pageable]);
 
-    return { columns, list, loading, hasMore, setPageable, navigate };
+    return { actions, columns, list, loading, hasMore, setPageable, navigate };
 };
 
 export default useMenuModelos;

@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BannersApi from "../../../../../api/Banners";
-import { Banners, IColumns, IPageRequest } from "../../../../../types/common.types";
+import { Banners, IActionButtons, IColumns, IPageRequest } from "../../../../../types/common.types";
 
 const useMenuBanners = () => {
+
     const { listBanners } = BannersApi();
     const navigate = useNavigate();
+    const actions: IActionButtons = {
+        view: true,
+        edit: true,
+        disable: true,
+    };
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
@@ -42,7 +48,7 @@ const useMenuBanners = () => {
             });
     }, [pageable]);
 
-    return { columns, list, loading, hasMore, setPageable, navigate };
+    return { actions, columns, list, loading, hasMore, setPageable, navigate };
 };
 
 export default useMenuBanners;

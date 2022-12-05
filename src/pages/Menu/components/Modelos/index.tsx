@@ -6,6 +6,7 @@ import useMenuModelos from './hooks/useMenuModelos';
 const Modelos = () => {
 
   const { 
+    actions,
     columns, 
     list, 
     loading,
@@ -29,8 +30,9 @@ const Modelos = () => {
         </S.StackHeader>
         <S.ListArea>
           {
-            list !== null ? 
+            list.length > 0 ? 
               <List 
+                actions={actions}
                 loading={loading}
                 hasMore={hasMore} 
                 setNewPage={setPageable} 

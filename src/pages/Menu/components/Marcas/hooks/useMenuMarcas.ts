@@ -1,11 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import MarcasApi from "../../../../../api/Marcas";
-import { Marcas, IColumns, IPageRequest } from "../../../../../types/common.types";
+import { Marcas, IColumns, IPageRequest, IActionButtons } from "../../../../../types/common.types";
 
 const useMenuMarcas = () => {
+
     const { listMarcas } = MarcasApi();
     const navigate = useNavigate();
+    const actions: IActionButtons = {
+        view: false,
+        edit: false,
+        disable: true,
+    };
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
@@ -34,7 +40,7 @@ const useMenuMarcas = () => {
             });
     }, [pageable]);
 
-    return { columns, list,loading, hasMore, setPageable, navigate };
+    return { actions, columns, list,loading, hasMore, setPageable, navigate };
 };
 
 export default useMenuMarcas;

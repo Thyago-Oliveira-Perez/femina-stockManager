@@ -44,7 +44,7 @@ const List = (props: IListProps) => {
                                 { props.columns.map((column: IColumns, index: number) => (
                                     <S.TableTitle key={index} width={150}>{column.title}</S.TableTitle>
                                 )) }
-                                <S.TableTitle width={120}>Ações</S.TableTitle>
+                                <S.TableTitle width={150}>Ações</S.TableTitle>
                             </S.TableRowHead>
                         </S.TableHead>
                         <S.TableBody>
@@ -58,10 +58,34 @@ const List = (props: IListProps) => {
                                             }
                                         </S.TableCell>
                                     )) }
-                                    <S.TableCell width={120}>
-                                        <S.ButtonActions color={'#46C963'} onClick={() => navigate(`view/${item.id}`)}><VisibilityIcon /></S.ButtonActions>
-                                        <S.ButtonActions color={'#F6C23C'} onClick={() => navigate(`edit/${item.id}`)}><FaEdit size={17} /></S.ButtonActions>
-                                        <S.ButtonActions color={'#F05555'} onClick={() => navigate(`disable/${item.id}`)}><RiDeleteBin5Fill size={17} /></S.ButtonActions>    
+                                    <S.TableCell width={150}>
+                                        {
+                                            props.actions.view && 
+                                            <S.ButtonActions 
+                                                color={'#46C963'} 
+                                                onClick={() => navigate(`view/${item.id}`)}
+                                            >
+                                                <VisibilityIcon />
+                                            </S.ButtonActions>
+                                        }
+                                        {
+                                            props.actions.edit && 
+                                            <S.ButtonActions 
+                                                color={'#F6C23C'} 
+                                                onClick={() => navigate(`edit/${item.id}`)}
+                                            >
+                                                <FaEdit size={17} />
+                                            </S.ButtonActions>
+                                        }
+                                        {
+                                            props.actions.disable && 
+                                            <S.ButtonActions 
+                                                color={'#F05555'} 
+                                                onClick={() => navigate(`disable/${item.id}`)}
+                                            >
+                                                <RiDeleteBin5Fill size={17} />
+                                            </S.ButtonActions>
+                                        }
                                     </S.TableCell>
                                 </S.TableRow>
                             )) }

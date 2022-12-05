@@ -95,3 +95,9 @@ export interface IActionControl {
   id: number | null;
   mode: string;
 }
+
+export interface IActionButtons {
+  view: boolean;
+  edit: boolean;
+  disable: boolean;
+}

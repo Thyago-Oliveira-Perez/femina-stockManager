@@ -1,11 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import FornecedoresApi from "../../../../../api/Fornecedores";
-import { IColumns, IFornecedorResponse, IPageRequest } from "../../../../../types/common.types";
+import { IActionButtons, IColumns, IFornecedorResponse, IPageRequest } from "../../../../../types/common.types";
 
 const useMenuFornecedores = () => {
+
     const { listFornecedores } = FornecedoresApi();
     const navigate = useNavigate();
+    const actions: IActionButtons = {
+        view: true,
+        edit: true,
+        disable: true,
+    };
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
@@ -42,7 +48,7 @@ const useMenuFornecedores = () => {
             });
     }, [pageable]);
 
-    return { columns, list, loading, hasMore, setPageable, navigate };
+    return { actions, columns, list, loading, hasMore, setPageable, navigate };
 };
 
 export default useMenuFornecedores;

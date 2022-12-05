@@ -6,6 +6,7 @@ import useMenuCategorias from './hooks/useMenuCategorias';
 const Categorias = () => {
 
   const { 
+    actions,
     columns, 
     list, 
     loading,
@@ -29,8 +30,9 @@ const Categorias = () => {
         </S.StackHeader>
         <S.ListArea>
           {
-            list !== null ? 
+            list.length > 0 ?
               <List 
+                actions={actions}
                 loading={loading}
                 hasMore={hasMore} 
                 setNewPage={setPageable} 

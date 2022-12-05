@@ -1,11 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import CategoriasApi from "../../../../../api/Categorias";
-import { Categorias, IColumns, IPageRequest } from "../../../../../types/common.types";
+import { Categorias, IActionButtons, IColumns, IPageRequest } from "../../../../../types/common.types";
 
 const useMenuCategorias = () => {
+
     const { listCategorias } = CategoriasApi();
     const navigate = useNavigate();
+    const actions: IActionButtons = {
+        view: false,
+        edit: false,
+        disable: true,
+    };
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
@@ -34,7 +40,7 @@ const useMenuCategorias = () => {
             });
     }, [pageable]);
 
-    return { columns, list, loading, hasMore, setPageable, navigate };
+    return { actions, columns, list, loading, hasMore, setPageable, navigate };
 };
 
 export default useMenuCategorias;

@@ -1,4 +1,4 @@
-import { IPageResponse, IProdutoResponse } from './../../../../../types/common.types';
+import { IActionButtons, IPageResponse, IProdutoResponse } from './../../../../../types/common.types';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import ProdutoApi from '../../../../../api/Produtos';
@@ -9,6 +9,11 @@ const useMenuProdutos = () => {
 
     const { listProdutos } = ProdutoApi();
     const navigate = useNavigate();
+    const actions: IActionButtons = {
+        view: true,
+        edit: true,
+        disable: true,
+    };
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
@@ -60,8 +65,17 @@ const useMenuProdutos = () => {
             });
     }, [pageable]);
 
-
-    return { columns, viewList, list, loading, hasMore, setPageable, navigate, handleChangeViewList };
+    return { 
+        actions, 
+        columns, 
+        viewList, 
+        list, 
+        loading, 
+        hasMore, 
+        setPageable, 
+        navigate, 
+        handleChangeViewList 
+    };
 };
 
 export default useMenuProdutos;
