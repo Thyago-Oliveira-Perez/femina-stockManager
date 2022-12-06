@@ -5,6 +5,7 @@ const TextFieldModal = (props: ITextFieldModal) => {
   return (
     <div>
       <TextField
+        required={true}
         fullWidth
         variant="filled"
         type={"text"}

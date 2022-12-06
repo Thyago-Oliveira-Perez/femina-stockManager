@@ -23,34 +23,31 @@ export const Tittle = styled.div`
   margin: 0px 0px 30px 0px;
 `;
 
-export const FormSection = styled.div`
+export const Section1 = styled.div`
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 0px 0px 100px 0px;
-`;
-
-
-export const Sections = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  width: 100%;
+  flex-wrap: wrap;
   height: auto;
+  margin: 0px 0px 48px 0px;
 `;
 
-export const SideSection = styled.div`
+export const Section2 = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 50%;
   height: auto;
-  margin: 0px 20px;
+  margin: 0px 0px 48px 0px;
 `;
+
+export const Field = styled.div`
+  min-width: 40%; 
+  margin: 0px 24px;
+`
 
 export const ButtonsSection = styled.div`
   display: flex;

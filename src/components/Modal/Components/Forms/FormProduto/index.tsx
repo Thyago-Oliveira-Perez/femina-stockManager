@@ -61,12 +61,12 @@ const FormProduto = (props: IFromProdutoProps) => {
   ];
 
   useEffect(() => {
-    if(props.productId){
+    if (props.productId) {
       getProductInfos(props.productId).then((response) => {
-        console.log(response)
-      })
+        console.log(response);
+      });
     }
-  }, [])
+  }, []);
 
   function convertColor(color: string) {
     var colours: any = {
@@ -174,31 +174,30 @@ const FormProduto = (props: IFromProdutoProps) => {
   };
 
   const handleRegister = () => {
-    const condition0 = cor != null || cor != undefined;
-    const condition1 = nome != null || nome != undefined;
-    const condition2 = quantidade != null || quantidade != undefined;
-    const condition3 = codigo != null || codigo != undefined;
-    const condition4 = preco != null || preco != undefined;
-    const condition5 = marca != null || marca != undefined;
-    const condition6 = modelo != null || modelo != undefined;
-    const condition7 = tamanho != null || tamanho != undefined;
-    const condition8 = categoria != null || categoria != undefined;
-    const condition9 = fornecedor != null || fornecedor != undefined;
-    const condition10 = descricao != null || descricao != undefined;
+    const condition0 = cor != null && cor != undefined;
+    const condition1 = nome != null && nome != undefined;
+    const condition2 = quantidade != null && quantidade != undefined;
+    const condition3 = codigo != null && codigo != undefined;
+    const condition4 = preco != null && preco != undefined;
+    const condition5 = marca != null && marca != undefined;
+    const condition6 = modelo != null && modelo != undefined;
+    const condition7 = tamanho != null && tamanho != undefined;
+    const condition8 = categoria != null && categoria != undefined;
+    const condition9 = fornecedor != null && fornecedor != undefined;
+    const condition10 = descricao != null && descricao != undefined;
 
     if (
-      (condition0 &&
-        condition1 &&
-        condition2 &&
-        condition3 &&
-        condition4 &&
-        condition5 &&
-        condition6 &&
-        condition7 &&
-        condition8 &&
-        condition9 &&
-        condition10) ||
-      true
+      condition0 &&
+      condition1 &&
+      condition2 &&
+      condition3 &&
+      condition4 &&
+      condition5 &&
+      condition6 &&
+      condition7 &&
+      condition8 &&
+      condition9 &&
+      condition10
     ) {
       const newProduto: string = JSON.stringify({
         cor: convertColor(cor.trim().replace(" ", "_")),
@@ -238,6 +237,8 @@ const FormProduto = (props: IFromProdutoProps) => {
         console.log("response :", response);
       });
     }
+
+    alert("teu cu é meu");
   };
 
   return (
@@ -245,73 +246,77 @@ const FormProduto = (props: IFromProdutoProps) => {
       <S.Tittle>
         <h3>Novo Produto</h3>
       </S.Tittle>
-      <S.FormSection>
-        <S.Sections>
-          <S.SideSection>
-            <FormControl fullWidth>
-              <TextFieldModal
-                value={nome}
-                setValue={setNome}
-                label={TextFieldLables.NOME}
-              />
-              <NumberFieldModal
-                value={quantidade}
-                setValue={setQuantidade}
-                label={TextFieldLables.QUANTIDADE}
-              />
-              <SelectField
-                label={SelectFieldLabels.MARCA}
-                value={marca}
-                setValue={setMarca}
-                options={[]}
-              />
-              <SelectField
-                label={SelectFieldLabels.MODELO}
-                value={modelo}
-                setValue={setModelo}
-                options={[]}
-              />
-              <SelectField
-                label={SelectFieldLabels.TAMANHO}
-                value={tamanho}
-                setValue={setTamanho}
-                options={tamanhos}
-              />
-            </FormControl>
-          </S.SideSection>
-
-          <S.SideSection>
-            <FormControl fullWidth>
-              <TextFieldModal
-                value={codigo}
-                setValue={setCodigo}
-                label={TextFieldLables.CODIGO}
-              />
-              <NumberFieldModal
-                value={preco}
-                setValue={setPreco}
-                label={TextFieldLables.PRECO}
-              />
-              <SelectField
-                label={SelectFieldLabels.CATEGORIA}
-                value={categoria}
-                setValue={setCategoria}
-                options={[]}
-              />
-              <SelectField
-                label={SelectFieldLabels.FORNECEDOR}
-                value={fornecedor}
-                setValue={setFornecedor}
-                options={[]}
-              />
-              <TextFieldModal
-                value={cor}
-                setValue={setColor}
-                label={TextFieldLables.COR}
-              />
-            </FormControl>
-          </S.SideSection>
-        </S.Sections>
+      <S.Section1>
+        <S.Field>
+          <TextFieldModal
+            value={nome}
+            setValue={setNome}
+            label={TextFieldLables.NOME}
+          />
+        </S.Field>
+        <S.Field>
+          <TextFieldModal
+            value={cor}
+            setValue={setColor}
+            label={TextFieldLables.COR}
+          />
+        </S.Field>
+        <S.Field>
+          <TextFieldModal
+            value={codigo}
+            setValue={setCodigo}
+            label={TextFieldLables.CODIGO}
+          />
+        </S.Field>
+        <S.Field>
+          <SelectField
+            label={SelectFieldLabels.MARCA}
+            value={marca}
+            setValue={setMarca}
+            options={[]}
+          />
+        </S.Field>
+        <S.Field>
+          <SelectField
+            label={SelectFieldLabels.MODELO}
+            value={modelo}
+            setValue={setModelo}
+            options={[]}
+          />
+        </S.Field>
+        <S.Field>
+          <SelectField
+            label={SelectFieldLabels.TAMANHO}
+            value={tamanho}
+            setValue={setTamanho}
+            options={tamanhos}
+          />
+        </S.Field>
+        <S.Field>
+          <SelectField
+            label={SelectFieldLabels.CATEGORIA}
+            value={categoria}
+            setValue={setCategoria}
+            options={[]}
+          />
+        </S.Field>
+        <S.Field>
+          <SelectField
+            label={SelectFieldLabels.FORNECEDOR}
+            value={fornecedor}
+            setValue={setFornecedor}
+            options={[]}
+          />
+        </S.Field>
+        <S.Field>
+          <NumberFieldModal
+            value={preco}
+            setValue={setPreco}
+            label={TextFieldLables.PRECO}
+          />
+        </S.Field>
+      </S.Section1>
+      <S.Section2>
         <div style={{ width: "100%" }}>
           <textarea
             name={TextFieldLables.DESCRICAO}
@@ -352,11 +357,7 @@ const FormProduto = (props: IFromProdutoProps) => {
                 handleClick();
               }}
             >
-              <img
-                style={{ margin: "10px 0px" }}
-                src={upload_image}
-                alt=""
-              />
+              <img style={{ margin: "10px 0px" }} src={upload_image} alt="" />
               <img src={arrastar_imagem} alt="" />
               <input
                 style={{ display: "none" }}
@@ -388,7 +389,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             </label>
           </div>
         </div>
-      </S.FormSection>
+      </S.Section2>
       <S.ButtonsSection>
         <Button
           variant="contained"
