@@ -15,7 +15,6 @@ const useMenuModelos = () => {
     view: false,
     edit: false,
     disable: true,
-    save: true,
   };
   const [pageable, setPageable] = useState<IPageRequest>({
     filter: "",

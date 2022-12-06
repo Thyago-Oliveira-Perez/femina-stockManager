@@ -100,5 +100,4 @@ export interface IActionButtons {
   view: boolean;
   edit: boolean;
   disable: boolean;
-  save: boolean;
 }
