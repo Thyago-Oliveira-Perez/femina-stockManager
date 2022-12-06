@@ -3,8 +3,12 @@ import api from './Api';
 
 const CommonApi = () => {
 
-    const post = async () => {
-
+    const post = async (object: any, path: string) => {
+        try {
+            return (await api.post(`${path}`, object)).data;
+        } catch (error: any) {
+            return Promise.reject(error.message);
+        };
     }
 
     const listPageable = async <T>(pageRequest: IPageRequest, path: string): Promise<IPageResponse<T>> => {   
@@ -42,7 +46,7 @@ const CommonApi = () => {
 
     }
 
-    return { listPageable, get }; 
+    return { listPageable, get, post}; 
 };
 
 export default CommonApi;

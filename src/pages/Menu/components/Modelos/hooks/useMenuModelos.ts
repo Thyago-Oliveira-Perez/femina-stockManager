@@ -1,46 +1,72 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ModelosApi from "../../../../../api/Modelos";
-import { Modelos, IColumns, IPageRequest, IActionButtons } from "../../../../../types/common.types";
+import {
+  Modelos,
+  IColumns,
+  IPageRequest,
+  IActionButtons,
+} from "../../../../../types/common.types";
 
 const useMenuModelos = () => {
+  const { listModelos, addNewModelo } = ModelosApi();
+  const navigate = useNavigate();
+  const actions: IActionButtons = {
+    view: false,
+    edit: false,
+    disable: true,
+    save: true,
+  };
+  const [pageable, setPageable] = useState<IPageRequest>({
+    filter: "",
+    pageSize: 3,
+    currentPage: 0,
+  });
+  const [loading, setLoading] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(false);
+  const [list, setList] = useState<Modelos[]>([]);
+  const [isToAddNewModelo, setIsToAddNewModelo] = useState<boolean>(false);
+  const [newModelo, setNewModelo] = useState<string>("");
 
-    const { listModelos } = ModelosApi();
-    const navigate = useNavigate();
-    const actions: IActionButtons = {
-        view: false,
-        edit: false,
-        disable: true,
-    };
-    const [pageable, setPageable] = useState<IPageRequest>(
-        {
-            filter: '',
-            pageSize: 3,
-            currentPage: 0,
-        }
-    );
-    const [loading, setLoading] = useState<boolean>(false);
-    const [hasMore, setHasMore] = useState<boolean>(false);
-    const [list, setList] = useState<Modelos[]>([]);
-    const columns:IColumns[] = [
-        {
-            title: 'Nome',
-            name: 'nome',
-        },
-    ];
+  const columns: IColumns[] = [
+    {
+      title: "Nome",
+      name: "nome",
+    },
+  ];
 
-    useEffect(() => {
-        listModelos(pageable)
-            .then((response) => {
-                setHasMore(response.content.length > 0)
-                return setList([...list, ...response.content]);   
-            })
-            .finally (() => {
-                return setLoading(false);
-            });
-    }, [pageable]);
+  useEffect(() => {
+    listModelos(pageable)
+      .then((response) => {
+        setHasMore(response.content.length > 0);
+        return setList([...list, ...response.content]);
+      })
+      .finally(() => {
+        return setLoading(false);
+      });
+  }, [pageable]);
 
-    return { actions, columns, list, loading, hasMore, setPageable, navigate };
+  const saveNewModelo = (newModelo: string) => {
+    addNewModelo(newModelo).then(() => {
+      window.location.reload();
+    })
+  }
+
+  return {
+    actions,
+    columns,
+    list,
+    setList,
+    loading,
+    hasMore,
+    setPageable,
+    navigate,
+    isToAddNewModelo,
+    setIsToAddNewModelo,
+    newModelo,
+    setNewModelo,
+    saveNewModelo
+  };
 };
 
 export default useMenuModelos;

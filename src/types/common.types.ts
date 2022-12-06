@@ -16,7 +16,7 @@ export enum Tamanhos {
 
 export enum TipoDeBanner {
   DESTAQUE = "DESTAQUE",
-  COLECAO = "COLECAO"
+  COLECAO = "COLECAO",
 }
 export interface Categorias {
   id: number;
@@ -100,4 +100,5 @@ export interface IActionButtons {
   view: boolean;
   edit: boolean;
   disable: boolean;
+  save: boolean;
 }

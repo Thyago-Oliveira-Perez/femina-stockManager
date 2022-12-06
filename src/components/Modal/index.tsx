@@ -28,10 +28,9 @@ const Modal = (props: IModalProps) => {
     PRODUTOS: () => {
       return <FormProduto productId={Number(id)} function={props.function} isModalOpen={true} isToCloseModal={() => navigate(`/menu/${module}`)}/>;
     },
-    CATEGORIAS: () => {},
-    MARCAS: () => {},
-    MODELOS: () => {},
-    FORNECEDORES: () => {},
+    FORNECEDORES: () => {
+      return <>Oi</>
+    },
     BANNERS: () => {},
   };
 

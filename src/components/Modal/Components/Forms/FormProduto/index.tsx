@@ -8,10 +8,10 @@ import {
   TextFieldLables,
 } from "../../SelectField/selectfield.types";
 import TextFieldModal from "../../TextField";
-import { Categoria } from "../FormCategoria/types";
+import { Categoria } from "./types";
 import { Fornecedor } from "../FormFornecedor/types";
-import { Marca } from "../FormMarca/types";
-import { Modelo } from "../FormModelo/types";
+import { Marca } from "./types";
+import { Modelo } from "./types";
 import { IFromProdutoProps } from "./types";
 import ProdutoApi from "../../../../../api/Produtos";
 import * as S from "./styles";

@@ -5,6 +5,7 @@ const ButtonInsert = (props: any) => {
     return (
         <S.AreaButton 
             onClick={props.onClick}
+            style={props.style}
         >
             <AddIcon />
             <S.StyledButton

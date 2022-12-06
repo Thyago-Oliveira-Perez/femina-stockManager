@@ -3,7 +3,7 @@ import CommonApi from "./Common";
 
 const ModelosApi = () => {
     const url = "api/modelos";
-    const { listPageable } = CommonApi();
+    const { listPageable, post } = CommonApi();
 
     const handleError = (error: any) => {
         return Promise.reject(error.response);
@@ -17,7 +17,15 @@ const ModelosApi = () => {
         };
     };
 
-    return { listModelos };
+    const addNewModelo = async (newModelo: string) => {
+        try{
+            return (await post(newModelo, `${url}`))
+        }catch(error: any){
+            return handleError(error);
+        }
+    }
+
+    return { listModelos, addNewModelo};
 };
 
 export default ModelosApi;

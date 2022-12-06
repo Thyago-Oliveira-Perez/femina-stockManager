@@ -1,7 +1,25 @@
-import { Categoria } from "../FormCategoria/types";
 import { Fornecedor } from "../FormFornecedor/types";
-import { Marca } from "../FormMarca/types";
-import { Modelo } from "../FormModelo/types";
+
+export interface Categoria {
+  id: number;
+  atualizado?: Date;
+  isActive: boolean;
+  nome: string;
+}
+
+export interface Marca {
+  id: number;
+  atualizado?: Date;
+  isActive: boolean;
+  nome: string;
+}
+
+export interface Modelo {
+  id: number;
+  atualizado?: Date;
+  isActive: boolean;
+  nome: string;
+}
 
 export interface IFromProdutoProps {
   isModalOpen: boolean;

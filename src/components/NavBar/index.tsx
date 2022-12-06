@@ -9,7 +9,7 @@ export default function NavBar() {
           <h3>Produtos</h3>
         </styles.Title>
         <Item path={'/menu/produtos'} >
-          Listagem de produtos
+          Produtos
         </Item>
         <Item path={'/menu/categorias'} >
           Categorias
