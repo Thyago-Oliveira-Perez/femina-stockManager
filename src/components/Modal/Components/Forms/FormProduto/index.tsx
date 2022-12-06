@@ -68,11 +68,6 @@ const FormProduto = (props: IFromProdutoProps) => {
     }
   }, [])
 
-  useEffect(() => {
-    let corPattern = cor.trim().replace(" ", "_");
-    console.log(convertColor(corPattern));
-  }, [cor]);
-
   function convertColor(color: string) {
     var colours: any = {
       aqua: "#00ffff",
@@ -206,7 +201,7 @@ const FormProduto = (props: IFromProdutoProps) => {
       true
     ) {
       const newProduto: string = JSON.stringify({
-        cor: cor,
+        cor: convertColor(cor.trim().replace(" ", "_")),
         nome: nome,
         codigo: codigo,
         valor: preco,
