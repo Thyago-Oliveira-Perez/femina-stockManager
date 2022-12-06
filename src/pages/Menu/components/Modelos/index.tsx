@@ -19,8 +19,7 @@ const Modelos = () => {
     isToAddNewModelo,
     setIsToAddNewModelo,
     newModelo,
-    setNewModelo,
-    saveNewModelo,
+    setNewModelo
   } = useMenuModelos();
 
   const showFormNewModelo = (isToAdd: boolean) => {

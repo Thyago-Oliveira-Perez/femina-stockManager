@@ -45,12 +45,6 @@ const useMenuModelos = () => {
       });
   }, [pageable]);
 
-  const saveNewModelo = (newModelo: string) => {
-    addNewModelo(newModelo).then(() => {
-      window.location.reload();
-    })
-  }
-
   return {
     actions,
     columns,
@@ -63,8 +57,7 @@ const useMenuModelos = () => {
     isToAddNewModelo,
     setIsToAddNewModelo,
     newModelo,
-    setNewModelo,
-    saveNewModelo
+    setNewModelo
   };
 };
 
