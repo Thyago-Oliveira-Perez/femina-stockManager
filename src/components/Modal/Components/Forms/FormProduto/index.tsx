@@ -1,4 +1,10 @@
-import { Button, Checkbox, FormControl } from "@mui/material";
+import {
+  Box,
+  Modal as MaterialUiModal,
+  Button,
+  Checkbox,
+  FormControl,
+} from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { Tamanhos } from "../../../../../types/common.types";
 import NumberFieldModal from "../../NumberFieldModal";
@@ -52,6 +58,8 @@ const FormProduto = (props: IFromProdutoProps) => {
   const [isDestaque, setIsDestaque] = useState(false);
   const [images, setImagens] = useState<any[]>([]);
 
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+
   const tamanhos = [
     Tamanhos.PP,
     Tamanhos.P,
@@ -59,6 +67,26 @@ const FormProduto = (props: IFromProdutoProps) => {
     Tamanhos.G,
     Tamanhos.GG,
   ];
+
+  /**
+   * style do modal de aviso
+   */
+  const modalStyle = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "20%",
+    height: "20%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    bgcolor: "background.paper",
+    overflow: "auto",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: 4,
+  };
 
   useEffect(() => {
     if (props.productId) {
@@ -174,17 +202,15 @@ const FormProduto = (props: IFromProdutoProps) => {
   };
 
   const handleRegister = () => {
-    const condition0 = cor != null && cor != undefined;
-    const condition1 = nome != null && nome != undefined;
-    const condition2 = quantidade != null && quantidade != undefined;
-    const condition3 = codigo != null && codigo != undefined;
-    const condition4 = preco != null && preco != undefined;
-    const condition5 = marca != null && marca != undefined;
-    const condition6 = modelo != null && modelo != undefined;
-    const condition7 = tamanho != null && tamanho != undefined;
-    const condition8 = categoria != null && categoria != undefined;
-    const condition9 = fornecedor != null && fornecedor != undefined;
-    const condition10 = descricao != null && descricao != undefined;
+    const condition0 = nome != null && nome != undefined;
+    const condition1 = cor != null && cor != undefined;
+    const condition2 = codigo != null && codigo != undefined;
+    const condition3 = preco != null && preco != undefined;
+    const condition4 = marca != null && marca != undefined;
+    const condition5 = modelo != null && modelo != undefined;
+    const condition6 = tamanho != null && tamanho != undefined;
+    const condition7 = categoria != null && categoria != undefined;
+    const condition8 = fornecedor != null && fornecedor != undefined;
 
     if (
       condition0 &&
@@ -195,9 +221,7 @@ const FormProduto = (props: IFromProdutoProps) => {
       condition5 &&
       condition6 &&
       condition7 &&
-      condition8 &&
-      condition9 &&
-      condition10
+      condition8
     ) {
       const newProduto: string = JSON.stringify({
         cor: convertColor(cor.trim().replace(" ", "_")),
@@ -238,7 +262,7 @@ const FormProduto = (props: IFromProdutoProps) => {
       });
     }
 
-    alert("teu cu é meu");
+    setShowMessage(true);
   };
 
   return (
@@ -406,6 +430,16 @@ const FormProduto = (props: IFromProdutoProps) => {
           Cadastrar
         </Button>
       </S.ButtonsSection>
+      <MaterialUiModal
+        open={showMessage}
+        onClose={() => setShowMessage(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modalStyle}>
+          Verifique se todos os campos estão preenchidos.
+        </Box>
+      </MaterialUiModal>
     </S.Modal>
   );
 };

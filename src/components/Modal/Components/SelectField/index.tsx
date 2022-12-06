@@ -7,11 +7,12 @@ const SelectField = (props: ISelectFieldProps) => {
       <InputLabel>{props.label}</InputLabel>
       {props.label == SelectFieldLabels.TAMANHO ? (
         <Select
+          required={true}
           value={props.value}
           variant="filled"
           label={props.label}
           onChange={(e) => props.setValue(e.target.value)}
-          style={{margin: "20px 0px", borderBottom: "solid 1px #7A0000"}}
+          style={{ margin: "20px 0px", borderBottom: "solid 1px #7A0000" }}
         >
           {props.options.map((e, index) => {
             return (
@@ -23,11 +24,12 @@ const SelectField = (props: ISelectFieldProps) => {
         </Select>
       ) : (
         <Select
+          required={true}
           value={props.value}
           variant="filled"
           label={props.label}
           onChange={(e) => props.setValue(e.target.value)}
-          style={{margin: "20px 0px", borderBottom: "solid 1px #7A0000"}}
+          style={{ margin: "20px 0px", borderBottom: "solid 1px #7A0000" }}
         >
           {props.options.map((e) => {
             return (
