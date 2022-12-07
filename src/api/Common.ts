@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { IPageRequest, IPageResponse } from './../types/common.types';
 import api from './Api';
 
@@ -7,7 +8,8 @@ const CommonApi = () => {
         try {
             return (await api.post(`${path}`, object)).data;
         } catch (error: any) {
-            return Promise.reject(error.message);
+            toast.error(error.response.data);
+            return Promise.reject(error);
         };
     }
 

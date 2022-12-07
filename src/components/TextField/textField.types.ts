@@ -20,4 +20,5 @@ export interface TextFieldProps {
   | 'cep';
   placeholder?: string;
   name?: string | undefined;
+  required?: boolean;
 }

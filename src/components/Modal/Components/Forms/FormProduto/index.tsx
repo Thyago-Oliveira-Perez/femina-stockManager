@@ -3,10 +3,7 @@ import {
   Modal as MaterialUiModal,
   Button,
   Checkbox,
-  FormControl,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { Tamanhos } from "../../../../../types/common.types";
 import NumberFieldModal from "../../NumberFieldModal";
 import SelectField from "../../SelectField";
 import {
@@ -14,256 +11,34 @@ import {
   TextFieldLables,
 } from "../../SelectField/selectfield.types";
 import TextFieldModal from "../../TextField";
-import { Categoria } from "./types";
-import { Fornecedor } from "../FormFornecedor/types";
-import { Marca } from "./types";
-import { Modelo } from "./types";
 import { IFromProdutoProps } from "./types";
-import ProdutoApi from "../../../../../api/Produtos";
 import * as S from "./styles";
-import axios from "axios";
 import upload_image from "../../../../../assets/upload_imagem.svg";
 import arrastar_imagem from "../../../../../assets/arrastar_imagem.svg";
+import useFormProduto from "./hooks/useFormProduto";
 
 const FormProduto = (props: IFromProdutoProps) => {
-  const { cadastro, getProductInfos } = ProdutoApi();
-
-  /**
-   * input style
-   */
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
-  /**
-   * Component -> TextFieldModal
-   */
-  const [cor, setColor] = useState<string>("");
-  const [nome, setNome] = useState("");
-  const [quantidade, setQuantidade] = useState<number>(0);
-
-  /**
-   * Component -> NumberFieldModal
-   */
-  const [codigo, setCodigo] = useState("");
-  const [preco, setPreco] = useState<number>(0);
-
-  /**
-   * Component -> SelectField
-   */
-  const [marca, setMarca] = useState<Marca>();
-  const [modelo, setModelo] = useState<Modelo[]>();
-  const [tamanho, setTamanho] = useState<string>("");
-  const [categoria, setCategoria] = useState<Categoria>();
-  const [fornecedor, setFornecedor] = useState<Fornecedor>();
-  const [descricao, setDescricao] = useState("");
-  const [isDestaque, setIsDestaque] = useState(false);
-  const [images, setImagens] = useState<any[]>([]);
-
-  const [showMessage, setShowMessage] = useState<boolean>(false);
-
-  const tamanhos = [
-    Tamanhos.PP,
-    Tamanhos.P,
-    Tamanhos.M,
-    Tamanhos.G,
-    Tamanhos.GG,
-  ];
-
-  /**
-   * style do modal de aviso
-   */
-  const modalStyle = {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "20%",
-    height: "20%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    bgcolor: "background.paper",
-    overflow: "auto",
-    boxShadow: 24,
-    p: 4,
-    borderRadius: 4,
-  };
-
-  useEffect(() => {
-    if (props.productId) {
-      getProductInfos(props.productId).then((response) => {
-        console.log(response);
-      });
-    }
-  }, []);
-
-  function convertColor(color: string) {
-    var colours: any = {
-      aqua: "#00ffff",
-      aquamarine: "#7fffd4",
-      azul: "#f0ffff",
-      bege: "#f5f5dc",
-      preto: "#000000",
-      azul_violeta: "#8a2be2",
-      castanho: "#a52a2a",
-      azul_cadete: "#5f9ea0",
-      chocolate: "#d2691e",
-      coral: "#ff7f50",
-      carmesim: "#dc143c",
-      ciano: "#00ffff",
-      azul_escuro: "#00008b",
-      ciano_escuro: "#008b8b",
-      cinza_escuro: "#a9a9a9",
-      verde_escuro: "#006400",
-      magenta_escuro: "#8b008b",
-      verde_oliva_escuro: "#556b2f",
-      laranja_escuro: "#ff8c00",
-      vermelho_escuro: "#8b0000",
-      salmão_escuro: "#e9967a",
-      turquesa_escura: "#00ced1",
-      violeta_escuro: "#9400d3",
-      rosa_escuro: "#ff1493",
-      fúcsia: "#ff00ff",
-      ouro: "#ffd700",
-      cinzento: "#808080",
-      verde: "#008000",
-      verdeamarelado: "#adff2f",
-      marfim: "#fffff0",
-      lavanda: "#e6e6fa",
-      gramado: "#7cfc00",
-      azul_claro: "#add8e6",
-      coral_claro: "#f08080",
-      ciano_claro: "#e0ffff",
-      cinza_claro: "#d3d3d3",
-      salmão_claro: "#ffa07a",
-      lima: "#00ff00",
-      verde_limão: "#32cd32",
-      linho: "#faf0e6",
-      magenta: "#ff00ff",
-      marrom: "#800000",
-      verde_marinho: "#3cb371",
-      renda_antiga: "#fdf5e6",
-      olivedrab: "#6b8e23",
-      laranja: "#ffa500",
-      vermelho_alaranjado: "#ff4500",
-      orquídea: "#da70d6",
-      rosa: "#ffc0cb",
-      ameixa: "#dda0dd",
-      roxo: "#800080",
-      vermelho: "#ff0000",
-      salmão: "#fa8072",
-      areia: "#f4a460",
-      verde_mar: "#2e8b57",
-      siena: "#a0522d",
-      prata: "#c0c0c0",
-      neve: "#fffafa",
-      bronzeado: "#d2b48c",
-      tomate: "#ff6347",
-      turquesa: "#40e0d0",
-      branco: "#ffffff",
-      amarelo: "#ffff00",
-    };
-
-    if (typeof colours[color.toLowerCase()] != "undefined") {
-      return colours[color.toLowerCase()];
-    }
-    return false;
-  }
-
-  const inputRef: any = useRef(null);
-
-  const handleClick = () => {
-    // 👇️ open file input box on click of other element
-    inputRef.current.click();
-  };
-
-  const handleFileChange = (event: any) => {
-    const fileObj = event.target.files && event.target.files[0];
-    if (!fileObj) {
-      return;
-    }
-
-    console.log("fileObj is", fileObj);
-
-    // 👇️ reset file input
-    event.target.value = null;
-
-    // 👇️ is now empty
-    console.log(event.target.files);
-
-    // 👇️ can still access file object here
-    console.log(fileObj);
-    console.log(fileObj.name);
-
-    setImagens([...images, fileObj]);
-  };
-
-  const handleCancel = () => {
-    props.isToCloseModal(!props.isModalOpen);
-  };
-
-  const handleRegister = () => {
-    const condition0 = nome != null && nome != undefined;
-    const condition1 = cor != null && cor != undefined;
-    const condition2 = codigo != null && codigo != undefined;
-    const condition3 = preco != null && preco != undefined;
-    const condition4 = marca != null && marca != undefined;
-    const condition5 = modelo != null && modelo != undefined;
-    const condition6 = tamanho != null && tamanho != undefined;
-    const condition7 = categoria != null && categoria != undefined;
-    const condition8 = fornecedor != null && fornecedor != undefined;
-
-    if (
-      condition0 &&
-      condition1 &&
-      condition2 &&
-      condition3 &&
-      condition4 &&
-      condition5 &&
-      condition6 &&
-      condition7 &&
-      condition8
-    ) {
-      const newProduto: string = JSON.stringify({
-        cor: convertColor(cor.trim().replace(" ", "_")),
-        nome: nome,
-        codigo: codigo,
-        valor: preco,
-        marca: marca,
-        modelo: modelo,
-        tamanho: tamanho,
-        categoria: categoria,
-        fornecedor: fornecedor,
-        descricao: descricao,
-        destaque: isDestaque,
-        isActive: true,
-      });
-
-      const formData = new FormData();
-
-      /**
-       * monta o objeto para enviar via form-data
-       * para o backend
-       */
-      formData.append("produto", newProduto);
-      images.forEach((image) => {
-        formData.append("image", image);
-      });
-
-      axios({
-        url: "http://localhost:8080/api/produtos/estoque/insert",
-        method: "POST",
-        data: formData,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-        },
-      }).then((response) => {
-        console.log("response :", response);
-      });
-    }
-
-    setShowMessage(true);
-  };
+  
+  const { 
+    label,
+    marcasOptions,
+    modelosOptions,
+    categoriasOptions,
+    fornecedoresOptions,
+    produto, 
+    setProduto, 
+    tamanhos, 
+    inputRef, 
+    showMessage, 
+    setShowMessage,
+    modalStyle,
+    handleClick, 
+    handleFileChange, 
+    handleChange, 
+    handleChangeNumber,
+    handleCancel,
+    handleRegister,
+  } = useFormProduto(props);
 
   return (
     <S.Modal>
@@ -273,69 +48,78 @@ const FormProduto = (props: IFromProdutoProps) => {
       <S.Section1>
         <S.Field>
           <TextFieldModal
-            value={nome}
-            setValue={setNome}
+            value={produto.nome}
+            name={TextFieldLables.NOME.toLowerCase()}
+            onChange={(e) => handleChange(e)}
             label={TextFieldLables.NOME}
           />
         </S.Field>
         <S.Field>
           <TextFieldModal
-            value={cor}
-            setValue={setColor}
+            value={produto.cor}
+            name={TextFieldLables.COR.toLowerCase()}
+            onChange={(e) => handleChange(e)}
             label={TextFieldLables.COR}
           />
         </S.Field>
         <S.Field>
           <TextFieldModal
-            value={codigo}
-            setValue={setCodigo}
+            value={produto.codigo}
+            name={TextFieldLables.CODIGO.toLowerCase()}
+            onChange={(e) => handleChange(e)}
             label={TextFieldLables.CODIGO}
           />
         </S.Field>
         <S.Field>
           <SelectField
             label={SelectFieldLabels.MARCA}
-            value={marca}
-            setValue={setMarca}
-            options={[]}
+            value={produto.marca}
+            name={SelectFieldLabels.MARCA.toLowerCase()}
+            onChange={(e) => handleChange(e)}
+            options={marcasOptions}
           />
         </S.Field>
         <S.Field>
           <SelectField
             label={SelectFieldLabels.MODELO}
-            value={modelo}
-            setValue={setModelo}
-            options={[]}
+            value={produto.modelo}
+            name={SelectFieldLabels.MODELO.toLowerCase()}
+            onChange={(e) => handleChange(e)}
+            options={modelosOptions}
           />
         </S.Field>
         <S.Field>
           <SelectField
             label={SelectFieldLabels.TAMANHO}
-            value={tamanho}
-            setValue={setTamanho}
+            value={produto.tamanho}
+            name={SelectFieldLabels.TAMANHO.toLowerCase()}
+            onChange={(e) => handleChange(e)}
             options={tamanhos}
           />
         </S.Field>
         <S.Field>
           <SelectField
             label={SelectFieldLabels.CATEGORIA}
-            value={categoria}
-            setValue={setCategoria}
-            options={[]}
+            value={produto.categoria}
+            name={SelectFieldLabels.CATEGORIA.toLowerCase()}
+            onChange={(e) => handleChange(e)}
+            options={categoriasOptions}
           />
         </S.Field>
         <S.Field>
           <SelectField
             label={SelectFieldLabels.FORNECEDOR}
-            value={fornecedor}
-            setValue={setFornecedor}
-            options={[]}
+            value={produto.fornecedor}
+            name={SelectFieldLabels.FORNECEDOR.toLowerCase()}
+            onChange={(e) => handleChange(e)}
+            options={fornecedoresOptions}
           />
         </S.Field>
         <S.Field>
           <NumberFieldModal
-            value={preco}
-            setValue={setPreco}
+            value={produto.valor}
+            name={TextFieldLables.VALOR.toLowerCase()}
+            onChange={(e) => handleChangeNumber(e)}
             label={TextFieldLables.PRECO}
           />
         </S.Field>
@@ -343,9 +127,9 @@ const FormProduto = (props: IFromProdutoProps) => {
       <S.Section2>
         <div style={{ width: "100%" }}>
           <textarea
-            name={TextFieldLables.DESCRICAO}
+            name={TextFieldLables.DESCRICAO.toLowerCase()}
             id=""
-            value={descricao}
+            value={produto.descricao}
             rows={20}
             style={{
               margin: "20px 20px",
@@ -354,7 +138,7 @@ const FormProduto = (props: IFromProdutoProps) => {
               height: "120px",
               borderBottom: "solid 1px #7A0000",
             }}
-            onChange={(e) => setDescricao(e.target.value)}
+            onChange={(e) => handleChange(e)}
             placeholder={TextFieldLables.DESCRICAO}
           ></textarea>
           <div
@@ -400,8 +184,9 @@ const FormProduto = (props: IFromProdutoProps) => {
           >
             <Checkbox
               {...label}
-              checked={isDestaque}
-              onClick={() => setIsDestaque(!isDestaque)}
+              name={'destaque'}
+              checked={produto.destaque}
+              onClick={(e) => setProduto({...produto, destaque: !produto.destaque})}
             />
             <label
               style={{

@@ -10,9 +10,9 @@ const TextFieldModal = (props: ITextFieldModal) => {
         variant="filled"
         type={"text"}
         value={props.value}
-        name={props.label}
+        name={props.name}
         placeholder={props.label}
-        onChange={(e) => props.setValue(e.target.value)}
+        onChange={props.onChange}
         style={{ margin: "20px 0px", borderBottom: "solid 1px #7A0000"  }}
       />
     </div>

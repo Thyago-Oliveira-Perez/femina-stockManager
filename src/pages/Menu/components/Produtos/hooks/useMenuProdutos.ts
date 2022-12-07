@@ -17,11 +17,11 @@ const useMenuProdutos = () => {
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
-            pageSize: 3,
+            pageSize: 4,
             currentPage: 0,
         }
     );
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [hasMore, setHasMore] = useState<boolean>(false);
     const [list, setList] = useState<IProdutoResponse[]>([]);
     const [viewList, setViewList] = useState<'list' | 'grid'>('list');
@@ -54,7 +54,6 @@ const useMenuProdutos = () => {
     };
     
     useEffect(() => {
-        setLoading(true);
         listProdutos(pageable)
             .then((response) => {
                 setHasMore(response.content.length > 0)

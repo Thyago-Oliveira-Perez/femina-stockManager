@@ -7,26 +7,27 @@ import { IColumns, IProdutoResponse } from '../../types/common.types';
 import { IListProps } from './list.types';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useRef } from 'react';
+import { CircularProgress } from '@mui/material';
 
 const List = (props: IListProps) => {
 
     const navigate = useNavigate();
     
     const renderColumn = (columnName: string, item: any) => {
-        if(columnName === 'marca') {
+        if(columnName === 'marca' && item !== null) {
             return item.nome;
         }
-        if(columnName === 'valor') {
+        if(columnName === 'valor' && item !== null) {
             return item.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})
         }
-        return item;
+        return item !== null ? item : null;
     }
     const observer = useRef<IntersectionObserver>() ;
     const lasElementListRef = useCallback((node: any) => {
         if (props.loading) return
         if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(entries => {
-            if(entries[0].isIntersecting  && props.hasMore) {
+            if(entries[0].isIntersecting  && props.hasMore && props.items.length > 1) {
                 props.setNewPage(previousValue => { return {...previousValue, currentPage: previousValue.currentPage + 1}})
             }
         });
@@ -35,8 +36,11 @@ const List = (props: IListProps) => {
 
     return (
         <>
-            { 
-                props.mode === 'list' ? 
+            { props.loading ? 
+                <S.LoadingContainer>
+                    <CircularProgress style={{ color: '#7A0000' }} /> 
+                </S.LoadingContainer>
+                : props.mode === 'list' ? 
                 <S.Container>
                     <S.Table>
                         <S.TableHead>

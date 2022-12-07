@@ -2,7 +2,8 @@ import { SelectFieldLabels } from "../Modal/Components/SelectField/selectfield.t
 
 export interface SmallFormProps {
   value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  name: string;
+  onChange: (e: any) => void;
   label: SelectFieldLabels;
   hideForm: React.Dispatch<React.SetStateAction<boolean>>;
   endpoint: Endpoints;

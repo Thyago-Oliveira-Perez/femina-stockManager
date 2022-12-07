@@ -1,9 +1,9 @@
 export interface Marcas {
-  id: number;
+  id?: string;
   nome: string;
 }
 export interface Modelos {
-  id: number;
+  id?: string;
   nome: string;
 }
 export enum Tamanhos {
@@ -19,11 +19,11 @@ export enum TipoDeBanner {
   COLECAO = "COLECAO",
 }
 export interface Categorias {
-  id: number;
+  id?: string;
   nome: string;
 }
 export interface Fornecedores {
-  id: number;
+  id?: string;
   nome: string;
   cnpj: string;
   telefone: string;
@@ -35,7 +35,7 @@ export interface Cores {
 }
 
 export interface Banners {
-  id?: number;
+  id?: string;
   nome: string;
   imagens: string;
   tipoDeBanner: TipoDeBanner;
@@ -45,7 +45,7 @@ export interface Banners {
 }
 
 export interface IProdutoResponse {
-  id: number;
+  id: string;
   nome: string;
   codigo: string;
   valor: string;
@@ -89,11 +89,6 @@ export interface IPageResponse<T> {
   last: boolean;
   size: number;
   number: number;
-}
-
-export interface IActionControl {
-  id: number | null;
-  mode: string;
 }
 
 export interface IActionButtons {

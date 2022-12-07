@@ -4,7 +4,8 @@ export interface ISelectFieldProps {
   label: SelectFieldLabels;
   options: any[];
   value: any;
-  setValue: any;
+  name: string;
+  onChange: (e: any) => void;
 }
 
 export enum SelectFieldLabels {
@@ -22,5 +23,9 @@ export enum TextFieldLables {
   CODIGO = "CODIGO",
   PRECO = "PRECO",
   COR = "COR",
-  DESCRICAO = "DESCRICAO"
+  DESCRICAO = "DESCRICAO",
+  CNPJ = "CNPJ",
+  TELEFONE = "TELEFONE",
+  EMAIL = "EMAIL",
+  VALOR = "VALOR"
 }

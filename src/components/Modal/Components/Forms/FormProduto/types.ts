@@ -1,5 +1,3 @@
-import { Fornecedor } from "../FormFornecedor/types";
-
 export interface Categoria {
   id: number;
   atualizado?: Date;
@@ -21,6 +19,16 @@ export interface Modelo {
   nome: string;
 }
 
+export interface Fornecedor {
+  id?: string;
+  atualizado?: Date;
+  isActive?: boolean;
+  nome: string;
+  cnpj: string;
+  telefone: string;
+  email: string;
+}
+
 export interface IFromProdutoProps {
   isModalOpen: boolean;
   isToCloseModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,12 +41,11 @@ export interface INewProduto {
   isActive: true;
   codigo: string;
   nome: string;
-  quantidade: number;
   valor: number;
-  categoria: Categoria;
-  modelo: Modelo[];
-  fornecedor: Fornecedor;
-  marca: Marca;
+  categoria: Categoria | null;
+  modelo: Modelo | null;
+  fornecedor: Fornecedor | null;
+  marca: Marca | null;
   cor: string;
   tamanho: string;
   descricao: string;
@@ -50,8 +57,4 @@ export enum FormFunction {
   new,
   view,
   edit,
-}
-
-export interface INewProdutoResponse {
-  
 }

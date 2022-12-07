@@ -18,10 +18,10 @@ const useMenuMarcas = () => {
   };
   const [pageable, setPageable] = useState<IPageRequest>({
     filter: "",
-    pageSize: 3,
+    pageSize: 4,
     currentPage: 0,
   });
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [list, setList] = useState<Marcas[]>([]);
   const [isToAddNewMarca, setIsToAddNewMarca] = useState<boolean>(false);
@@ -33,6 +33,18 @@ const useMenuMarcas = () => {
       name: "nome",
     },
   ];
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewMarca(event.target.value);
+  };
+
+  const showFormNewMarca = (isToAdd: boolean) => {
+    if (!isToAdd) {
+      setIsToAddNewMarca(isToAdd);
+      setNewMarca("");
+    }
+    setIsToAddNewMarca(isToAdd);
+  };
 
   useEffect(() => {
     listMarcas(pageable)
@@ -56,7 +68,8 @@ const useMenuMarcas = () => {
     isToAddNewMarca,
     setIsToAddNewMarca,
     newMarca,
-    setNewMarca
+    handleChange,
+    showFormNewMarca
   };
 };
 

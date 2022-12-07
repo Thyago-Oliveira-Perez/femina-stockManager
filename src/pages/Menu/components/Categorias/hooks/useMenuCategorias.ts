@@ -18,14 +18,15 @@ const useMenuCategorias = () => {
   };
   const [pageable, setPageable] = useState<IPageRequest>({
     filter: "",
-    pageSize: 3,
+    pageSize: 4,
     currentPage: 0,
   });
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [list, setList] = useState<Categorias[]>([]);
   const [isToAddNewCategoria, setIsToAddNewCategoria] = useState<boolean>(false);
   const [newCategoria, setNewCategoria] = useState<string>("");
+  
   
   const columns: IColumns[] = [
     {
@@ -33,6 +34,18 @@ const useMenuCategorias = () => {
       name: "nome",
     },
   ];
+  
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewCategoria(event.target.value);
+  };
+
+  const showFormNewCategoria = (isToAdd: boolean) => {
+    if (!isToAdd) {
+      setIsToAddNewCategoria(isToAdd);
+      setNewCategoria("");
+    }
+    setIsToAddNewCategoria(isToAdd);
+  };
 
   useEffect(() => {
     listCategorias(pageable)
@@ -56,7 +69,8 @@ const useMenuCategorias = () => {
     isToAddNewCategoria,
     setIsToAddNewCategoria,
     newCategoria,
-    setNewCategoria
+    handleChange,
+    showFormNewCategoria
   };
 };
 

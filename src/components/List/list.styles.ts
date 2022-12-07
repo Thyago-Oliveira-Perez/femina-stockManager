@@ -12,7 +12,8 @@ export const Grid = styled.div`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, 300px);
+    grid-auto-flow: row;
     justify-content: center;
     grid-gap: 20px;
     padding: 30px;
@@ -118,4 +119,12 @@ export const ButtonActions = styled.button`
     &:hover {
         opacity: 0.7;
     }
+`;
+
+export const LoadingContainer = styled.div`
+    width: 100%;
+    heigth: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;

@@ -19,16 +19,9 @@ const Modelos = () => {
     isToAddNewModelo,
     setIsToAddNewModelo,
     newModelo,
-    setNewModelo
+    handleChange,
+    showFormNewModelo
   } = useMenuModelos();
-
-  const showFormNewModelo = (isToAdd: boolean) => {
-    if (!isToAdd) {
-      setIsToAddNewModelo(isToAdd);
-      setNewModelo("");
-    }
-    setIsToAddNewModelo(isToAdd);
-  };
 
   return (
     <>
@@ -46,7 +39,8 @@ const Modelos = () => {
         {isToAddNewModelo ? (
           <SmallForm
             value={newModelo}
-            setValue={setNewModelo}
+            name={'modelo'}
+            onChange={(e) => handleChange(e)}
             hideForm={setIsToAddNewModelo}
             label={SelectFieldLabels.MODELO}
             endpoint={Endpoints.MODELO}

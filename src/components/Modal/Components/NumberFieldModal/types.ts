@@ -1,5 +1,6 @@
 export interface INumberFieldModal {
-  label: string 
-  value: number
-  setValue: React.Dispatch<React.SetStateAction<number>>
+  label: string ;
+  value: number;
+  onChange: (e: any) => void;
+  name: string;
 }

@@ -18,10 +18,10 @@ const useMenuModelos = () => {
   };
   const [pageable, setPageable] = useState<IPageRequest>({
     filter: "",
-    pageSize: 3,
+    pageSize: 4,
     currentPage: 0,
   });
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [list, setList] = useState<Modelos[]>([]);
   const [isToAddNewModelo, setIsToAddNewModelo] = useState<boolean>(false);
@@ -33,6 +33,18 @@ const useMenuModelos = () => {
       name: "nome",
     },
   ];
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewModelo(event.target.value);
+  };
+
+  const showFormNewModelo = (isToAdd: boolean) => {
+    if (!isToAdd) {
+      setIsToAddNewModelo(isToAdd);
+      setNewModelo("");
+    }
+    setIsToAddNewModelo(isToAdd);
+  };
 
   useEffect(() => {
     listModelos(pageable)
@@ -57,7 +69,8 @@ const useMenuModelos = () => {
     isToAddNewModelo,
     setIsToAddNewModelo,
     newModelo,
-    setNewModelo
+    handleChange,
+    showFormNewModelo
   };
 };
 

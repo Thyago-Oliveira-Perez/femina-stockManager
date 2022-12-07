@@ -16,20 +16,12 @@ const Categorias = () => {
     loading,
     hasMore, 
     setPageable, 
-    navigate,
     isToAddNewCategoria,
     setIsToAddNewCategoria,
     newCategoria,
-    setNewCategoria,
+    handleChange,
+    showFormNewCategoria
   } = useMenuCategorias();
-
-  const showFormNewCategoria = (isToAdd: boolean) => {
-    if (!isToAdd) {
-      setIsToAddNewCategoria(isToAdd);
-      setNewCategoria("");
-    }
-    setIsToAddNewCategoria(isToAdd);
-  };
 
   return (
     <>
@@ -47,7 +39,8 @@ const Categorias = () => {
         {isToAddNewCategoria ? (
           <SmallForm
             value={newCategoria}
-            setValue={setNewCategoria}
+            name={'categoria'}
+            onChange={(e) => handleChange(e)}
             hideForm={setIsToAddNewCategoria}
             label={SelectFieldLabels.CATEGORIA}
             endpoint={Endpoints.CATEGORIA}

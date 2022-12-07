@@ -1,6 +1,7 @@
 export interface ITextFieldModal{
- label: string 
+ label: string
+ name: string; 
  value: string
- setValue: any 
+ onChange: (e: any) => void; 
  //React.Dispatch<React.SetStateAction<string>>
 }

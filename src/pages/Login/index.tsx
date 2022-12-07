@@ -26,6 +26,7 @@ const Login = () => {
         </S.Form>
         <S.ButtonArea>
           <S.ButtonForm
+            type="button"
             onClick={handleSubmit}
           >
             Entrar

@@ -15,17 +15,17 @@ const useMenuFornecedores = () => {
     const [pageable, setPageable] = useState<IPageRequest>(
         {
             filter: '',
-            pageSize: 3,
+            pageSize: 4,
             currentPage: 0,
         }
     );
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [hasMore, setHasMore] = useState<boolean>(false);
     const [list, setList] = useState<IFornecedorResponse[]>([]);
     const columns:IColumns[] = [
         {
             title: 'Nome',
-            name: 'name',
+            name: 'nome',
         },
         {
             title: 'Email',

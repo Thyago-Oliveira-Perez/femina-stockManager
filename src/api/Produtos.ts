@@ -1,8 +1,7 @@
 import { IPageResponse, IProdutoResponse } from './../types/common.types';
 import axios from "axios";
 import {
-  INewProduto,
-  INewProdutoResponse,
+  INewProduto
 } from "../components/Modal/Components/Forms/FormProduto/types";
 import { getToken } from "../services/auth.service";
 import { IPageRequest } from "../types/common.types";
@@ -26,7 +25,7 @@ const ProdutoApi = () => {
     return Promise.reject(error.response);
   };
 
-  const cadastro = async (produto: FormData): Promise<INewProdutoResponse> => {
+  const cadastro = async (produto: FormData): Promise<INewProduto> => {
     try {
       return await (
         await api.post(`${url}/estoque/insert`, {

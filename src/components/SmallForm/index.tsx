@@ -14,7 +14,8 @@ const SmallForm = (props: SmallFormProps) => {
       <div style={{ width: "80%" }}>
         <TextFieldModal
           value={props.value}
-          setValue={props.setValue}
+          name={props.name}
+          onChange={props.onChange}
           label={props.label}
         />
       </div>
