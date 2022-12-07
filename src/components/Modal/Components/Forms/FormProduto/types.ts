@@ -58,3 +58,12 @@ export enum FormFunction {
   view,
   edit,
 }
+
+export enum actionFile {
+  add,
+  remove,
+}
+
+export interface PreviewProps {
+  src?: string;
+}

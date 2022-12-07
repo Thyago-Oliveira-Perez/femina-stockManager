@@ -1,9 +1,4 @@
-import {
-  Box,
-  Modal as MaterialUiModal,
-  Button,
-  Checkbox,
-} from "@mui/material";
+import { Box, Modal as MaterialUiModal, Button, Checkbox } from "@mui/material";
 import NumberFieldModal from "../../NumberFieldModal";
 import SelectField from "../../SelectField";
 import {
@@ -11,33 +6,34 @@ import {
   TextFieldLables,
 } from "../../SelectField/selectfield.types";
 import TextFieldModal from "../../TextField";
-import { IFromProdutoProps } from "./types";
+import { actionFile, IFromProdutoProps } from "./types";
 import * as S from "./styles";
 import upload_image from "../../../../../assets/upload_imagem.svg";
 import arrastar_imagem from "../../../../../assets/arrastar_imagem.svg";
 import useFormProduto from "./hooks/useFormProduto";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 const FormProduto = (props: IFromProdutoProps) => {
-  
-  const { 
+  const {
     label,
     marcasOptions,
     modelosOptions,
     categoriasOptions,
     fornecedoresOptions,
-    produto, 
-    setProduto, 
-    tamanhos, 
-    inputRef, 
-    showMessage, 
+    produto,
+    setProduto,
+    tamanhos,
+    inputRef,
+    showMessage,
     setShowMessage,
     modalStyle,
-    handleClick, 
-    handleFileChange, 
-    handleChange, 
+    handleClick,
+    handleFileChange,
+    handleChange,
     handleChangeNumber,
     handleCancel,
     handleRegister,
+    images,
   } = useFormProduto(props);
 
   return (
@@ -141,6 +137,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             onChange={(e) => handleChange(e)}
             placeholder={TextFieldLables.DESCRICAO}
           ></textarea>
+          {/* Upload file */}
           <div
             style={{
               display: "flex",
@@ -151,8 +148,19 @@ const FormProduto = (props: IFromProdutoProps) => {
               margin: "20px 20px",
               height: "120px",
               border: "dotted 1px #7A0000",
+              cursor: "pointer",
+              minHeight: "200px",
+            }}
+            onClick={() => {
+              handleClick();
             }}
           >
+            <input
+              style={{ display: "none" }}
+              ref={inputRef}
+              type="file"
+              onChange={(e) => handleFileChange(e, actionFile.add)}
+            />
             <div
               style={{
                 display: "flex",
@@ -161,9 +169,6 @@ const FormProduto = (props: IFromProdutoProps) => {
                 justifyContent: "center",
                 cursor: "pointer",
               }}
-              onClick={() => {
-                handleClick();
-              }}
             >
               <img style={{ margin: "10px 0px" }} src={upload_image} alt="" />
               <img src={arrastar_imagem} alt="" />
@@ -171,10 +176,62 @@ const FormProduto = (props: IFromProdutoProps) => {
                 style={{ display: "none" }}
                 ref={inputRef}
                 type="file"
-                onChange={handleFileChange}
+                onChange={(e) => handleFileChange(e, actionFile.add)}
               />
             </div>
           </div>
+          {images.length ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "auto"
+              }}
+            >
+              <h3>Selected Files</h3>
+              <ul
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                  gap: "20px",
+                  margin: "10px 0"
+                }}
+              >
+                {images.map((e, index) => {
+                  return (
+                    <li>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          border: "1px solid black",
+                          borderRadius: "8px",
+                          padding: "10px",
+                        }}
+                      >
+                        <p>{e.name}</p>
+                        <S.ButtonAreas>
+                          <S.ButtonActions
+                            color={"#F05555"}
+                            onClick={(e) =>
+                              handleFileChange(e, actionFile.remove, index)
+                            }
+                          >
+                            <RiDeleteBin5Fill size={17} />
+                          </S.ButtonActions>
+                        </S.ButtonAreas>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
+          {/* -------- */}
           <div
             style={{
               display: "flex",
@@ -184,9 +241,11 @@ const FormProduto = (props: IFromProdutoProps) => {
           >
             <Checkbox
               {...label}
-              name={'destaque'}
+              name={"destaque"}
               checked={produto.destaque}
-              onClick={(e) => setProduto({...produto, destaque: !produto.destaque})}
+              onClick={(e) =>
+                setProduto({ ...produto, destaque: !produto.destaque })
+              }
             />
             <label
               style={{
@@ -215,6 +274,7 @@ const FormProduto = (props: IFromProdutoProps) => {
           Cadastrar
         </Button>
       </S.ButtonsSection>
+      {/* Modal de aviso */}
       <MaterialUiModal
         open={showMessage}
         onClose={() => setShowMessage(false)}
