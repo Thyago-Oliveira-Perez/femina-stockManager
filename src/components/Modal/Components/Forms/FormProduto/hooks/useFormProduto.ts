@@ -45,7 +45,8 @@ const useFormProduto = (props: any) => {
 
   const [images, setImagens] = useState<any[]>([]);
 
-  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [showMessageEmptyFields, setShowMessageEmptyFields] = useState<boolean>(false);
+  const [showMessageLimitFiles, setShowMessageLimitFiles] = useState<boolean>(false);
 
   const tamanhos = [
     Tamanhos.PP,
@@ -66,6 +67,7 @@ const useFormProduto = (props: any) => {
     width: "20%",
     height: "20%",
     display: "flex",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     bgcolor: "background.paper",
@@ -171,34 +173,28 @@ const useFormProduto = (props: any) => {
   const inputRef: any = useRef(null);
 
   const handleClick = () => {
-    // 👇️ open file input box on click of other element
-    inputRef.current.click();
+    if(images.length >= 5){
+      setShowMessageLimitFiles(true);
+    }else{
+      // 👇️ open file input box on click of other element
+      inputRef.current.click();
+    }
   };
 
   const handleFileChange = (event: any, action: actionFile, index?: number) => {
     if (action === actionFile.add && images.length < 5) {
       const fileObj = event.target.files && event.target.files[0];
+
       if (!fileObj) {
         return;
       }
 
-      console.log("fileObj is", fileObj);
-
       // 👇️ reset file input
       event.target.value = null;
 
-      // 👇️ is now empty
-      console.log(event.target.files);
-
-      // 👇️ can still access file object here
-      console.log(fileObj);
-      console.log(fileObj.name);
-
       setImagens([...images, fileObj]);
-    } else if (action === actionFile.remove && index) {
+    } else if (action === actionFile.remove && index !== null) {
       setImagens(images.filter((e, position) => position !== index));
-    } else if (index === 0) {
-      setImagens([]);
     }
   };
 
@@ -274,7 +270,7 @@ const useFormProduto = (props: any) => {
         return console.log("response :", response);
       });
     }
-    return setShowMessage(true);
+    return setShowMessageEmptyFields(true);
   };
 
   return {
@@ -287,8 +283,8 @@ const useFormProduto = (props: any) => {
     setProduto,
     tamanhos,
     inputRef,
-    showMessage,
-    setShowMessage,
+    showMessageEmptyFields,
+    setShowMessageEmptyFields,
     modalStyle,
     handleClick,
     handleFileChange,
@@ -297,6 +293,8 @@ const useFormProduto = (props: any) => {
     handleCancel,
     handleRegister,
     images,
+    showMessageLimitFiles, 
+    setShowMessageLimitFiles
   };
 };
 

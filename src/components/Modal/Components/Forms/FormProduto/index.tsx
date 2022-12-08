@@ -12,6 +12,7 @@ import upload_image from "../../../../../assets/upload_imagem.svg";
 import arrastar_imagem from "../../../../../assets/arrastar_imagem.svg";
 import useFormProduto from "./hooks/useFormProduto";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import BlockIcon from "@mui/icons-material/Block";
 
 const FormProduto = (props: IFromProdutoProps) => {
   const {
@@ -24,8 +25,8 @@ const FormProduto = (props: IFromProdutoProps) => {
     setProduto,
     tamanhos,
     inputRef,
-    showMessage,
-    setShowMessage,
+    showMessageEmptyFields,
+    setShowMessageEmptyFields,
     modalStyle,
     handleClick,
     handleFileChange,
@@ -34,6 +35,8 @@ const FormProduto = (props: IFromProdutoProps) => {
     handleCancel,
     handleRegister,
     images,
+    showMessageLimitFiles,
+    setShowMessageLimitFiles,
   } = useFormProduto(props);
 
   return (
@@ -155,12 +158,6 @@ const FormProduto = (props: IFromProdutoProps) => {
               handleClick();
             }}
           >
-            <input
-              style={{ display: "none" }}
-              ref={inputRef}
-              type="file"
-              onChange={(e) => handleFileChange(e, actionFile.add)}
-            />
             <div
               style={{
                 display: "flex",
@@ -183,14 +180,33 @@ const FormProduto = (props: IFromProdutoProps) => {
           {images.length ? (
             <div
               style={{
+                minWidth: "97.2%",
+                maxWidth: "97.2%",
+                margin: "20px 20px",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                overflow: "auto"
+                overflow: "auto",
+                border: "1.5px solid #9B4A46",
               }}
             >
-              <h3>Selected Files</h3>
+              <h3
+                style={{
+                  color: "#9B4A46",
+                  fontSize: "20px",
+                  margin: "20px 0 10px 0",
+                }}
+              >
+                Arquivos selecionados
+              </h3>
+              <hr
+                style={{
+                  borderColor: "blue",
+                  width: "20%",
+                  border: "1px solid #9B4A46",
+                }}
+              />
               <ul
                 style={{
                   display: "flex",
@@ -198,17 +214,21 @@ const FormProduto = (props: IFromProdutoProps) => {
                   justifyContent: "center",
                   flexWrap: "wrap",
                   gap: "20px",
-                  margin: "10px 0"
+                  margin: "10px 0",
                 }}
               >
                 {images.map((e, index) => {
                   return (
-                    <li>
+                    <li
+                      style={{
+                        margin: "10px 0",
+                      }}
+                    >
                       <div
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          border: "1px solid black",
+                          border: "1.5px solid #9B4A46",
                           borderRadius: "8px",
                           padding: "10px",
                         }}
@@ -274,15 +294,34 @@ const FormProduto = (props: IFromProdutoProps) => {
           Cadastrar
         </Button>
       </S.ButtonsSection>
-      {/* Modal de aviso */}
+      {/* Modal de aviso Campos vazios*/}
       <MaterialUiModal
-        open={showMessage}
-        onClose={() => setShowMessage(false)}
+        open={showMessageEmptyFields}
+        onClose={() => setShowMessageEmptyFields(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
           Verifique se todos os campos estão preenchidos.
+        </Box>
+      </MaterialUiModal>
+      {/* Modal de aviso Files */}
+      <MaterialUiModal
+        open={showMessageLimitFiles}
+        onClose={() => setShowMessageLimitFiles(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <BlockIcon
+            style={{
+              color: "#F05555",
+              margin: "0 0 30px 0",
+              width: "40px",
+              height: "40px",
+            }}
+          />
+          <p style={{fontSize: "24px"}}>Limite de arquivos atingido!!</p>
         </Box>
       </MaterialUiModal>
     </S.Modal>
