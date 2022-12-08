@@ -1,4 +1,4 @@
-import * as styles from '../navBar.styles';
+import * as styles from '../styles';
 import iconNavBar from '../../../assets/navBarItem.svg';
 import { IItemProps } from './item.types';
 

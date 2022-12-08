@@ -1,37 +1,63 @@
-import { useReducer, useState } from 'react';
-import AuthApi from '../../../api/Auth';
-import { initialState, reducerLogin } from './useReducer';
-import { saveToken } from '../../../services/auth.service';
-import { useNavigate } from 'react-router-dom';
-import { ILoginRequest } from '../types';
+import { useReducer, useState } from "react";
+import AuthApi from "../../../api/Auth";
+import { initialState, reducerLogin } from "./useReducer";
+import { saveToken } from "../../../services/auth.service";
+import { useNavigate } from "react-router-dom";
+import { ILoginRequest } from "../types";
 
 const useLogin = () => {
-
   const { login } = AuthApi();
   const navigate = useNavigate();
-  const [state, dispatch] = useReducer(reducerLogin, initialState);
   const [loginForm, setLoginForm] = useState<ILoginRequest>({
-    login: '',
-    password: ''
+    login: "",
+    password: "",
   });
+  const [showFeedBack, setShowFeedBack] = useState<boolean>(false);
+
+  /**
+   * style do modal de aviso
+   */
+  const modalStyle = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "20%",
+    height: "20%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    bgcolor: "background.paper",
+    overflow: "auto",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: 4,
+  };
 
   const handleInput = (event: any) => {
-    setLoginForm({ ...loginForm, [event.target.name]: event.target.value })
+    setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = () => {
-    dispatch({ type: 'request' })
     login(loginForm)
       .then((response) => {
-        dispatch({ type: 'success', results: response })
         saveToken(response.token);
-        navigate('menu/produtos');
-      }).catch((error) => {
-        dispatch({ type: 'error', error: error })
+        navigate("menu/produtos");
+      })
+      .catch((error) => {
+        setShowFeedBack(true);
       });
   };
 
-  return { handleInput, handleSubmit, state };
+  return {
+    handleInput,
+    handleSubmit,
+    loginForm,
+    modalStyle,
+    showFeedBack,
+    setShowFeedBack,
+  };
 };
 
 export default useLogin;

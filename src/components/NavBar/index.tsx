@@ -1,4 +1,4 @@
-import * as styles from './navBar.styles';
+import * as styles from './styles';
 import Item from './components/Item';
 
 export default function NavBar() {

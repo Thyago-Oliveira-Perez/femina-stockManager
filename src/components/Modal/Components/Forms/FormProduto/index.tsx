@@ -13,6 +13,8 @@ import arrastar_imagem from "../../../../../assets/arrastar_imagem.svg";
 import useFormProduto from "./hooks/useFormProduto";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import BlockIcon from "@mui/icons-material/Block";
+import ModalUserFeedback from "../../../../ModalUserFeedback";
+import { ModalUsage } from "../../../../ModalUserFeedback/types";
 
 const FormProduto = (props: IFromProdutoProps) => {
   const {
@@ -295,35 +297,23 @@ const FormProduto = (props: IFromProdutoProps) => {
         </Button>
       </S.ButtonsSection>
       {/* Modal de aviso Campos vazios*/}
-      <MaterialUiModal
+      <ModalUserFeedback
         open={showMessageEmptyFields}
         onClose={() => setShowMessageEmptyFields(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        style={modalStyle}
+        usage={ModalUsage.alert}
       >
-        <Box sx={modalStyle}>
-          Verifique se todos os campos estão preenchidos.
-        </Box>
-      </MaterialUiModal>
+        Verifique se todos os campos estão preenchidos.
+      </ModalUserFeedback>
       {/* Modal de aviso Files */}
-      <MaterialUiModal
+      <ModalUserFeedback
         open={showMessageLimitFiles}
         onClose={() => setShowMessageLimitFiles(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        style={modalStyle}
+        usage={ModalUsage.alert}
       >
-        <Box sx={modalStyle}>
-          <BlockIcon
-            style={{
-              color: "#F05555",
-              margin: "0 0 30px 0",
-              width: "40px",
-              height: "40px",
-            }}
-          />
-          <p style={{fontSize: "24px"}}>Limite de arquivos atingido!!</p>
-        </Box>
-      </MaterialUiModal>
+        Limite de arquivos atingido!!
+      </ModalUserFeedback>
     </S.Modal>
   );
 };
