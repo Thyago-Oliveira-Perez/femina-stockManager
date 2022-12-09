@@ -5,7 +5,8 @@ export interface ILoginRequest {
 
 export interface ILoginResult {
   accessToken: string;
-  AuthenticationType: string;
+  refreshToken: string;
+  authenticationType: string;
 }
 
 export interface State {
