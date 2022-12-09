@@ -4,7 +4,7 @@ export interface ILoginRequest {
 }
 
 export interface ILoginResult {
-  token: string;
+  accessToken: string;
   AuthenticationType: string;
 }
 

@@ -1,4 +1,5 @@
-import { Box, Modal as MaterialUiModal, Button, Checkbox } from "@mui/material";
+import * as S from "./styles";
+import { Button, Checkbox } from "@mui/material";
 import NumberFieldModal from "../../NumberFieldModal";
 import SelectField from "../../SelectField";
 import {
@@ -7,14 +8,11 @@ import {
 } from "../../SelectField/selectfield.types";
 import TextFieldModal from "../../TextField";
 import { actionFile, IFromProdutoProps } from "./types";
-import * as S from "./styles";
-import upload_image from "../../../../../assets/upload_imagem.svg";
-import arrastar_imagem from "../../../../../assets/arrastar_imagem.svg";
 import useFormProduto from "./hooks/useFormProduto";
-import { RiDeleteBin5Fill } from "react-icons/ri";
-import BlockIcon from "@mui/icons-material/Block";
 import ModalUserFeedback from "../../../../ModalUserFeedback";
 import { ModalUsage } from "../../../../ModalUserFeedback/types";
+import ImageUpload from "../../../../ImageUpload";
+import { SetStateAction } from "react";
 
 const FormProduto = (props: IFromProdutoProps) => {
   const {
@@ -26,11 +24,9 @@ const FormProduto = (props: IFromProdutoProps) => {
     produto,
     setProduto,
     tamanhos,
-    inputRef,
     showMessageEmptyFields,
     setShowMessageEmptyFields,
     modalStyle,
-    handleClick,
     handleFileChange,
     handleChange,
     handleChangeNumber,
@@ -142,117 +138,15 @@ const FormProduto = (props: IFromProdutoProps) => {
             onChange={(e) => handleChange(e)}
             placeholder={TextFieldLables.DESCRICAO}
           ></textarea>
-          {/* Upload file */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "97.2%",
-              maxWidth: "97.2%",
-              margin: "20px 20px",
-              height: "120px",
-              border: "dotted 1px #7A0000",
-              cursor: "pointer",
-              minHeight: "200px",
-            }}
-            onClick={() => {
-              handleClick();
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-              }}
-            >
-              <img style={{ margin: "10px 0px" }} src={upload_image} alt="" />
-              <img src={arrastar_imagem} alt="" />
-              <input
-                style={{ display: "none" }}
-                ref={inputRef}
-                type="file"
-                onChange={(e) => handleFileChange(e, actionFile.add)}
-              />
-            </div>
-          </div>
-          {images.length ? (
-            <div
-              style={{
-                minWidth: "97.2%",
-                maxWidth: "97.2%",
-                margin: "20px 20px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "auto",
-                border: "1.5px solid #9B4A46",
-              }}
-            >
-              <h3
-                style={{
-                  color: "#9B4A46",
-                  fontSize: "20px",
-                  margin: "20px 0 10px 0",
-                }}
-              >
-                Arquivos selecionados
-              </h3>
-              <hr
-                style={{
-                  borderColor: "blue",
-                  width: "20%",
-                  border: "1px solid #9B4A46",
-                }}
-              />
-              <ul
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexWrap: "wrap",
-                  gap: "20px",
-                  margin: "10px 0",
-                }}
-              >
-                {images.map((e, index) => {
-                  return (
-                    <li
-                      style={{
-                        margin: "10px 0",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          border: "1.5px solid #9B4A46",
-                          borderRadius: "8px",
-                          padding: "10px",
-                        }}
-                      >
-                        <p>{e.name}</p>
-                        <S.ButtonAreas>
-                          <S.ButtonActions
-                            color={"#F05555"}
-                            onClick={(e) =>
-                              handleFileChange(e, actionFile.remove, index)
-                            }
-                          >
-                            <RiDeleteBin5Fill size={17} />
-                          </S.ButtonActions>
-                        </S.ButtonAreas>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ) : null}
+          {/* input upload image */}
+          <ImageUpload 
+            images={images} 
+            setShowMessageLimitFiles={setShowMessageLimitFiles} 
+            handleFile={
+              (e: any, action: actionFile, index?: number) => 
+              handleFileChange(e, action, index)
+            } 
+            />
           {/* -------- */}
           <div
             style={{

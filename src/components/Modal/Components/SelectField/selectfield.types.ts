@@ -15,6 +15,8 @@ export enum SelectFieldLabels {
   CATEGORIA = "CATEGORIA",
   FORNECEDOR = "FORNECEDOR",
   COR = "COR",
+  TYPEBANNER = "TIPO DE BANNER",
+  TYPE = "TIPO"
 }
 
 export enum TextFieldLables {

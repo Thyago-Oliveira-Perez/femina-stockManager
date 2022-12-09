@@ -1,6 +1,5 @@
 import { Action, State } from "../types";
 
-
 export const initialState = {
   loading: false,
   error: false,

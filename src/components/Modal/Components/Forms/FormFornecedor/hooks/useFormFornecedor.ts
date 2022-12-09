@@ -24,8 +24,6 @@ const useFormFornecedor = (props: IUseFormFornecedorProps) => {
         navigate("../")
     };
 
-
-    console.log(fornecedor)
     const handleRegister = () => {
         insertFornecedor(fornecedor).then((response) => {
             toast.success(response);

@@ -5,7 +5,7 @@ const SelectField = (props: ISelectFieldProps) => {
   return (
     <FormControl fullWidth style={{ width: "100%", margin: "20px 0px" }}>
       <InputLabel>{props.label}</InputLabel>
-      {props.label == SelectFieldLabels.TAMANHO ? (
+      {props.label == SelectFieldLabels.TAMANHO || props.label == SelectFieldLabels.TYPEBANNER ? (
         <Select
           name={props.name}
           required={true}

@@ -42,7 +42,7 @@ const useLogin = () => {
   const handleSubmit = () => {
     login(loginForm)
       .then((response) => {
-        saveToken(response.token);
+        saveToken(response.accessToken);
         navigate("menu/produtos");
       })
       .catch((error) => {

@@ -5,6 +5,7 @@ import { Box, Modal as MaterialUiModal } from "@mui/material";
 import FormProduto from "./Components/Forms/FormProduto";
 import { useNavigate, useParams } from "react-router-dom";
 import FormFornecedor from "./Components/Forms/FormFornecedor";
+import FormBanner from "./Components/Forms/FormBanner";
 
 const Modal = (props: IModalProps) => {
   
@@ -30,9 +31,11 @@ const Modal = (props: IModalProps) => {
       return <FormProduto productId={Number(id)} function={props.function} isModalOpen={true} isToCloseModal={() => navigate(`/menu/${module}`)}/>;
     },
     FORNECEDORES: () => {
-      return <FormFornecedor id={""} />
+      return <FormFornecedor id={""} mode={""} />
     },
-    BANNERS: () => {},
+    BANNERS: () => {
+      return <FormBanner id={""} mode={""} />
+    },
   };
 
   return (

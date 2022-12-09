@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import CategoriasApi from "../../../../../../api/Categorias";
 import FornecedoresApi from "../../../../../../api/Fornecedores";
 import MarcasApi from "../../../../../../api/Marcas";
@@ -170,17 +170,6 @@ const useFormProduto = (props: any) => {
     return false;
   }
 
-  const inputRef: any = useRef(null);
-
-  const handleClick = () => {
-    if(images.length >= 5){
-      setShowMessageLimitFiles(true);
-    }else{
-      // 👇️ open file input box on click of other element
-      inputRef.current.click();
-    }
-  };
-
   const handleFileChange = (event: any, action: actionFile, index?: number) => {
     if (action === actionFile.add && images.length < 5) {
       const fileObj = event.target.files && event.target.files[0];
@@ -282,11 +271,10 @@ const useFormProduto = (props: any) => {
     produto,
     setProduto,
     tamanhos,
-    inputRef,
+
     showMessageEmptyFields,
     setShowMessageEmptyFields,
     modalStyle,
-    handleClick,
     handleFileChange,
     handleChange,
     handleChangeNumber,
