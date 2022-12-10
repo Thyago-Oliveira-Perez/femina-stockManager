@@ -1,19 +1,19 @@
 export interface Categoria {
-  id: number;
+  id: string;
   atualizado?: Date;
   isActive: boolean;
   nome: string;
 }
 
 export interface Marca {
-  id: number;
+  id: string;
   atualizado?: Date;
   isActive: boolean;
   nome: string;
 }
 
 export interface Modelo {
-  id: number;
+  id: string;
   atualizado?: Date;
   isActive: boolean;
   nome: string;
@@ -32,7 +32,7 @@ export interface Fornecedor {
 export interface IFromProdutoProps {
   isModalOpen: boolean;
   isToCloseModal: React.Dispatch<React.SetStateAction<boolean>>;
-  productId?: number;
+  productId?: string;
   function?: FormFunction;
 }
 

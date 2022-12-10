@@ -80,7 +80,10 @@ const useFormProduto = (props: any) => {
   useEffect(() => {
     if (props.productId) {
       getProductInfos(props.productId).then((response) => {
-        console.log(response);
+        if (response.imageNames != null) {
+          setImagens(response.imageNames.map((image: string) => { return {name: image} }));
+        }
+        setProduto(response);
       });
     }
     listMarcas(pageableOptions).then((response) => {
@@ -96,7 +99,7 @@ const useFormProduto = (props: any) => {
       return setFornecedoresOptions(response.content);
     });
   }, []);
-
+  
   function convertColor(color: string) {
     var colours: any = {
       aqua: "#00ffff",
@@ -271,7 +274,6 @@ const useFormProduto = (props: any) => {
     produto,
     setProduto,
     tamanhos,
-
     showMessageEmptyFields,
     setShowMessageEmptyFields,
     modalStyle,

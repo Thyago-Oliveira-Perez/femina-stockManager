@@ -3,4 +3,5 @@ export interface INumberFieldModal {
   value: number;
   onChange: (e: any) => void;
   name: string;
+  disabled?: boolean;
 }

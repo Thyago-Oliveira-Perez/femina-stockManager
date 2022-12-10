@@ -1,10 +1,10 @@
-import { FornecedorRequest } from "../components/Modal/Components/Forms/FormFornecedor/types";
+import { FornecedorRequest, IFornecedor } from "../components/Modal/Components/Forms/FormFornecedor/types";
 import { IFornecedorResponse, IPageRequest, IPageResponse } from "../types/common.types";
 import CommonApi from "./Common";
 
 const FornecedoresApi = () => {
     const url = "api/fornecedores";
-    const { post, listPageable } = CommonApi();
+    const { post, listPageable, get } = CommonApi();
 
     const handleError = (error: any) => {
         return Promise.reject(error);
@@ -26,7 +26,15 @@ const FornecedoresApi = () => {
         };
     };
 
-    return { insertFornecedor, listFornecedores };
+    const getFornecedores = async (id: string): Promise<IFornecedor> => {
+        try {
+            return (await get(id, `${url}`));
+        } catch (error) {
+            return handleError(error);
+        };
+    }
+
+    return { insertFornecedor, listFornecedores, getFornecedores };
 };
 
 export default FornecedoresApi;

@@ -6,6 +6,7 @@ export interface ISelectFieldProps {
   value: any;
   name: string;
   onChange: (e: any) => void;
+  disabled?: boolean;
 }
 
 export enum SelectFieldLabels {

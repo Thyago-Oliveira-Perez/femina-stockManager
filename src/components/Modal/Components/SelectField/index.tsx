@@ -13,6 +13,7 @@ const SelectField = (props: ISelectFieldProps) => {
           variant="filled"
           label={props.label}
           onChange={props.onChange}
+          disabled={props.disabled}
           style={{ margin: "20px 0px", borderBottom: "solid 1px #7A0000" }}
         >
           {props.options.map((e, index) => {
@@ -27,15 +28,16 @@ const SelectField = (props: ISelectFieldProps) => {
         <Select
           name={props.name}
           required={true}
-          value={props.value || ""}
+          value={props.value ? props.options.find((option) => option.id === props.value.id) : ""}
           variant="filled"
           label={props.label}
           onChange={props.onChange}
+          disabled={props.disabled}
           style={{ margin: "20px 0px", borderBottom: "solid 1px #7A0000" }}
         >
           {props.options.map((e) => {
             return (
-              <MenuItem key={e.id + e.nome} value={e}>
+              <MenuItem key={e.id} value={e}>
                 {e.nome}
               </MenuItem>
             );

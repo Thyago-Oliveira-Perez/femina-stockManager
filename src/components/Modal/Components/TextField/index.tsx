@@ -11,6 +11,7 @@ const TextFieldModal = (props: ITextFieldModal) => {
         type={"text"}
         value={props.value}
         name={props.name}
+        disabled={props.disabled}
         placeholder={props.label}
         onChange={props.onChange}
         style={{ margin: "20px 0px", borderBottom: "solid 1px #7A0000"  }}

@@ -29,7 +29,7 @@ const useMenuBanners = () => {
         },
         {
             title: 'Tipo',
-            name: 'tipoDeBanner',
+            name: 'tipo',
         },
         {
             title: 'Cadastrado por',

@@ -4,7 +4,7 @@ import arrastar_imagem from "../../assets/arrastar_imagem.svg";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { useRef} from "react";
 import { IImageUploadProps } from "./imageUpload.types";
-import { actionFile } from "../Modal/Components/Forms/FormProduto/types";
+import { actionFile, FormFunction } from "../Modal/Components/Forms/FormProduto/types";
 
 const ImageUpload = (props: IImageUploadProps) => {
     const inputRef: any = useRef(null);
@@ -20,40 +20,43 @@ const ImageUpload = (props: IImageUploadProps) => {
     return (
         <>
             {/* Upload file */}
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    minWidth: "97.2%",
-                    maxWidth: "97.2%",
-                    margin: "20px 20px",
-                    height: "120px",
-                    border: "dotted 1px #7A0000",
-                    cursor: "pointer",
-                    minHeight: "200px",
-                }}
-                onClick={() => handleClick()}
-            >
+            {props.mode != FormFunction.view ? 
                 <div
                     style={{
                         display: "flex",
-                        flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
+                        minWidth: "97.2%",
+                        maxWidth: "97.2%",
+                        margin: "20px 20px",
+                        height: "120px",
+                        border: "dotted 1px #7A0000",
                         cursor: "pointer",
+                        minHeight: "200px",
                     }}
+                    onClick={() => handleClick()}
                 >
-                    <img style={{ margin: "10px 0px" }} src={upload_image} alt="" />
-                    <img src={arrastar_imagem} alt="" />
-                    <input
-                        style={{ display: "none" }}
-                        ref={inputRef}
-                        type="file"
-                        onChange={(e) => props.handleFile(e, actionFile.add)}
-                    />
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                        }}
+                    >
+                        <img style={{ margin: "10px 0px" }} src={upload_image} alt="" />
+                        <img src={arrastar_imagem} alt="" />
+                        <input
+                            style={{ display: "none" }}
+                            ref={inputRef}
+                            type="file"
+                            disabled={props.disabled}
+                            onChange={(e) => props.handleFile(e, actionFile.add)}
+                        />
+                    </div>
                 </div>
-            </div>
+            : null}
             {props.images.length ? (
                 <div
                     style={{
@@ -94,7 +97,7 @@ const ImageUpload = (props: IImageUploadProps) => {
                             margin: "10px 0",
                         }}
                     >
-                        {props.images.map((e: any, index: number) => {
+                        {props.images.map((image: any, index: number) => {
                             return (
                                 <li
                                     key={index}
@@ -111,11 +114,12 @@ const ImageUpload = (props: IImageUploadProps) => {
                                             padding: "10px",
                                         }}
                                     >
-                                        <p>{e.name}</p>
+                                        <p>{image.name}</p>
                                         <S.ButtonAreas>
                                             <S.ButtonActions
                                                 color={"#F05555"}
-                                                onClick={(e) => props.handleFile(e, actionFile.remove, index)}
+                                                onClick={(e) => props.handleFile(e, actionFile.remove, index, image)}
+                                                disabled={props.disabled}
                                             >
                                                 <RiDeleteBin5Fill size={17} />
                                             </S.ButtonActions>

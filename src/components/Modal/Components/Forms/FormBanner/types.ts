@@ -1,3 +1,5 @@
+import { FormFunction } from "../FormProduto/types";
+
 export interface BannerRequest {
   id?: string;
   nome: string;
@@ -11,11 +13,11 @@ export enum TipoDeBanner {
 }
 
 export interface IFormBannerProps {
-  mode: string;
-  id: string;
+  mode?: FormFunction;
+  id?: string;
 }
 
 export interface IUseFormBannerProps {
-  mode: string;
-  id: string;
+  mode?: FormFunction;
+  id?: string;
 }

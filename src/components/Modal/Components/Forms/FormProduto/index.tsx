@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { Button, Checkbox } from "@mui/material";
+import { Button, Checkbox, FormControl } from "@mui/material";
 import NumberFieldModal from "../../NumberFieldModal";
 import SelectField from "../../SelectField";
 import {
@@ -7,12 +7,11 @@ import {
   TextFieldLables,
 } from "../../SelectField/selectfield.types";
 import TextFieldModal from "../../TextField";
-import { actionFile, IFromProdutoProps } from "./types";
+import { actionFile, FormFunction, IFromProdutoProps } from "./types";
 import useFormProduto from "./hooks/useFormProduto";
 import ModalUserFeedback from "../../../../ModalUserFeedback";
 import { ModalUsage } from "../../../../ModalUserFeedback/types";
 import ImageUpload from "../../../../ImageUpload";
-import { SetStateAction } from "react";
 
 const FormProduto = (props: IFromProdutoProps) => {
   const {
@@ -49,6 +48,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             name={TextFieldLables.NOME.toLowerCase()}
             onChange={(e) => handleChange(e)}
             label={TextFieldLables.NOME}
+            disabled={props.function === FormFunction.view}
           />
         </S.Field>
         <S.Field>
@@ -57,6 +57,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             name={TextFieldLables.COR.toLowerCase()}
             onChange={(e) => handleChange(e)}
             label={TextFieldLables.COR}
+            disabled={props.function === FormFunction.view}
           />
         </S.Field>
         <S.Field>
@@ -65,6 +66,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             name={TextFieldLables.CODIGO.toLowerCase()}
             onChange={(e) => handleChange(e)}
             label={TextFieldLables.CODIGO}
+            disabled={props.function === FormFunction.view}
           />
         </S.Field>
         <S.Field>
@@ -74,6 +76,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             name={SelectFieldLabels.MARCA.toLowerCase()}
             onChange={(e) => handleChange(e)}
             options={marcasOptions}
+            disabled={props.function === FormFunction.view}
           />
         </S.Field>
         <S.Field>
@@ -83,6 +86,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             name={SelectFieldLabels.MODELO.toLowerCase()}
             onChange={(e) => handleChange(e)}
             options={modelosOptions}
+            disabled={props.function === FormFunction.view}
           />
         </S.Field>
         <S.Field>
@@ -92,6 +96,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             name={SelectFieldLabels.TAMANHO.toLowerCase()}
             onChange={(e) => handleChange(e)}
             options={tamanhos}
+            disabled={props.function === FormFunction.view}
           />
         </S.Field>
         <S.Field>
@@ -101,6 +106,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             name={SelectFieldLabels.CATEGORIA.toLowerCase()}
             onChange={(e) => handleChange(e)}
             options={categoriasOptions}
+            disabled={props.function === FormFunction.view}
           />
         </S.Field>
         <S.Field>
@@ -110,6 +116,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             name={SelectFieldLabels.FORNECEDOR.toLowerCase()}
             onChange={(e) => handleChange(e)}
             options={fornecedoresOptions}
+            disabled={props.function === FormFunction.view}
           />
         </S.Field>
         <S.Field>
@@ -118,6 +125,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             name={TextFieldLables.VALOR.toLowerCase()}
             onChange={(e) => handleChangeNumber(e)}
             label={TextFieldLables.PRECO}
+            disabled={props.function === FormFunction.view}
           />
         </S.Field>
       </S.Section1>
@@ -137,6 +145,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             }}
             onChange={(e) => handleChange(e)}
             placeholder={TextFieldLables.DESCRICAO}
+            disabled={props.function === FormFunction.view}
           ></textarea>
           {/* input upload image */}
           <ImageUpload 
@@ -145,7 +154,9 @@ const FormProduto = (props: IFromProdutoProps) => {
             handleFile={
               (e: any, action: actionFile, index?: number) => 
               handleFileChange(e, action, index)
-            } 
+            }
+            disabled={props.function === FormFunction.view}
+            mode={props.function}
             />
           {/* -------- */}
           <div
@@ -162,6 +173,7 @@ const FormProduto = (props: IFromProdutoProps) => {
               onClick={(e) =>
                 setProduto({ ...produto, destaque: !produto.destaque })
               }
+              disabled={props.function === FormFunction.view}
             />
             <label
               style={{
@@ -182,13 +194,17 @@ const FormProduto = (props: IFromProdutoProps) => {
         >
           Cancelar
         </Button>
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "#118DE8" }}
-          onClick={() => handleRegister()}
-        >
-          Cadastrar
-        </Button>
+        {
+          props.function !== FormFunction.view ? 
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#118DE8" }}
+            onClick={() => handleRegister()}
+          >
+            Cadastrar
+          </Button>
+          : null
+        }
       </S.ButtonsSection>
       {/* Modal de aviso Campos vazios*/}
       <ModalUserFeedback

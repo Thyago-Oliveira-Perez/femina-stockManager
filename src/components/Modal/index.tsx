@@ -28,13 +28,13 @@ const Modal = (props: IModalProps) => {
 
   const modalUsage: any = {
     PRODUTOS: () => {
-      return <FormProduto productId={Number(id)} function={props.function} isModalOpen={true} isToCloseModal={() => navigate(`/menu/${module}`)}/>;
+      return <FormProduto productId={id} function={props.function} isModalOpen={true} isToCloseModal={() => navigate(`/menu/${module}`)}/>;
     },
     FORNECEDORES: () => {
-      return <FormFornecedor id={""} mode={""} />
+      return <FormFornecedor id={id} mode={props.function} />
     },
     BANNERS: () => {
-      return <FormBanner id={""} mode={""} />
+      return <FormBanner id={id} mode={props.function} />
     },
   };
 

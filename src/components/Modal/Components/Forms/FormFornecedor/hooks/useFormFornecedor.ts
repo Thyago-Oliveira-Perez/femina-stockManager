@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import FornecedoresApi from "../../../../../../api/Fornecedores";
-import { FornecedorRequest, IUseFormFornecedorProps } from "../types";
+import { IFornecedor, IUseFormFornecedorProps } from "../types";
 
 const useFormFornecedor = (props: IUseFormFornecedorProps) => {
-    const { insertFornecedor } = FornecedoresApi();
+    const { insertFornecedor, getFornecedores } = FornecedoresApi();
     const navigate = useNavigate();
-    const [fornecedor, setFornecedor] = useState<FornecedorRequest>(
+    const [fornecedor, setFornecedor] = useState<IFornecedor>(
         {
             nome: "", 
             email: "",
@@ -15,6 +15,14 @@ const useFormFornecedor = (props: IUseFormFornecedorProps) => {
             telefone: "",
         }
     );
+
+    useEffect (() => {
+        if (props.id) {
+            getFornecedores(props.id).then((response) => {
+                setFornecedor(response);
+            })
+        }
+    }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFornecedor({...fornecedor, [event.target.name]: event.target.value})

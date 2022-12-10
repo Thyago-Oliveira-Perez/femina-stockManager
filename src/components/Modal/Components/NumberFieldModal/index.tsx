@@ -14,6 +14,7 @@ const NumberFieldModal = (props: INumberFieldModal) => {
           label={props.label}
           value={props.value}
           onChange={props.onChange}
+          disabled={props.disabled}
           style={{borderBottom: "solid 1px #7A0000"}}
         />
       ) : (
@@ -25,6 +26,7 @@ const NumberFieldModal = (props: INumberFieldModal) => {
           label={props.label}
           value={ props.value}
           onChange={props.onChange}
+          disabled={props.disabled}
           style={{borderBottom: "solid 1px #7A0000"}}
         />
       )}

@@ -32,7 +32,7 @@ const CommonApi = () => {
 
     }
 
-    const get = async <T>(id: number, path: string): Promise<T>=> {
+    const get = async <T>(id: string, path: string): Promise<T>=> {
         try {
             return (await api.get(`${path}/${id}`)).data;
         } catch (error: any) {

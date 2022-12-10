@@ -45,7 +45,7 @@ const ProdutoApi = () => {
     };
   };
 
-  const getProductInfos = async (id: number): Promise<any> => {
+  const getProductInfos = async (id: string): Promise<any> => {
     try{
       return (await get(id, `${url}`));
     }catch(error: any){

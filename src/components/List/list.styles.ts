@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Typography } from '@mui/material';
 
 export const Container = styled.div`
     width: 100%;
@@ -6,6 +7,8 @@ export const Container = styled.div`
     border: 1.5px solid #777777;
     padding: 20px;
     margin-top: 20px;
+    overflow-x: scroll;
+    overflow-y: hidden;
 `;
 
 export const Grid = styled.div`
@@ -127,4 +130,13 @@ export const LoadingContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+`;
+
+export const Text = styled(Typography)`
+    max-width: 100%;
+    font-size: 14px;
+    color: #454545;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;

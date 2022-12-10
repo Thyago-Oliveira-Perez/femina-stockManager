@@ -4,15 +4,17 @@ import { IFormFornecedorProps } from "./types";
 import { TextFieldLables } from "../../SelectField/selectfield.types";
 import useFormFornecedor from "./hooks/useFormFornecedor";
 import TextFieldModal from "../../TextField";
+import { FormFunction } from "../FormProduto/types";
 
 const FormFornecedor = (props: IFormFornecedorProps) => {
 
+  const { id, mode } = props;
   const { 
     fornecedor, 
     handleChange, 
     handleCancel, 
     handleRegister 
-  } = useFormFornecedor({mode: props.mode, id: props.id});
+  } = useFormFornecedor({mode: mode, id: id});
 
   return(
     <>
@@ -26,24 +28,28 @@ const FormFornecedor = (props: IFormFornecedorProps) => {
             name={TextFieldLables.NOME.toLowerCase()}
             onChange={(e) => handleChange(e)}
             label={TextFieldLables.NOME}
+            disabled={mode === FormFunction.view}
           />
           <TextFieldModal
             value={fornecedor.cnpj}
             name={TextFieldLables.CNPJ.toLowerCase()}
             onChange={(e) => handleChange(e)}
             label={TextFieldLables.CNPJ}
+            disabled={mode === FormFunction.view}
           />
           <TextFieldModal
             value={fornecedor.telefone}
             name={TextFieldLables.TELEFONE.toLowerCase()}
             onChange={(e) => handleChange(e)}
             label={TextFieldLables.TELEFONE}
+            disabled={mode === FormFunction.view}
           />
           <TextFieldModal
             value={fornecedor.email}
             name={TextFieldLables.EMAIL.toLowerCase()}
             onChange={(e) => handleChange(e)}
             label={TextFieldLables.EMAIL}
+            disabled={mode === FormFunction.view}
           />
         </S.Form>
         <S.ButtonsSection>
@@ -54,13 +60,17 @@ const FormFornecedor = (props: IFormFornecedorProps) => {
         >
           Cancelar
         </Button>
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "#118DE8" }}
-          onClick={() => handleRegister()}
-        >
-          Cadastrar
-        </Button>
+        {
+          mode !== FormFunction.view ? 
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#118DE8" }}
+            onClick={() => handleRegister()}
+          >
+            Cadastrar
+          </Button>
+          : null
+        }
       </S.ButtonsSection>
       </S.Modal>
     </>

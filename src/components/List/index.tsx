@@ -57,8 +57,8 @@ const List = (props: IListProps) => {
                                     { props.columns.map((column: IColumns, index: number) => (
                                         <S.TableCell key={index} width={150}>
                                             {
-                                                column.name === 'image' ? <S.Image src={item.imageNames ? item.imageNames[0] : ''} />
-                                                : renderColumn(column.name, item[column.name])
+                                                column.name === 'image' ? <S.Image src={item.imageNames ? `${item.imagemUrl}/${item.imageNames[0]}` : ''} />
+                                                : <S.Text>{renderColumn(column.name, item[column.name])}</S.Text>
                                             }
                                         </S.TableCell>
                                     )) }
