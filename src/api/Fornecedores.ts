@@ -4,7 +4,7 @@ import CommonApi from "./Common";
 
 const FornecedoresApi = () => {
     const url = "api/fornecedores";
-    const { post, listPageable, get } = CommonApi();
+    const { post, listPageable, get, update } = CommonApi();
 
     const handleError = (error: any) => {
         return Promise.reject(error);
@@ -12,7 +12,7 @@ const FornecedoresApi = () => {
 
     const insertFornecedor = async (fornecedor: FornecedorRequest) => {
         try {
-            return (await post(fornecedor, url))
+            return (await post(fornecedor, url));
         } catch (error) {
             return handleError(error);
         }
@@ -34,7 +34,15 @@ const FornecedoresApi = () => {
         };
     }
 
-    return { insertFornecedor, listFornecedores, getFornecedores };
+    const updateFornecedor = async (fornecedor: FornecedorRequest, id: string): Promise<any> => {
+        try {
+            return (await update(fornecedor, id, url));
+        } catch (error) {
+            return handleError(error);
+        }
+    }
+
+    return { insertFornecedor, listFornecedores, getFornecedores, updateFornecedor };
 };
 
 export default FornecedoresApi;

@@ -115,6 +115,7 @@ const ImageUpload = (props: IImageUploadProps) => {
                                         }}
                                     >
                                         <p>{image.name}</p>
+                                        {props.mode != FormFunction.view ? 
                                         <S.ButtonAreas>
                                             <S.ButtonActions
                                                 color={"#F05555"}
@@ -124,6 +125,7 @@ const ImageUpload = (props: IImageUploadProps) => {
                                                 <RiDeleteBin5Fill size={17} />
                                             </S.ButtonActions>
                                         </S.ButtonAreas>
+                                        : null}      
                                     </div>
                                 </li>
                             );

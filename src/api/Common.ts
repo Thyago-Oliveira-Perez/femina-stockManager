@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { IPageRequest, IPageResponse } from './../types/common.types';
 import api from './Api';
 
@@ -8,7 +7,6 @@ const CommonApi = () => {
         try {
             return (await api.post(`${path}`, object)).data;
         } catch (error: any) {
-            toast.error(error.response.data);
             return Promise.reject(error);
         };
     }
@@ -40,15 +38,27 @@ const CommonApi = () => {
         }
     }
 
-    const update = async () => {
-
+    const update = async (object: any, id: string, path: string) => {
+        try {
+            return (await api.put(`${path}/${id}`, object)).data;
+        } catch (error: any) {
+            return Promise.reject(error);
+        };
     }
 
     const disable = async () => {
 
     }
 
-    return { listPageable, get, post}; 
+    const removeImage = async (imageName: string, id: string, path: string) => {
+        try {
+            return (await api.put(`${path}/${id}`, JSON.stringify({name: imageName}))).data;
+        } catch (error: any) {
+            return Promise.reject(error);
+        };
+    }
+
+    return { post, listPageable, get, update, removeImage }; 
 };
 
 export default CommonApi;

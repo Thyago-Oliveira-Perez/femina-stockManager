@@ -107,7 +107,8 @@ export const TableCell = styled.td`
 
 export const Image = styled.img`
    width: 120px;
-   height: auto; 
+   height: auto;
+   max-height: 110px;
 `;
 
 export const ButtonActions = styled.button`

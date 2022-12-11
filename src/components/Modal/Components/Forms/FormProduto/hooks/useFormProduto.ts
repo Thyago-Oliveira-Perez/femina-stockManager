@@ -1,19 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import CategoriasApi from "../../../../../../api/Categorias";
 import FornecedoresApi from "../../../../../../api/Fornecedores";
 import MarcasApi from "../../../../../../api/Marcas";
 import ModelosApi from "../../../../../../api/Modelos";
 import ProdutoApi from "../../../../../../api/Produtos";
 import { IPageRequest, Tamanhos } from "../../../../../../types/common.types";
-import { actionFile, INewProduto } from "../types";
+import { actionFile, FormFunction, IFromProdutoProps, INewProduto } from "../types";
 
-const useFormProduto = (props: any) => {
-  const { getProductInfos } = ProdutoApi();
+const useFormProduto = (props: IFromProdutoProps) => {
+  const { cadastro, getProductInfos, updateProduct, removeProductImage } = ProdutoApi();
   const { listMarcas } = MarcasApi();
   const { listModelos } = ModelosApi();
   const { listCategorias } = CategoriasApi();
   const { listFornecedores } = FornecedoresApi();
+
+  const { productId } = props;
   /**
    * input style
    */
@@ -186,7 +189,15 @@ const useFormProduto = (props: any) => {
 
       setImagens([...images, fileObj]);
     } else if (action === actionFile.remove && index !== null) {
-      setImagens(images.filter((e, position) => position !== index));
+      if(props.function == FormFunction.edit) {
+        const imageName = images.find((e, position) => position === index);
+        if (productId) {
+          removeProductImage(imageName.name, productId).then((reponse) => {
+            setImagens(images.filter((e, position) => position !== index));
+          });
+        }
+      };
+      return setImagens(images.filter((e, position) => position !== index));
     }
   };
 
@@ -245,22 +256,26 @@ const useFormProduto = (props: any) => {
        * monta o objeto para enviar via form-data
        * para o backend
        */
-      formData.append("produto", JSON.stringify(produto));
+      formData.append('produto', JSON.stringify(produto));
       images.forEach((image) => {
         formData.append("image", image);
       });
-
-      axios({
-        url: "http://localhost:8080/api/produtos/estoque/insert",
-        method: "POST",
-        data: formData,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-        },
-      }).then((response) => {
-        return console.log("response :", response);
-      });
+      if (props.function === FormFunction.new) {
+        cadastro(formData).then((response) => {
+          toast.success(response);
+        }).catch((error) => {
+          toast.error(error);
+        });
+      };
+      if (props.function === FormFunction.edit) {
+        if(props.productId) {
+          updateProduct(formData, props.productId).then(() => {
+            toast.success("Editado Com Sucesso!");
+          }).catch(() => {
+            toast.error("Ocorreu um Erro!");
+          });
+        }
+      };
     }
     return setShowMessageEmptyFields(true);
   };

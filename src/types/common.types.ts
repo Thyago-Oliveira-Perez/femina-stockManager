@@ -56,7 +56,7 @@ export interface IProdutoResponse {
   tamanho: Tamanhos;
   cor: string;
   descricao?: string;
-  imagemUrl: string;
+  imagem: string;
   destaque: boolean;
   imageNames: string[];
 }

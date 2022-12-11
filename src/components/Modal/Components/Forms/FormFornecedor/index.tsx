@@ -20,7 +20,9 @@ const FormFornecedor = (props: IFormFornecedorProps) => {
     <>
       <S.Modal>
         <S.Tittle>
-          <h3>Novo Fornecedor</h3>
+          {mode === FormFunction.new && <h3>Novo Fornecedor</h3>}
+          {mode === FormFunction.view && <h3>Visualizar Fornecedor</h3>}
+          {mode === FormFunction.edit && <h3>Editar Fornecedor</h3>}
         </S.Tittle>
         <S.Form>
           <TextFieldModal
@@ -67,7 +69,7 @@ const FormFornecedor = (props: IFormFornecedorProps) => {
             style={{ backgroundColor: "#118DE8" }}
             onClick={() => handleRegister()}
           >
-            Cadastrar
+            Salvar
           </Button>
           : null
         }

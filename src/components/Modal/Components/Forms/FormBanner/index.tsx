@@ -25,7 +25,9 @@ const FormBanner = (props: IFormBannerProps) => {
     <>
       <S.Modal>
         <S.Tittle>
-          <h3>Novo Banner</h3>
+          {mode === FormFunction.new && <h3>Novo Banner</h3>}
+          {mode === FormFunction.view && <h3>Visualizar Banner</h3>}
+          {mode === FormFunction.edit && <h3>Editar Banner</h3>}
         </S.Tittle>
         <S.Form>
           <TextFieldModal
@@ -71,7 +73,7 @@ const FormBanner = (props: IFormBannerProps) => {
             style={{ backgroundColor: "#118DE8" }}
             onClick={() => handleRegister()}
           >
-            Cadastrar
+            Salvar
           </Button>
           : null
         }

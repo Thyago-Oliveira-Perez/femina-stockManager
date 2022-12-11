@@ -10,7 +10,7 @@ const useMenuBanners = () => {
     const actions: IActionButtons = {
         view: true,
         edit: true,
-        disable: true,
+        disable: false,
     };
     const [pageable, setPageable] = useState<IPageRequest>(
         {

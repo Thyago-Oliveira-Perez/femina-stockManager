@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import BannersApi from "../../../../../../api/Banners";
-import { actionFile } from "../../FormProduto/types";
+import { actionFile, FormFunction } from "../../FormProduto/types";
 import { BannerRequest, IUseFormBannerProps, TipoDeBanner } from "../types";
 
 const useFormBanner = (props: IUseFormBannerProps) => {
-  const { insertBanner, getBanner } = BannersApi();
+  const { insertBanner, getBanner, updateBanner, removeBannerImage } = BannersApi();
   const navigate = useNavigate();
   const [banner, setBanner] = useState<BannerRequest>(
     {
@@ -45,15 +45,27 @@ const useFormBanner = (props: IUseFormBannerProps) => {
 
   const handleRegister = () => {
     const formData = new FormData();
-    formData.append('banner', JSON.stringify(banner));
+    formData.append("banner", JSON.stringify(banner));
     images.forEach((image) => {
       formData.append("images", image);
     });
-    insertBanner(formData).then((response) => {
-      toast.success(response);
-    }).catch((error) => {
-
-    })
+    
+    if (props.mode === FormFunction.new) {
+      insertBanner(formData).then((response) => {
+        toast.success(response);
+      }).catch((error) => {
+        toast.error(error);
+      });
+    }
+    if (props.mode === FormFunction.edit) {
+      if(props.id) {
+        updateBanner(formData, props.id).then(() => {
+          toast.success("Editado Com Sucesso!");
+        }).catch(() => {
+          toast.error("Ocorreu um Erro!");
+        })
+      }
+    }
   };
 
   const handleFileChange = (event: any, action: actionFile, index?: number) => {
@@ -65,7 +77,15 @@ const useFormBanner = (props: IUseFormBannerProps) => {
       event.target.value = null;
       setImages([...images, fileObj]);
     } else if (action === actionFile.remove && index !== null) {
-      setImages(images.filter((e, position) => position !== index));
+      if(props.mode == FormFunction.edit) {
+        const imageName = images.find((e, position) => position === index);
+        if (props.id) {
+          removeBannerImage(imageName.name, props.id).then(() => {
+            setImages(images.filter((e, position) => position !== index));
+          });
+        }
+      };
+      return setImages(images.filter((e, position) => position !== index));
     }
   };
 

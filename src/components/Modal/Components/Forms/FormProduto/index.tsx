@@ -39,7 +39,9 @@ const FormProduto = (props: IFromProdutoProps) => {
   return (
     <S.Modal>
       <S.Tittle>
-        <h3>Novo Produto</h3>
+        {props.function === FormFunction.new && <h3>Novo Produto</h3>}
+        {props.function === FormFunction.view && <h3>Visualizar Produto</h3>}
+        {props.function === FormFunction.edit && <h3>Editar Produto</h3>}
       </S.Tittle>
       <S.Section1>
         <S.Field>
@@ -130,7 +132,7 @@ const FormProduto = (props: IFromProdutoProps) => {
         </S.Field>
       </S.Section1>
       <S.Section2>
-        <div style={{ width: "100%" }}>
+        <div style={{ width: "90%" }}>
           <textarea
             name={TextFieldLables.DESCRICAO.toLowerCase()}
             id=""
@@ -142,6 +144,7 @@ const FormProduto = (props: IFromProdutoProps) => {
               maxWidth: "97.2%",
               height: "120px",
               borderBottom: "solid 1px #7A0000",
+              resize: "none"
             }}
             onChange={(e) => handleChange(e)}
             placeholder={TextFieldLables.DESCRICAO}
@@ -201,7 +204,7 @@ const FormProduto = (props: IFromProdutoProps) => {
             style={{ backgroundColor: "#118DE8" }}
             onClick={() => handleRegister()}
           >
-            Cadastrar
+            Salvar
           </Button>
           : null
         }

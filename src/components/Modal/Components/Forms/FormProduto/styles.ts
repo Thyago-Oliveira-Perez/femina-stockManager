@@ -53,7 +53,7 @@ export const ButtonsSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 88%;
 
   button {
     padding: 0px 60px;

@@ -7,33 +7,28 @@ import { getToken } from "../services/auth.service";
 import { IPageRequest } from "../types/common.types";
 import CommonApi from "./Common";
 
-const token = getToken();
-
-const api = axios.create({
-  baseURL: 'http://localhost:8080/',
-  headers: {
-    'Content-Type': 'application/json;charset=utf-8;',
-    'Authorization': token ? `Bearer ${token}` : null
-  },
-});
-
 const ProdutoApi = () => {
   const url = "api/produtos";
-  const { listPageable, get } = CommonApi();
+  const token = getToken();
+  const api = axios.create({
+    baseURL: 'http://localhost:8080/',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Accept': "application/json",
+      'Authorization': token ? `Bearer ${token}` : null
+    },
+  });
+  const { listPageable, get, removeImage } = CommonApi();
 
   const handleError = (error: any) => {
     return Promise.reject(error.response);
   };
 
-  const cadastro = async (produto: FormData): Promise<INewProduto> => {
+  const cadastro = async (produto: FormData): Promise<any> => {
     try {
-      return await (
-        await api.post(`${url}/estoque/insert`, {
-          body: produto,
-        })
-      ).data;
+      return (await api.postForm(`${url}/estoque/insert`, produto)).data;
     } catch (error: any) {
-      return handleError(error);
+      return Promise.reject(error);
     };
   };
 
@@ -47,13 +42,29 @@ const ProdutoApi = () => {
 
   const getProductInfos = async (id: string): Promise<any> => {
     try{
-      return (await get(id, `${url}`));
+      return (await get(id, `${url}/catalogo`));
     }catch(error: any){
       return handleError(error);
     }
-  }
+  };
 
-  return { cadastro, listProdutos, getProductInfos };
+  const updateProduct = async (produto: FormData, id: string): Promise<any> => {
+    try {
+      return (await api.putForm(`${url}/estoque/${id}`, produto)).data;
+    } catch (error: any) {
+      return Promise.reject(error);
+    };
+  };
+
+  const removeProductImage = async (imageName: string, id: string): Promise<any> => {
+    try{
+      return (await removeImage(imageName ,id, `${url}/estoque/remove-image`));
+    }catch(error: any){
+      return handleError(error);
+    }
+  };
+
+  return { cadastro, listProdutos, getProductInfos, updateProduct, removeProductImage };
 };
 
 export default ProdutoApi;

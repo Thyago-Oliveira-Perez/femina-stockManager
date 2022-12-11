@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+import toast from "react-hot-toast";
 import { getToken, getLocalRefreshToken, updateLocalAccessToken, logout } from "../services/auth.service";
 
 const api = axios.create({
@@ -23,6 +24,7 @@ api.interceptors.response.use(
     return response;
   },
   async (error) => {
+    toast.error(error.response.data);
     const originalConfig = error.config;
 
     if (originalConfig.url !== "/auth/login") {
