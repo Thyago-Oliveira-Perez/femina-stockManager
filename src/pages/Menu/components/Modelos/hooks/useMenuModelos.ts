@@ -46,7 +46,7 @@ const useMenuModelos = () => {
     }));
   };
 
-  const showFormNewModelo = (isToAdd: boolean) => {
+  const handleShowFormNewModelo = (isToAdd: boolean) => {
     if (!isToAdd) {
       setIsToAddNewModelo(isToAdd);
       setNewModelo((prevState) => ({
@@ -55,6 +55,17 @@ const useMenuModelos = () => {
       }));
     }
     setIsToAddNewModelo(isToAdd);
+  };
+
+  const handleShowFormEditModelo = (isToAdd: boolean) => {
+    if (!isToAdd) {
+      setIsToEditNewModelo(isToAdd);
+      setNewModelo((prevState) => ({
+        ...prevState,
+        nome: "",
+      }));
+    }
+    setIsToEditNewModelo(isToAdd);
   };
 
   useEffect(() => {
@@ -92,7 +103,8 @@ const useMenuModelos = () => {
     setIsToAddNewModelo,
     newModelo,
     handleChange,
-    showFormNewModelo,
+    handleShowFormNewModelo,
+    handleShowFormEditModelo,
     isToEditNewModelo,
     setIsToEditNewModelo,
     handleEdit

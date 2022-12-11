@@ -46,7 +46,7 @@ const useMenuMarcas = () => {
     }));
   };
 
-  const showFormNewMarca = (isToAdd: boolean) => {
+  const handleShowFormNewMarca = (isToAdd: boolean) => {
     if (!isToAdd) {
       setIsToAddNewMarca(isToAdd);
       setNewMarca((prevState) => ({
@@ -55,6 +55,17 @@ const useMenuMarcas = () => {
       }));
     }
     setIsToAddNewMarca(isToAdd);
+  };
+
+  const handleShowFormEditModelo = (isToAdd: boolean) => {
+    if (!isToAdd) {
+      setIsToEditNewMarca(isToAdd);
+      setNewMarca((prevState) => ({
+        ...prevState,
+        nome: "",
+      }));
+    }
+    setIsToEditNewMarca(isToAdd);
   };
 
   useEffect(() => {
@@ -91,7 +102,8 @@ const useMenuMarcas = () => {
     setIsToAddNewMarca,
     newMarca,
     handleChange,
-    showFormNewMarca,
+    handleShowFormNewMarca,
+    handleShowFormEditModelo,
     handleEdit,
     isToEditNewMarca, 
     setIsToEditNewMarca

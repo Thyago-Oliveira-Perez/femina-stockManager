@@ -5,7 +5,7 @@ export interface SmallFormProps {
   name: string;
   onChange: (e: any) => void;
   label: SelectFieldLabels;
-  hideForm: React.Dispatch<React.SetStateAction<boolean>>;
+  hideForm: any;
   endpoint: Endpoints;
   action: SmallFormActions;
 }

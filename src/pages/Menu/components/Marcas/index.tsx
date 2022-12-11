@@ -23,7 +23,8 @@ const Marcas = () => {
     setIsToEditNewMarca,
     newMarca,
     handleChange,
-    showFormNewMarca,
+    handleShowFormNewMarca,
+    handleShowFormEditModelo,
     handleEdit,
   } = useMenuMarcas();
 
@@ -33,7 +34,7 @@ const Marcas = () => {
         <S.StackHeader>
           <S.Title>Marcas</S.Title>
           <S.Actions>
-            <ButtonInsert onClick={() => showFormNewMarca(true)}>
+            <ButtonInsert onClick={() => handleShowFormNewMarca(true)}>
               Cadastrar Marca
             </ButtonInsert>
           </S.Actions>
@@ -43,7 +44,7 @@ const Marcas = () => {
             value={newMarca}
             name={"marca"}
             onChange={(e) => handleChange(e)}
-            hideForm={setIsToAddNewMarca}
+            hideForm={handleShowFormNewMarca}
             label={SelectFieldLabels.MARCA}
             endpoint={Endpoints.MARCA}
             action={SmallFormActions.add}
@@ -53,7 +54,7 @@ const Marcas = () => {
             value={newMarca}
             name={"marca"}
             onChange={(e) => handleChange(e)}
-            hideForm={setIsToEditNewMarca}
+            hideForm={handleShowFormEditModelo}
             label={SelectFieldLabels.MARCA}
             endpoint={Endpoints.MARCA}
             action={SmallFormActions.edit}

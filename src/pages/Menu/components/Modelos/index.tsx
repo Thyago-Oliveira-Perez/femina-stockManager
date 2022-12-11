@@ -25,7 +25,8 @@ const Modelos = () => {
     setIsToEditNewModelo,
     newModelo,
     handleChange,
-    showFormNewModelo,
+    handleShowFormNewModelo,
+    handleShowFormEditModelo,
     handleEdit
   } = useMenuModelos();
 
@@ -35,7 +36,7 @@ const Modelos = () => {
         <S.StackHeader>
           <S.Title>Modelos</S.Title>
           <S.Actions>
-            <ButtonInsert onClick={() => showFormNewModelo(true)}>
+            <ButtonInsert onClick={() => handleShowFormNewModelo(true)}>
               Cadastrar Modelo
             </ButtonInsert>
           </S.Actions>
@@ -45,7 +46,7 @@ const Modelos = () => {
             value={newModelo}
             name={"modelo"}
             onChange={(e) => handleChange(e)}
-            hideForm={setIsToAddNewModelo}
+            hideForm={handleShowFormNewModelo}
             label={SelectFieldLabels.MODELO}
             endpoint={Endpoints.MODELO}
             action={SmallFormActions.add}
@@ -55,7 +56,7 @@ const Modelos = () => {
             value={newModelo}
             name={"modelo"}
             onChange={(e) => handleChange(e)}
-            hideForm={setIsToAddNewModelo}
+            hideForm={handleShowFormEditModelo}
             label={SelectFieldLabels.MODELO}
             endpoint={Endpoints.MODELO}
             action={SmallFormActions.edit}
