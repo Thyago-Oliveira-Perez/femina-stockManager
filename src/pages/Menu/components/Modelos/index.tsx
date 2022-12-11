@@ -4,7 +4,10 @@ import ButtonInsert from "../../../../components/ButtonInsert";
 import useMenuModelos from "./hooks/useMenuModelos";
 import { SelectFieldLabels } from "../../../../components/Modal/Components/SelectField/selectfield.types";
 import SmallForm from "../../../../components/SmallForm";
-import { Endpoints } from "../../../../components/SmallForm/types";
+import {
+  Endpoints,
+  SmallFormActions,
+} from "../../../../components/SmallForm/types";
 
 const Modelos = () => {
   const {
@@ -18,9 +21,12 @@ const Modelos = () => {
     navigate,
     isToAddNewModelo,
     setIsToAddNewModelo,
+    isToEditNewModelo,
+    setIsToEditNewModelo,
     newModelo,
     handleChange,
-    showFormNewModelo
+    showFormNewModelo,
+    handleEdit
   } = useMenuModelos();
 
   return (
@@ -29,9 +35,7 @@ const Modelos = () => {
         <S.StackHeader>
           <S.Title>Modelos</S.Title>
           <S.Actions>
-            <ButtonInsert
-              onClick={() => showFormNewModelo(true)}
-            >
+            <ButtonInsert onClick={() => showFormNewModelo(true)}>
               Cadastrar Modelo
             </ButtonInsert>
           </S.Actions>
@@ -39,11 +43,22 @@ const Modelos = () => {
         {isToAddNewModelo ? (
           <SmallForm
             value={newModelo}
-            name={'modelo'}
+            name={"modelo"}
             onChange={(e) => handleChange(e)}
             hideForm={setIsToAddNewModelo}
             label={SelectFieldLabels.MODELO}
             endpoint={Endpoints.MODELO}
+            action={SmallFormActions.add}
+          />
+        ) : isToEditNewModelo ? (
+          <SmallForm
+            value={newModelo}
+            name={"modelo"}
+            onChange={(e) => handleChange(e)}
+            hideForm={setIsToAddNewModelo}
+            label={SelectFieldLabels.MODELO}
+            endpoint={Endpoints.MODELO}
+            action={SmallFormActions.edit}
           />
         ) : null}
         <S.ListArea>
@@ -56,6 +71,7 @@ const Modelos = () => {
               columns={columns}
               items={list}
               mode={"list"}
+              onEditSimple={handleEdit}
             />
           ) : null}
         </S.ListArea>

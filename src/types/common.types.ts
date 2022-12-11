@@ -6,6 +6,7 @@ export interface Marcas {
 export interface Modelos {
   id?: string;
   nome: string;
+  isActive: boolean;
 }
 export enum Tamanhos {
   PP = "PP",

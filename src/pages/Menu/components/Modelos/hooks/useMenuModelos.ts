@@ -13,7 +13,7 @@ const useMenuModelos = () => {
   const navigate = useNavigate();
   const actions: IActionButtons = {
     view: false,
-    edit: false,
+    edit: true,
     disable: true,
   };
   const [pageable, setPageable] = useState<IPageRequest>({
@@ -25,7 +25,11 @@ const useMenuModelos = () => {
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [list, setList] = useState<Modelos[]>([]);
   const [isToAddNewModelo, setIsToAddNewModelo] = useState<boolean>(false);
-  const [newModelo, setNewModelo] = useState<string>("");
+  const [isToEditNewModelo, setIsToEditNewModelo] = useState<boolean>(false);
+  const [newModelo, setNewModelo] = useState<Modelos>({
+    nome: "",
+    isActive: true,
+  });
 
   const columns: IColumns[] = [
     {
@@ -35,13 +39,20 @@ const useMenuModelos = () => {
   ];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewModelo(event.target.value);
+    setNewModelo((prevState) => ({
+      ...prevState,
+      nome: event.target.value,
+      isActive: true,
+    }));
   };
 
   const showFormNewModelo = (isToAdd: boolean) => {
     if (!isToAdd) {
       setIsToAddNewModelo(isToAdd);
-      setNewModelo("");
+      setNewModelo((prevState) => ({
+        ...prevState,
+        nome: "",
+      }));
     }
     setIsToAddNewModelo(isToAdd);
   };
@@ -57,6 +68,17 @@ const useMenuModelos = () => {
       });
   }, [pageable]);
 
+  const handleEdit = (marca: Modelos) => {
+    setNewModelo((prevState) => ({
+      ...prevState,
+      id: marca.id,
+      nome: marca.nome,
+      isActive: true,
+    }));
+    setIsToEditNewModelo(true);
+    console.log(marca);
+  };
+
   return {
     actions,
     columns,
@@ -70,7 +92,10 @@ const useMenuModelos = () => {
     setIsToAddNewModelo,
     newModelo,
     handleChange,
-    showFormNewModelo
+    showFormNewModelo,
+    isToEditNewModelo,
+    setIsToEditNewModelo,
+    handleEdit
   };
 };
 
