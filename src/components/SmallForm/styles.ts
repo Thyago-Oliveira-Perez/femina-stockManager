@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const AddArea = styled.div`
   width: 80%;
-  height: 100%;
+  max-height: 360px;
   display: flex;
   align-items: center;
   justify-content: space-around;
