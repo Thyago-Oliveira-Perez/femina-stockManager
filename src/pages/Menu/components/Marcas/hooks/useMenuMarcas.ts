@@ -13,7 +13,7 @@ const useMenuMarcas = () => {
   const navigate = useNavigate();
   const actions: IActionButtons = {
     view: false,
-    edit: false,
+    edit: true,
     disable: true,
   };
   const [pageable, setPageable] = useState<IPageRequest>({
@@ -25,7 +25,11 @@ const useMenuMarcas = () => {
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [list, setList] = useState<Marcas[]>([]);
   const [isToAddNewMarca, setIsToAddNewMarca] = useState<boolean>(false);
-  const [newMarca, setNewMarca] = useState<string>("");
+  const [isToEditNewMarca, setIsToEditNewMarca] = useState<boolean>(false);
+  const [newMarca, setNewMarca] = useState<Marcas>({
+    nome: "",
+    isActive: true,
+  });
 
   const columns: IColumns[] = [
     {
@@ -35,13 +39,20 @@ const useMenuMarcas = () => {
   ];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewMarca(event.target.value);
+    setNewMarca((prevState) => ({
+      ...prevState,
+      nome: event.target.value,
+      isActive: true,
+    }));
   };
 
   const showFormNewMarca = (isToAdd: boolean) => {
     if (!isToAdd) {
       setIsToAddNewMarca(isToAdd);
-      setNewMarca("");
+      setNewMarca((prevState) => ({
+        ...prevState,
+        nome: "",
+      }));
     }
     setIsToAddNewMarca(isToAdd);
   };
@@ -57,6 +68,17 @@ const useMenuMarcas = () => {
       });
   }, [pageable]);
 
+  const handleEdit = (marca: Marcas) => {
+    setNewMarca((prevState) => ({
+      ...prevState,
+      id: marca.id,
+      nome: marca.nome,
+      isActive: true,
+    }));
+    setIsToEditNewMarca(true);
+    console.log(marca);
+  };
+
   return {
     actions,
     columns,
@@ -69,7 +91,10 @@ const useMenuMarcas = () => {
     setIsToAddNewMarca,
     newMarca,
     handleChange,
-    showFormNewMarca
+    showFormNewMarca,
+    handleEdit,
+    isToEditNewMarca, 
+    setIsToEditNewMarca
   };
 };
 

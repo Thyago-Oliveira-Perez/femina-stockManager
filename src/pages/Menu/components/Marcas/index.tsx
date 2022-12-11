@@ -2,7 +2,10 @@ import * as S from "./styles";
 import List from "../../../../components/List";
 import ButtonInsert from "../../../../components/ButtonInsert";
 import useMenuMarcas from "./hooks/useMenuMarcas";
-import { Endpoints } from "../../../../components/SmallForm/types";
+import {
+  Endpoints,
+  SmallFormActions,
+} from "../../../../components/SmallForm/types";
 import { SelectFieldLabels } from "../../../../components/Modal/Components/SelectField/selectfield.types";
 import SmallForm from "../../../../components/SmallForm";
 
@@ -16,9 +19,12 @@ const Marcas = () => {
     setPageable,
     isToAddNewMarca,
     setIsToAddNewMarca,
+    isToEditNewMarca,
+    setIsToEditNewMarca,
     newMarca,
     handleChange,
-    showFormNewMarca
+    showFormNewMarca,
+    handleEdit,
   } = useMenuMarcas();
 
   return (
@@ -35,11 +41,22 @@ const Marcas = () => {
         {isToAddNewMarca ? (
           <SmallForm
             value={newMarca}
-            name={'marca'}
+            name={"marca"}
             onChange={(e) => handleChange(e)}
             hideForm={setIsToAddNewMarca}
             label={SelectFieldLabels.MARCA}
             endpoint={Endpoints.MARCA}
+            action={SmallFormActions.add}
+          />
+        ) : isToEditNewMarca ? (
+          <SmallForm
+            value={newMarca}
+            name={"marca"}
+            onChange={(e) => handleChange(e)}
+            hideForm={setIsToEditNewMarca}
+            label={SelectFieldLabels.MARCA}
+            endpoint={Endpoints.MARCA}
+            action={SmallFormActions.edit}
           />
         ) : null}
         <S.ListArea>
@@ -52,6 +69,7 @@ const Marcas = () => {
               columns={columns}
               items={list}
               mode={"list"}
+              onEditSimple={handleEdit}
             />
           ) : null}
         </S.ListArea>

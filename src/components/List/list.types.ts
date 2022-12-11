@@ -9,4 +9,5 @@ export interface IListProps {
     loading: boolean;
     hasMore: boolean;
     setNewPage: Dispatch<SetStateAction<IPageRequest>>;
+    onEditSimple?: any;
 }

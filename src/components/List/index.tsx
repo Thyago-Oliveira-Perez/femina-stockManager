@@ -76,7 +76,7 @@ const List = (props: IListProps) => {
                                             props.actions.edit && 
                                             <S.ButtonActions 
                                                 color={'#F6C23C'} 
-                                                onClick={() => navigate(`edit/${item.id}`)}
+                                                onClick={() => props.onEditSimple ? props.onEditSimple(item) : navigate(`edit/${item.id}`)}
                                             >
                                                 <FaEdit size={17} />
                                             </S.ButtonActions>

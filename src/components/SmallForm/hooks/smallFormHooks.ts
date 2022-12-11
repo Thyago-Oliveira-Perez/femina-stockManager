@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import CommonApi from "../../../api/Common";
+import { Marcas } from "../../../types/common.types";
 
 const useSmallForm = () => {
-  const { post } = CommonApi();
+  const { post, update} = CommonApi();
   const navigate = useNavigate();
   
   const handleError = (error: any) => {
@@ -21,8 +22,21 @@ const useSmallForm = () => {
     }
   };
 
+  const handleEditData = async (marca: Marcas, endpoint: string) => {
+    if (marca.nome.trim().length > 0) {
+      try {
+        return await update(marca, `${marca.id}`, `api/${endpoint}/edit`).then(() => {
+          navigate(0);
+        });
+      } catch (error: any) {
+        return handleError(error);
+      }
+    }
+  };
+
   return {
     handleNewData,
+    handleEditData
   };
 };
 

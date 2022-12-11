@@ -1,6 +1,7 @@
 export interface Marcas {
   id?: string;
   nome: string;
+  isActive: boolean;
 }
 export interface Modelos {
   id?: string;
