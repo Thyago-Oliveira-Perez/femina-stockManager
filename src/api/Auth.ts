@@ -14,7 +14,7 @@ const AuthApi = () => {
             return await (await Api.post(`${url}/login`, credentials)).data;
         } catch (error: any) {
             return handleError(error);
-        }
+        };
     };
 
     return { login };

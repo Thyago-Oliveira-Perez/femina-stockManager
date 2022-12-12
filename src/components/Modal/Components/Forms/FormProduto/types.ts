@@ -67,3 +67,42 @@ export enum actionFile {
 export interface PreviewProps {
   src?: string;
 }
+
+export interface IValidationProduto {
+  isActive: {
+    required: boolean;
+  };
+  codigo: {
+    required: boolean;
+  };
+  nome: {
+    required: boolean;
+  };
+  valor: {
+    required: boolean;
+  };
+  categoria: {
+    required: boolean;
+  };
+  modelo: {
+    required: boolean;
+  };
+  fornecedor: {
+    required: boolean;
+  };
+  marca: {
+    required: boolean;
+  };
+  cor: {
+    required: boolean;
+  };
+  tamanho: {
+    required: boolean;
+  };
+  descricao: {
+    required: boolean;
+  };
+  destaque: {
+    required: boolean;
+  };
+}

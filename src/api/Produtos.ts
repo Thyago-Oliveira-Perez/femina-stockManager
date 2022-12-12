@@ -1,8 +1,5 @@
 import { IPageResponse, IProdutoResponse } from './../types/common.types';
 import axios from "axios";
-import {
-  INewProduto
-} from "../components/Modal/Components/Forms/FormProduto/types";
 import { getToken } from "../services/auth.service";
 import { IPageRequest } from "../types/common.types";
 import CommonApi from "./Common";
@@ -18,7 +15,7 @@ const ProdutoApi = () => {
       'Authorization': token ? `Bearer ${token}` : null
     },
   });
-  const { listPageable, get, removeImage } = CommonApi();
+  const { listPageable, get, removeImage, disable } = CommonApi();
 
   const handleError = (error: any) => {
     return Promise.reject(error.response);
@@ -41,9 +38,9 @@ const ProdutoApi = () => {
   };
 
   const getProductInfos = async (id: string): Promise<any> => {
-    try{
+    try {
       return (await get(id, `${url}/catalogo`));
-    }catch(error: any){
+    } catch(error: any) {
       return handleError(error);
     }
   };
@@ -56,15 +53,30 @@ const ProdutoApi = () => {
     };
   };
 
-  const removeProductImage = async (imageName: string, id: string): Promise<any> => {
-    try{
-      return (await removeImage(imageName ,id, `${url}/estoque/remove-image`));
-    }catch(error: any){
+  const disableProduto = async (id: string): Promise<any> => {
+    try {
+      return (await disable(id, `${url}/estoque/disable`));
+    } catch(error: any) {
       return handleError(error);
     }
   };
 
-  return { cadastro, listProdutos, getProductInfos, updateProduct, removeProductImage };
+  const removeProductImage = async (imageName: string, id: string): Promise<any> => {
+    try {
+      return (await removeImage(imageName ,id, `${url}/estoque/remove-image`));
+    } catch(error: any) {
+      return handleError(error);
+    }
+  };
+
+  return { 
+    cadastro, 
+    listProdutos, 
+    getProductInfos, 
+    updateProduct, 
+    removeProductImage,
+    disableProduto
+  };
 };
 
 export default ProdutoApi;

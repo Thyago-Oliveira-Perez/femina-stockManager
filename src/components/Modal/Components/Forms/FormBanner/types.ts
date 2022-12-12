@@ -21,3 +21,12 @@ export interface IUseFormBannerProps {
   mode?: FormFunction;
   id?: string;
 }
+
+export interface IValidationBanner {
+  nome: {
+    required: boolean;
+  },
+  tipo: {
+    required: boolean;
+  }
+}

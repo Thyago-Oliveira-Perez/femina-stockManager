@@ -3,7 +3,7 @@ import CommonApi from "./Common";
 
 const MarcasApi = () => {
     const url = "api/marcas";
-    const { listPageable } = CommonApi();
+    const { listPageable, disable } = CommonApi();
 
     const handleError = (error: any) => {
         return Promise.reject(error.response);
@@ -17,7 +17,15 @@ const MarcasApi = () => {
         };
     };
 
-    return { listMarcas };
+    const disableMarcas = async (id: string): Promise<any> => {
+        try {
+          return (await disable(id, `${url}/disable`));
+        } catch(error: any) {
+          return handleError(error);
+        };
+    };
+
+    return { listMarcas, disableMarcas };
 };
 
 export default MarcasApi;

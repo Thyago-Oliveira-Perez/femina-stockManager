@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CategoriasApi from "../../../../../api/Categorias";
 import {
@@ -7,9 +7,12 @@ import {
   IColumns,
   IPageRequest,
 } from "../../../../../types/common.types";
+import toast from "react-hot-toast";
 
 const useMenuCategorias = () => {
-  const { listCategorias } = CategoriasApi();
+
+  const { id, mode } = useParams();
+  const { listCategorias, disableCategorias } = CategoriasApi();
   const navigate = useNavigate();
   const actions: IActionButtons = {
     view: false,
@@ -48,6 +51,14 @@ const useMenuCategorias = () => {
   };
 
   useEffect(() => {
+    if (mode === 'disable' && id) {
+      disableCategorias(id).then((response) => {
+          toast.success(response);
+          setList([]);
+          setPageable({ ...pageable, currentPage: 0 });
+          return navigate('./');
+      });
+    }
     listCategorias(pageable)
       .then((response) => {
         setHasMore(response.content.length > 0);
@@ -56,7 +67,7 @@ const useMenuCategorias = () => {
       .finally(() => {
         return setLoading(false);
       });
-  }, [pageable]);
+  }, [pageable, id]);
 
   return {
     actions,

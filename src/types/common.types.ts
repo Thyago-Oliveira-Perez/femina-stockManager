@@ -64,7 +64,7 @@ export interface IProdutoResponse {
 }
 
 export interface IFornecedorResponse {
-  id?: number;
+  id?: string;
   name: string;
   cnpj: string;
   telefone: string;

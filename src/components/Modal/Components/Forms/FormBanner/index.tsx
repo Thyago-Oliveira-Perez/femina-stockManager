@@ -7,21 +7,26 @@ import { IFormBannerProps } from "./types";
 import useFormBanner from "./hooks/useFormBanner";
 import ImageUpload from "../../../../ImageUpload";
 import { actionFile, FormFunction } from "../FormProduto/types";
+import ModalUserFeedback from "../../../../ModalUserFeedback";
+import { ModalUsage } from "../../../../ModalUserFeedback/types";
 
 const FormBanner = (props: IFormBannerProps) => {
 
   const { id, mode } = props;
-  const { 
-    banner, 
+  const {
+    banner,
     images,
     options,
-    handleChange, 
-    handleCancel, 
+    modalStyle,
+    showMessageEmptyFields,
+    handleChange,
+    handleCancel,
     handleRegister,
-    handleFileChange
-  } = useFormBanner({mode: mode, id: id});
+    handleFileChange,
+    setShowMessageEmptyFields
+  } = useFormBanner({ mode: mode, id: id });
 
-  return(
+  return (
     <>
       <S.Modal>
         <S.Tittle>
@@ -44,40 +49,48 @@ const FormBanner = (props: IFormBannerProps) => {
             onChange={(e) => handleChange(e)}
             options={options}
             disabled={mode === FormFunction.view}
-          />      
+          />
         </S.Form>
         <S.InputImageArea>
-          <ImageUpload 
-            images={images} 
-            setShowMessageLimitFiles={() => null} 
+          <ImageUpload
+            images={images}
+            setShowMessageLimitFiles={() => null}
             handleFile={
-              (e: any, action: actionFile, index?: number) => 
-              handleFileChange(e, action, index)
+              (e: any, action: actionFile, index?: number) =>
+                handleFileChange(e, action, index)
             }
             mode={props.mode}
             disabled={mode === FormFunction.view}
           />
         </S.InputImageArea>
         <S.ButtonsSection>
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "#BB2929" }}
-          onClick={() => handleCancel()}
-        >
-          Cancelar
-        </Button>
-        {
-          mode !== FormFunction.view ? 
           <Button
             variant="contained"
-            style={{ backgroundColor: "#118DE8" }}
-            onClick={() => handleRegister()}
+            style={{ backgroundColor: "#BB2929" }}
+            onClick={() => handleCancel()}
           >
-            Salvar
+            Cancelar
           </Button>
-          : null
-        }
-      </S.ButtonsSection>
+          {
+            mode !== FormFunction.view ?
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#118DE8" }}
+                onClick={() => handleRegister()}
+              >
+                Salvar
+              </Button>
+              : null
+          }
+        </S.ButtonsSection>
+        <ModalUserFeedback
+          open={showMessageEmptyFields}
+          onClose={() => setShowMessageEmptyFields(false)}
+          style={modalStyle}
+          usage={ModalUsage.alert}
+        >
+          Verifique se todos os campos estão preenchidos.
+        </ModalUserFeedback>
       </S.Modal>
     </>
   )

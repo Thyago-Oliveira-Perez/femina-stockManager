@@ -10,7 +10,9 @@ const ProductCard: FC<IProductCard> = (props: IProductCard) => {
         <>
             <S.Container ref={props.useRef}>
                 <S.ContentArea>
-                    <S.Image src={props.item.imageNames ? `${props.item.imagem}/${props.item.imageNames[0]}` : ''} />
+                    <S.Image src={props.item.imageNames && props.item.imageNames[0] !== undefined 
+                        ? `${props.item.imagem}/${props.item.imageNames[0]}` : ''} 
+                    />
                     <S.AreaInfo>
                         <S.Row>
                             <S.Title>Nome</S.Title>

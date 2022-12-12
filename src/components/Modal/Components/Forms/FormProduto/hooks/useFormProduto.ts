@@ -1,13 +1,13 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import CategoriasApi from "../../../../../../api/Categorias";
 import FornecedoresApi from "../../../../../../api/Fornecedores";
 import MarcasApi from "../../../../../../api/Marcas";
 import ModelosApi from "../../../../../../api/Modelos";
 import ProdutoApi from "../../../../../../api/Produtos";
 import { IPageRequest, Tamanhos } from "../../../../../../types/common.types";
-import { actionFile, FormFunction, IFromProdutoProps, INewProduto } from "../types";
+import { actionFile, FormFunction, IFromProdutoProps, INewProduto, IValidationProduto } from "../types";
 
 const useFormProduto = (props: IFromProdutoProps) => {
   const { cadastro, getProductInfos, updateProduct, removeProductImage } = ProdutoApi();
@@ -17,6 +17,7 @@ const useFormProduto = (props: IFromProdutoProps) => {
   const { listFornecedores } = FornecedoresApi();
 
   const { productId } = props;
+  const navigate = useNavigate();
   /**
    * input style
    */
@@ -59,6 +60,45 @@ const useFormProduto = (props: IFromProdutoProps) => {
     Tamanhos.GG,
   ];
 
+  const validations: IValidationProduto = {
+    nome: {
+      required: true,
+    },
+    isActive: {
+      required: true
+    },
+    codigo: {
+      required: true
+    },
+    valor: {
+      required: true
+    },
+    categoria: {
+      required: true
+    },
+    modelo: {
+      required: true
+    },
+    fornecedor: {
+      required: true
+    },
+    marca: {
+      required: true
+    },
+    cor: {
+      required: true
+    },
+    tamanho: {
+      required: true
+    },
+    descricao: {
+      required: false
+    },
+    destaque: {
+      required: false
+    }
+  };
+
   /**
    * style do modal de aviso
    */
@@ -67,8 +107,8 @@ const useFormProduto = (props: IFromProdutoProps) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "20%",
-    height: "20%",
+    width: "30%",
+    height: "30%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -84,7 +124,7 @@ const useFormProduto = (props: IFromProdutoProps) => {
     if (props.productId) {
       getProductInfos(props.productId).then((response) => {
         if (response.imageNames != null) {
-          setImagens(response.imageNames.map((image: string) => { return {name: image} }));
+          setImagens(response.imageNames.map((image: string) => { return { name: image } }));
         }
         setProduto(response);
       });
@@ -102,7 +142,7 @@ const useFormProduto = (props: IFromProdutoProps) => {
       return setFornecedoresOptions(response.content);
     });
   }, []);
-  
+
   function convertColor(color: string) {
     var colours: any = {
       aqua: "#00ffff",
@@ -189,10 +229,10 @@ const useFormProduto = (props: IFromProdutoProps) => {
 
       setImagens([...images, fileObj]);
     } else if (action === actionFile.remove && index !== null) {
-      if(props.function == FormFunction.edit) {
+      if (props.function == FormFunction.edit) {
         const imageName = images.find((e, position) => position === index);
         if (productId) {
-          removeProductImage(imageName.name, productId).then((reponse) => {
+          removeProductImage(imageName.name, productId).then(() => {
             setImagens(images.filter((e, position) => position !== index));
           });
         }
@@ -217,39 +257,29 @@ const useFormProduto = (props: IFromProdutoProps) => {
     props.isToCloseModal(!props.isModalOpen);
   };
 
+  const handleValidate = (produto: INewProduto, images: any[]) => {
+    let valid = true;
+
+    if (images.length <= 0) {
+      valid = false;
+    }
+    Object.keys(validations).forEach((key: string) => {
+      if ((validations as any)[key]?.required && !(produto as any)[key]) {
+        valid = false;
+      }
+    })
+
+    return valid;
+  };
+
   const handleRegister = () => {
     setProduto({
       ...produto,
       cor: convertColor(produto.cor) !== false ? convertColor(produto.cor) : "",
     });
-    const condition0 =
-      produto.nome != null && produto.nome != undefined && produto.nome != "";
-    const condition1 =
-      produto.cor != null && produto.cor != undefined && produto.cor != "";
-    const condition2 =
-      produto.codigo != null &&
-      produto.codigo != undefined &&
-      produto.codigo != "";
-    const condition3 = produto.valor != null && produto.valor != undefined;
-    const condition4 = produto.marca != null && produto.marca != undefined;
-    const condition5 = produto.modelo != null && produto.modelo != undefined;
-    const condition6 = produto.tamanho != null && produto.tamanho != undefined;
-    const condition7 =
-      produto.categoria != null && produto.categoria != undefined;
-    const condition8 =
-      produto.fornecedor != null && produto.fornecedor != undefined;
 
-    if (
-      condition0 &&
-      condition1 &&
-      condition2 &&
-      condition3 &&
-      condition4 &&
-      condition5 &&
-      condition6 &&
-      condition7 &&
-      condition8
-    ) {
+
+    if (handleValidate(produto, images)) {
       const formData = new FormData();
 
       /**
@@ -263,21 +293,24 @@ const useFormProduto = (props: IFromProdutoProps) => {
       if (props.function === FormFunction.new) {
         cadastro(formData).then((response) => {
           toast.success(response);
+          navigate("../");
         }).catch((error) => {
-          toast.error(error);
+          toast.error("Ocorreu um Erro!");
         });
       };
       if (props.function === FormFunction.edit) {
-        if(props.productId) {
+        if (props.productId) {
           updateProduct(formData, props.productId).then(() => {
             toast.success("Editado Com Sucesso!");
+            navigate("../");
           }).catch(() => {
             toast.error("Ocorreu um Erro!");
           });
         }
       };
+    } else {
+      setShowMessageEmptyFields(true);
     }
-    return setShowMessageEmptyFields(true);
   };
 
   return {
@@ -298,7 +331,7 @@ const useFormProduto = (props: IFromProdutoProps) => {
     handleCancel,
     handleRegister,
     images,
-    showMessageLimitFiles, 
+    showMessageLimitFiles,
     setShowMessageLimitFiles
   };
 };

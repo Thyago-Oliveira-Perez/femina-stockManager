@@ -1,13 +1,15 @@
-import { IActionButtons, IPageResponse, IProdutoResponse } from './../../../../../types/common.types';
+import { IActionButtons, IProdutoResponse } from './../../../../../types/common.types';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import ProdutoApi from '../../../../../api/Produtos';
 import { IColumns, IPageRequest } from '../../../../../types/common.types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const useMenuProdutos = () => {
 
-    const { listProdutos } = ProdutoApi();
+    const { id, mode } = useParams();
+    const { listProdutos, disableProduto } = ProdutoApi();
     const navigate = useNavigate();
     const actions: IActionButtons = {
         view: true,
@@ -25,7 +27,7 @@ const useMenuProdutos = () => {
     const [hasMore, setHasMore] = useState<boolean>(false);
     const [list, setList] = useState<IProdutoResponse[]>([]);
     const [viewList, setViewList] = useState<'list' | 'grid'>('list');
-    const columns:IColumns[] = [
+    const columns: IColumns[] = [
         {
             title: 'Foto',
             name: 'image',
@@ -43,37 +45,49 @@ const useMenuProdutos = () => {
             name: 'marca'
         },
     ];
-    
+
     const handleChangeViewList = (item: 'list' | 'grid') => {
         setList([]);
-        setPageable({...pageable, currentPage: 0});
-        if(item === 'grid') {
+        setPageable({ ...pageable, currentPage: 0 });
+        if (item === 'grid') {
             return setViewList('grid');
         }
-        return setViewList('list');    
+        return setViewList('list');
     };
-    
+
     useEffect(() => {
         listProdutos(pageable)
-            .then((response) => {
-                setHasMore(response.content.length > 0)
-                return setList([...list, ...response.content]);   
-            })
-            .finally (() => {
-                return setLoading(false);
-            });
+        .then((response) => {
+            setHasMore(response.content.length > 0);
+            return setList([...list, ...response.content]);
+        })
+        .finally(() => {
+            return setLoading(false);
+        });
     }, [pageable]);
 
-    return { 
-        actions, 
-        columns, 
-        viewList, 
-        list, 
-        loading, 
-        hasMore, 
-        setPageable, 
-        navigate, 
-        handleChangeViewList 
+    useEffect(() => {
+        if (mode === 'disable' && id) {
+            disableProduto(id).then((response) => {
+                toast.success(response);
+                setList([]);
+                setPageable({ ...pageable, currentPage: 0 });
+                return navigate('./');
+            });
+        }
+        return () => { setList([]); setPageable({ ...pageable, currentPage: 0 }) };
+    }, [id, location.pathname]);
+
+    return {
+        actions,
+        columns,
+        viewList,
+        list,
+        loading,
+        hasMore,
+        setPageable,
+        navigate,
+        handleChangeViewList
     };
 };
 

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MarcasApi from "../../../../../api/Marcas";
 import {
@@ -7,9 +7,12 @@ import {
   IPageRequest,
   IActionButtons,
 } from "../../../../../types/common.types";
+import toast from "react-hot-toast";
 
 const useMenuMarcas = () => {
-  const { listMarcas } = MarcasApi();
+
+  const { id, mode } = useParams();
+  const { listMarcas, disableMarcas } = MarcasApi();
   const navigate = useNavigate();
   const actions: IActionButtons = {
     view: false,
@@ -69,6 +72,14 @@ const useMenuMarcas = () => {
   };
 
   useEffect(() => {
+    if (mode === 'disable' && id) {
+      disableMarcas(id).then((response) => {
+        toast.success(response);
+        setList([]);
+        setPageable({ ...pageable, currentPage: 0 });
+        return navigate('./');
+      });
+    }
     listMarcas(pageable)
       .then((response) => {
         setHasMore(response.content.length > 0);
@@ -77,7 +88,7 @@ const useMenuMarcas = () => {
       .finally(() => {
         return setLoading(false);
       });
-  }, [pageable]);
+  }, [pageable, id]);
 
   const handleEdit = (marca: Marcas) => {
     setNewMarca((prevState) => ({
@@ -87,7 +98,6 @@ const useMenuMarcas = () => {
       isActive: true,
     }));
     setIsToEditNewMarca(true);
-    console.log(marca);
   };
 
   return {

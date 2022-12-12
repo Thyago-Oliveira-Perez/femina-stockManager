@@ -8,8 +8,6 @@ import useSmallForm from "./hooks/smallFormHooks";
 const SmallForm = (props: SmallFormProps) => {
   const { handleNewData, handleEditData } = useSmallForm();
 
-  console.log("edit -> ", props.value);
-
   return (
     <S.AddArea>
       <div style={{ width: "80%" }}>

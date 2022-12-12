@@ -5,18 +5,24 @@ import { TextFieldLables } from "../../SelectField/selectfield.types";
 import useFormFornecedor from "./hooks/useFormFornecedor";
 import TextFieldModal from "../../TextField";
 import { FormFunction } from "../FormProduto/types";
+import ModalUserFeedback from "../../../../ModalUserFeedback";
+import { ModalUsage } from "../../../../ModalUserFeedback/types";
 
 const FormFornecedor = (props: IFormFornecedorProps) => {
 
   const { id, mode } = props;
-  const { 
-    fornecedor, 
-    handleChange, 
-    handleCancel, 
-    handleRegister 
-  } = useFormFornecedor({mode: mode, id: id});
+  const {
+    fornecedor,
+    modalStyle,
+    message,
+    showMessage,
+    handleChange,
+    handleCancel,
+    handleRegister,
+    setShowMessage,
+  } = useFormFornecedor({ mode: mode, id: id });
 
-  return(
+  return (
     <>
       <S.Modal>
         <S.Tittle>
@@ -55,25 +61,33 @@ const FormFornecedor = (props: IFormFornecedorProps) => {
           />
         </S.Form>
         <S.ButtonsSection>
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "#BB2929" }}
-          onClick={() => handleCancel()}
-        >
-          Cancelar
-        </Button>
-        {
-          mode !== FormFunction.view ? 
           <Button
             variant="contained"
-            style={{ backgroundColor: "#118DE8" }}
-            onClick={() => handleRegister()}
+            style={{ backgroundColor: "#BB2929" }}
+            onClick={() => handleCancel()}
           >
-            Salvar
+            Cancelar
           </Button>
-          : null
-        }
-      </S.ButtonsSection>
+          {
+            mode !== FormFunction.view ?
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#118DE8" }}
+                onClick={() => handleRegister()}
+              >
+                Salvar
+              </Button>
+              : null
+          }
+        </S.ButtonsSection>
+        <ModalUserFeedback
+          open={showMessage}
+          onClose={() => setShowMessage(false)}
+          style={modalStyle}
+          usage={ModalUsage.alert}
+        >
+          {message}
+        </ModalUserFeedback>
       </S.Modal>
     </>
   )

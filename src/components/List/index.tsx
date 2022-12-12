@@ -27,7 +27,7 @@ const List = (props: IListProps) => {
         if (props.loading) return
         if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(entries => {
-            if(entries[0].isIntersecting  && props.hasMore && props.items.length > 1) {
+            if(entries[0].isIntersecting  && props.hasMore && props.items.length > 3) {
                 props.setNewPage(previousValue => { return {...previousValue, currentPage: previousValue.currentPage + 1}})
             }
         });
@@ -57,7 +57,7 @@ const List = (props: IListProps) => {
                                     { props.columns.map((column: IColumns, index: number) => (
                                         <S.TableCell key={index} width={150}>
                                             {
-                                                column.name === 'image' ? <S.Image src={item.imageNames ? `${item.imagem}/${item.imageNames[0]}` : ''} />
+                                                column.name === 'image' ? <S.Image src={item.imageNames && item.imageNames[0] !== undefined ? `${item.imagem}/${item.imageNames[0]}` : ''} />
                                                 : <S.Text>{renderColumn(column.name, item[column.name])}</S.Text>
                                             }
                                         </S.TableCell>

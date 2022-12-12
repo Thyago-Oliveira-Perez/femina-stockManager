@@ -16,7 +16,7 @@ const RouterConfig = () => {
               <Route path='new' element={<Modal function={FormFunction.new} />} />
               <Route path='view/:id' element={<Modal function={FormFunction.view} />} />
               <Route path='edit/:id' element={<Modal function={FormFunction.edit} />} />
-              <Route path='disable/:id' element={<></>} />
+              <Route path=':mode/:id' element={<></>} />
             </Route> 
           </Route>
         </Route>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ModelosApi from "../../../../../api/Modelos";
 import {
@@ -7,9 +7,12 @@ import {
   IPageRequest,
   IActionButtons,
 } from "../../../../../types/common.types";
+import toast from "react-hot-toast";
 
 const useMenuModelos = () => {
-  const { listModelos, addNewModelo } = ModelosApi();
+
+  const { id, mode } = useParams();
+  const { listModelos, disableModelos } = ModelosApi();
   const navigate = useNavigate();
   const actions: IActionButtons = {
     view: false,
@@ -69,6 +72,14 @@ const useMenuModelos = () => {
   };
 
   useEffect(() => {
+    if (mode === 'disable' && id) {
+      disableModelos(id).then((response) => {
+        toast.success(response);
+        setList([]);
+        setPageable({ ...pageable, currentPage: 0 });
+        return navigate('./');
+      });
+    }
     listModelos(pageable)
       .then((response) => {
         setHasMore(response.content.length > 0);
@@ -77,7 +88,7 @@ const useMenuModelos = () => {
       .finally(() => {
         return setLoading(false);
       });
-  }, [pageable]);
+  }, [pageable, id]);
 
   const handleEdit = (marca: Modelos) => {
     setNewModelo((prevState) => ({
@@ -87,7 +98,6 @@ const useMenuModelos = () => {
       isActive: true,
     }));
     setIsToEditNewModelo(true);
-    console.log(marca);
   };
 
   return {

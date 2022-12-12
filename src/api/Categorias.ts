@@ -3,7 +3,7 @@ import CommonApi from "./Common";
 
 const CategoriasApi = () => {
     const url = "api/categorias";
-    const { listPageable } = CommonApi();
+    const { listPageable, disable } = CommonApi();
 
     const handleError = (error: any) => {
         return Promise.reject(error.response);
@@ -16,8 +16,16 @@ const CategoriasApi = () => {
             return handleError(error);
         };
     };
+    
+    const disableCategorias = async (id: string): Promise<any> => {
+        try {
+          return (await disable(id, `${url}/disable`));
+        } catch(error: any) {
+          return handleError(error);
+        };
+    };
 
-    return { listCategorias };
+    return { listCategorias, disableCategorias };
 };
 
 export default CategoriasApi;
