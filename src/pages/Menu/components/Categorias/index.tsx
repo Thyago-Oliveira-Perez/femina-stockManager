@@ -8,13 +8,13 @@ import SmallForm from '../../../../components/SmallForm';
 
 const Categorias = () => {
 
-  const { 
+  const {
     actions,
-    columns, 
-    list, 
+    columns,
+    list,
     loading,
-    hasMore, 
-    setPageable, 
+    hasMore,
+    setPageable,
     isToAddNewCategoria,
     setIsToAddNewCategoria,
     newCategoria,
@@ -49,14 +49,14 @@ const Categorias = () => {
         <S.ListArea>
           {
             list.length > 0 ?
-              <List 
+              <List
                 actions={actions}
                 loading={loading}
-                hasMore={hasMore} 
-                setNewPage={setPageable} 
-                columns={columns} 
-                items={list} 
-                mode={'list'} 
+                hasMore={hasMore}
+                setNewPage={setPageable}
+                columns={columns}
+                items={list}
+                mode={'list'}
               /> : null
           }
         </S.ListArea>
