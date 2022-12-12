@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import AuthApi from "../../../api/Auth";
 import { initialState, reducerLogin } from "./useReducer";
 import { saveToken } from "../../../services/auth.service";
@@ -34,6 +34,10 @@ const useLogin = () => {
     p: 4,
     borderRadius: 4,
   };
+
+  useEffect(() => {
+    localStorage.removeItem('token');
+  }, [])
 
   const handleInput = (event: any) => {
     setLoginForm({ ...loginForm, [event.target.name]: event.target.value });

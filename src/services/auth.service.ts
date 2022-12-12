@@ -34,6 +34,5 @@ export const saveToken = (token: ILoginResult) => {
 
 export const logout = () => {
   localStorage.removeItem('token');
-
   window.location.reload();
 };
