@@ -15,7 +15,7 @@ export const ButtonActions = styled.button`
 `;
 
 export const ButtonAreas = styled.div`
-    width: 20%;
+    width: 40%;
     height: 100%;
     display: flex;
     align-items: center;

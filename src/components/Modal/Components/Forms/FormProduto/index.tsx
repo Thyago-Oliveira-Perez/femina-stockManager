@@ -153,7 +153,7 @@ const FormProduto = (props: IFromProdutoProps) => {
           {/* input upload image */}
           <ImageUpload 
             images={images} 
-            setShowMessageLimitFiles={setShowMessageLimitFiles} 
+            setShowMessageLimitFiles={setShowMessageLimitFiles}
             handleFile={
               (e: any, action: actionFile, index?: number) => 
               handleFileChange(e, action, index)

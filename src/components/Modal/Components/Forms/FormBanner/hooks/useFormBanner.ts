@@ -10,6 +10,7 @@ const useFormBanner = (props: IUseFormBannerProps) => {
   const { insertBanner, getBanner, updateBanner, removeBannerImage } = BannersApi();
   const navigate = useNavigate();
   const [showMessageEmptyFields, setShowMessageEmptyFields] = useState<boolean>(false);
+  const [showMessageLimitFiles, setShowMessageLimitFiles] = useState<boolean>(false);
   const [banner, setBanner] = useState<BannerRequest>(
     {
       nome: "",
@@ -151,7 +152,9 @@ const useFormBanner = (props: IUseFormBannerProps) => {
     handleCancel,
     handleRegister,
     handleFileChange,
-    setShowMessageEmptyFields
+    setShowMessageEmptyFields,
+    showMessageLimitFiles,
+    setShowMessageLimitFiles
   };
 };
 

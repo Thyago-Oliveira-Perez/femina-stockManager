@@ -93,7 +93,7 @@ const ImageUpload = (props: IImageUploadProps) => {
                             alignItems: "center",
                             justifyContent: "center",
                             flexWrap: "wrap",
-                            gap: "20px",
+                            gap: "30px",
                             margin: "10px 0",
                         }}
                     >
@@ -107,7 +107,9 @@ const ImageUpload = (props: IImageUploadProps) => {
                                 >
                                     <div
                                         style={{
+                                            width: "100%",
                                             display: "flex",
+                                            justifyContent: "space-between",
                                             alignItems: "center",
                                             border: "1.5px solid #9B4A46",
                                             borderRadius: "8px",

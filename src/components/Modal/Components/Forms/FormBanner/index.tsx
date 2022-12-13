@@ -23,7 +23,9 @@ const FormBanner = (props: IFormBannerProps) => {
     handleCancel,
     handleRegister,
     handleFileChange,
-    setShowMessageEmptyFields
+    setShowMessageEmptyFields,
+    showMessageLimitFiles,
+    setShowMessageLimitFiles
   } = useFormBanner({ mode: mode, id: id });
 
   return (
@@ -54,7 +56,7 @@ const FormBanner = (props: IFormBannerProps) => {
         <S.InputImageArea>
           <ImageUpload
             images={images}
-            setShowMessageLimitFiles={() => null}
+            setShowMessageLimitFiles={setShowMessageLimitFiles}
             handleFile={
               (e: any, action: actionFile, index?: number) =>
                 handleFileChange(e, action, index)
@@ -90,6 +92,14 @@ const FormBanner = (props: IFormBannerProps) => {
           usage={ModalUsage.alert}
         >
           Verifique se todos os campos estão preenchidos.
+        </ModalUserFeedback>
+        <ModalUserFeedback
+          open={showMessageLimitFiles}
+          onClose={() => setShowMessageLimitFiles(false)}
+          style={modalStyle}
+          usage={ModalUsage.alert}
+        >
+          Limite de arquivos atingido!!
         </ModalUserFeedback>
       </S.Modal>
     </>

@@ -26,10 +26,8 @@ api.interceptors.response.use(
   async (error) => {
     toast.error(error.response.data);
     const originalConfig = error.config;
-
     if (originalConfig.url !== "/auth/login") {
-
-      if(error.response.status === 400){
+      if(error.response.data === 'Token expirado. Por favor faça login novamente!'){
         logout();
       }
 
